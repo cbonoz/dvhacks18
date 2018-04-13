@@ -23,7 +23,14 @@ TODO: {}
 </pre>
 
 ### Dev Notes:
-To run:
+Running the server:
 <pre>
 yarn && node server.js
 </pre>
+
+Running unit tests:
+<pre>
+npm install -g mocha
+mocha *test.js
+</pre>
+
