@@ -19,8 +19,8 @@
     "delivery",
     "ports"
   ],
-  "author": "",
-  "license": "ISC",
+  "author": "Chris Buonocore",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/cbonoz/dvhacks18/issues"
   },
