@@ -1,0 +1,33 @@
+{
+  "name": "routable",
+  "version": "1.0.0",
+  "description": "Routable routing microservice (api + router)",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cbonoz/dvhacks18.git"
+  },
+  "keywords": [
+    "routing",
+    "driving",
+    "supply",
+    "chain",
+    "optimization",
+    "delivery",
+    "ports"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cbonoz/dvhacks18/issues"
+  },
+  "homepage": "https://github.com/cbonoz/dvhacks18#readme",
+  "dependencies": {
+    "express": "^4.16.3",
+    "node_or_tools": "^1.0.5",
+    "pg": "^7.4.1"
+  }
+}
