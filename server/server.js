@@ -91,8 +91,8 @@
 
         const day = body.day;
         const startingPortId = body.startingPortId || 0;
-        const vehicleCapacity = body.vehicleCapacity || 2;
         const numVehicles = body.numVehicles;
+        const vehicleCapacity = body.vehicleCapacity || 2;
 
         const query = `SELECT * FROM job WHERE day=${day}`;
         pool.query(query, [], (err, res) => {
