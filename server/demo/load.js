@@ -50,7 +50,7 @@ axios.post(portUrl, {
         console.error('error creating jobs', err2);
     });
 }).catch((err1) => {
-    console.error('error creating jobs', err1);
+    console.error('error creating ports', err1);
 });
 
 

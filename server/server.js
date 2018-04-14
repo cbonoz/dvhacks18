@@ -67,7 +67,7 @@
         const ports = body.ports;
 
         const values = ports.map((port) => {
-            return `(${port.name}, ${port.latitude}, ${port.longitude})`;
+            return `(${port.name}, ${port.lat}, ${port.lng})`;
         });
         const insertQuery = `INSERT INTO ports(name, lat, lng) VALUES${values.join(',')}`;
         console.log('port insertQuery', insertQuery)
