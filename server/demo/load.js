@@ -5,7 +5,6 @@ const axios = require('axios');
 const routable = require('../routable');
 const fs = require('fs');
 
-const NUM_JOBS = 5;
 const BASE_URL = "http://localhost:9001";
 
 const content = fs.readFileSync("./nodes.json", "utf8");
@@ -19,6 +18,8 @@ ports = ports.map((p, i) => {
     p.name = `port${i}`;
     return p;
 });
+
+const NUM_JOBS = ports.length / 2;
 
 const portUrl = `${BASE_URL}/api/ports/add`;
 axios.post(portUrl, {

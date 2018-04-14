@@ -221,7 +221,8 @@
                 routable.solveVRP(solverOpts, searchOpts, (err, solution) => {
                     if (err) {
                         const errorMessage = JSON.stringify(err);
-                        res.status(500).json(errorMessage);
+                        res.status(400).send(errorMessage);
+                        return;
                     }
                     solution.ports = rows;
                     solution.pickups = pickups;

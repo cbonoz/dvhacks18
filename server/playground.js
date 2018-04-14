@@ -54,7 +54,6 @@ const searchOpts = {
 routable.solveVRP(solverOpts, searchOpts, (err, solution) => {
     if (err) {
         console.error('error', err);
-        done();
         return;
     }
     console.log('solution', JSON.stringify(solution));
