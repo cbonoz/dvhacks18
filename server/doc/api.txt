@@ -68,7 +68,7 @@ Example Request Body:
 
 Example Response:
 {
-    cost: X, // optimal cost for
+    cost: X, // optimal cost for schedule
     routes:[[],[]], // nodes for each vehicle to visit (index i = route for truck i)
     times:[[],[]] // times that truck i can acceptablely arrive/leave at each route node,
 }
