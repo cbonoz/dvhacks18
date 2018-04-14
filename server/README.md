@@ -29,6 +29,16 @@ TODO: {}
 </ol>
 
 ### Dev Notes:
+Routable uses a postgres database for retaining and querying schedule information. To set up the DB config, add the following to your environment:
+<pre>
+user = process.env.ROUTABLE_DB_USER // db user name
+pass = process.env.ROUTABLE_DB_PASS // db user password
+host = process.env.ROUTABLE_HOST // db host
+db = process.env.ROUTABLE_DB // db name
+</pre>
+
+Prepare the DB by running `init.sql` from the `/models` folder.
+
 Running the server:
 <pre>
 yarn && node server.js
