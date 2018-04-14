@@ -15,7 +15,6 @@ ports = ports.map((p, i) => {
     p.name = `port${i}`;
     return p;
 });
-// console.log(ports);
 const BASE_URL = "http://localhost:9001";
 
 const portUrl = `${BASE_URL}/api/ports/add`;
@@ -24,7 +23,8 @@ axios.post(portUrl, {
 }).then(response => {
     return response.data;
 }).then((portData) => {
-    console.log('portData', portData);
+    ports = portData;
+    console.log('ports', portData);
 
     const day = routable.getToday();
 
@@ -44,9 +44,13 @@ axios.post(portUrl, {
     axios.post(jobUrl, {
         jobs: jobs
     }).then(response => {
-        const jobData = response.data;
+    }).then((jobData) => {
         console.log('jobData', jobData);
+    }).catch((err2) => {
+        console.error('error creating jobs', err2);
     });
+}).catch((err1) => {
+    console.error('error creating ports', err1);
 });
 
 

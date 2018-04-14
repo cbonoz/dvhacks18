@@ -67,17 +67,18 @@
         const ports = body.ports;
 
         const values = ports.map((port) => {
-            return `(${port.name}, ${port.latitude}, ${port.longitude})`;
+            return `(${port.name}, ${port.lat}, ${port.lng})`;
         });
-        const insertQuery = `'INSERT INTO ports(name, lat, lng) VALUES${values.join(',')}`;
+        const insertQuery = `INSERT INTO ports(name, lat, lng) VALUES${values.join(',')}`;
+        console.log('port insertQuery', insertQuery)
         pool.query(insertQuery, [], (err, data) => {
             if (err) {
                 const msg = JSON.stringify(err);
-                return res.json(msg).status(500);
+                return res.status(500).json(msg);
             }
 
             const msg = `inserted ${ports.length} rows`;
-            return res.json(msg).status(200);
+            return res.status(200).json(msg);
         });
     });
 
@@ -98,13 +99,13 @@
         pool.query(query, [], (err, jobData) => {
             if (err) {
                 const msg = JSON.stringify(err);
-                return res.json(msg).status(500);
+                return res.status(500).json(msg);
             }
 
             const jobs = jobData.rows; // {pickupId, deliveryId, jobDate}
             if (!jobs) {
                 // No tasks required.
-                return res.json(routable.createArrayList(numVehicles), []).status(200);
+                return res.status(200).json(routable.createArrayList(numVehicles), [])
             }
 
             const ids = new Set();
@@ -118,7 +119,7 @@
             pool.query(portQuery, (err, portData) => {
                 if (err) {
                     const msg = JSON.stringify(err);
-                    return res.json(msg).status(500);
+                    return res.status(500).json(msg);
                 }
 
                 const rows = portData.rows;
@@ -127,7 +128,6 @@
                     return [row.lat, row.lng];
                 });
 
-                // TODO: Construct the port, pickups, and deliveries arrays based on the jobs list.
                 const pickups = [];
                 const deliveries = [];
                 jobs.map((job) => {
@@ -173,13 +173,13 @@
                 routable.solveVRP(solverOpts, searchOpts, (err, solution) => {
                     if (err) {
                         const errorMessage = JSON.stringify(err);
-                        res.json(errorMessage).status(500);
+                        res.status(500).json(errorMessage);
                     }
                     solution.ports = ports;
                     solution.pickups = pickups;
                     solution.deliveries = deliveries;
                     console.log('solution', solution);
-                    return res.json(solution).status(200);
+                    return res.status(200).json(solution);
                 });
             });
 
@@ -199,15 +199,16 @@
         const values = jobs.map((job) => {
             return `(${job.pickupId}, ${job.deliveryId}, ${job.jobDate})`;
         });
-        const insertQuery = `'INSERT INTO jobs(pickupId, deliveryId, jobDate) VALUES${values.join(',')}`;
+        const insertQuery = `INSERT INTO jobs(pickupId, deliveryId, jobDate) VALUES${values.join(',')}`;
+        console.log('job insertQuery', insertQuery)
 
         pool.query(insertQuery, (err, jobData) => {
             if (err) {
                 const msg = JSON.stringify(err);
-                res.json(err).status(500);
+                res.status(500).json(err);
             }
             const msg = `inserted ${jobs.length} rows`;
-            return res.json(msg).status(200);
+            return res.status(200).json(msg);
         });
     });
 
