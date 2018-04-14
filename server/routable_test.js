@@ -52,7 +52,7 @@ describe('routable', () => {
         // Starting location (node) for vehicle.
         const startNode = 0;
         const numVehicles = 2;
-        const vehicleCapacity = 5;
+        const vehicleCapacity = 2;
         const n = locations.length;
 
         const costMatrix = routable.getCostMatrix(locations, manhattanDistance);
@@ -75,11 +75,11 @@ describe('routable', () => {
             timeHorizon: INF,
             vehicleCapacity: vehicleCapacity,
             routeLocks: routeLocks,
-            pickups: [1, 3],
-            deliveries: [2, 4]
+            pickups: [1],
+            deliveries: [2]
         };
 
-        console.log(solverOpts, searchOpts);
+        // console.log(solverOpts, searchOpts);
 
         routable.solveVRP(solverOpts, searchOpts, (err, solution) => {
             if (err) {
@@ -88,36 +88,44 @@ describe('routable', () => {
                 return;
             }
             console.log('solution', JSON.stringify(solution));
+            const routes = solution.routes;
+            assert.deepEqual(routes[0], [1, 3, 2], "driver 0");
+            assert.deepEqual(routes[1], [], "driver 1");
             done();
         });
     });
 
     it('finds complex vehicle routing solution', function (done) {
         const content = fs.readFileSync("demo/nodes.json", "utf8");
-        const nodes = JSON.parse(content);
+        const locations = JSON.parse(content);
+
+        console.log('locations', locations.length);
 
         // Starting location (node) for vehicle.
         const startNode = 0;
-        const numVehicles = 2;
+        const numVehicles = 5;
         const vehicleCapacity = 1;
         const n = locations.length;
 
         const costMatrix = routable.getCostMatrix(locations, routable.getDistance);
-        const INF = 100000;
+        const INF = 1000000; // also max time horizon.
 
         const solverOpts = {
             numNodes: n,
             costs: costMatrix,
-            durations: routable.matrix(n, n, 1),
+            durations: costMatrix,
             timeWindows: routable.createArrayList(n, [0, INF]),
             demands: routable.createDemandMatrix(n, startNode)
         };
 
         const routeLocks = routable.createArrayList(numVehicles, []);
 
-        const pickups = _.sampleSize(arr, n / 2);
-        const deliveries = new Set(_.range(n)).delete(new Set(pickups));
-        console.log(pickups, deliveries);
+        // Select random subset of pickup/destination indices.
+        const indexes = _.range(n);
+        const pickups = indexes.slice(0, n/2);
+        const deliveries = indexes.slice(n/2);
+        // console.log('pickups',pickups.length, pickups);
+        // console.log('deliveries', deliveries.length, deliveries);
 
         const searchOpts = {
             computeTimeLimit: 1000,
@@ -130,8 +138,8 @@ describe('routable', () => {
             deliveries: deliveries
         };
 
-        console.log(solverOpts, searchOpts);
-
+        // console.log(solverOpts, searchOpts);
+        //
         routable.solveVRP(solverOpts, searchOpts, (err, solution) => {
             if (err) {
                 console.error('error', err);

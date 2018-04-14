@@ -3,6 +3,7 @@
  */
 const library = (function () {
 
+    const geolib = require('geolib');
     const ortools = require('node_or_tools');
 
     const BASE_URL = "localhost:9001";
@@ -40,7 +41,7 @@ const library = (function () {
     }
 
     function createDemandMatrix(n, startNodeIndex) {
-        const m = matrix(n, n, 1);
+        const m = matrix(n, n, 0);
         for (let i = 0; i < n; i++) {
             m[startNodeIndex][i] = 0;
         }
