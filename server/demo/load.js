@@ -41,7 +41,7 @@ axios.post(portUrl, {
         let start = 0;
         let end = Math.min(JOBS_PER_LOOP, ports.length);
 
-        setTimeout(() => {
+        setInterval(() => {
             if (start >= ports.length || end >= ports.length) {
                 return;
             }
@@ -70,7 +70,7 @@ axios.post(portUrl, {
             start += JOBS_PER_LOOP;
             end += JOBS_PER_LOOP;
 
-        }, 1000);
+        }, 2000);
 
     }).catch((errPorts) => {
         console.error('error getting ports', errPorts);

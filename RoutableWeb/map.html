@@ -383,6 +383,8 @@
         const startPortId = 1;
         var markers;
 
+        var firstRun = true;
+
         function handleError(res, textStatus, errorThrown) {
             console.log('handleError', textStatus, errorThrown);
             var message;
@@ -415,7 +417,7 @@
                     markers.push(new google.maps.Marker({
                         map: map,
                         draggable: false,
-                        animation: google.maps.Animation.DROP,
+                        animation: firstRun ? google.maps.Animation.DROP : null,
                         position: position,
                         optimized: false
                     }));
@@ -438,12 +440,14 @@
                 flightPath.setMap(map);
             });
 
+            firstRun = false;
             routeText += "</ul>";
             $("#result-section").html('' + routeText);
 
             const startPortIndex = ports.findIndex((port) => {
                 return port.id === startPortId
             });
+
             const lat = ports[startPortIndex].lat;
             const lng = ports[startPortIndex].lng;
             console.log('center', lat, lng);
@@ -465,14 +469,22 @@
             numVehicles: 3,
         };
 
-        $.ajax({
-            url: 'http://localhost:9001/api/schedule',
-            type: 'POST',
-            data: JSON.stringify(data),
-            contentType: 'application/json; charset=utf-8',
-            success: handleRouteData,
-            error: handleError
-        });
+        function makeRouteRequest() {
+            console.log('makeRouteRequest');
+            $.ajax({
+                url: 'http://localhost:9001/api/schedule',
+                type: 'POST',
+                data: JSON.stringify(data),
+                contentType: 'application/json; charset=utf-8',
+                success: handleRouteData,
+                error: handleError
+            });
+        }
+
+        // Refresh the map page every 10000ms.
+        setInterval(makeRouteRequest, 2000);
+        makeRouteRequest();
+
     }
 </script>
 <!-- Replace the value of the key parameter with your own API key. -->

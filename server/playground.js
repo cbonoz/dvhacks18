@@ -33,7 +33,7 @@ const solverOpts = {
 const routeLocks = routable.createArrayList(numVehicles, []);
 
 // Select random subset of pickup/destination indices.
-const indexes = _.range(n);
+const indexes = _.shuffle(_.range(n));
 const pickups = indexes.slice(0, n/2);
 const deliveries = indexes.slice(n/2);
 // console.log('pickups',pickups.length, pickups);
