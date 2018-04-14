@@ -1,0 +1,111 @@
+.container {
+  max-width: 960px;
+}
+.border-top {
+  border-top: 1px solid #e5e5e5;
+}
+.border-bottom {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+.flex-equal > * {
+  -ms-flex: 1;
+  -webkit-box-flex: 1;
+  flex: 1;
+}
+@media (min-width: 768px) {
+  .flex-md-equal > * {
+    -ms-flex: 1;
+    -webkit-box-flex: 1;
+    flex: 1;
+  }
+}
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.jumbotron {
+    background-color: #f4511e;
+    color: #fff;
+    padding: 100px 25px;
+}
+.container-fluid {
+    padding: 60px 50px;
+}
+.bg-grey {
+    background-color: #f6f6f6;
+}
+.logo-small {
+    color: #f4511e;
+    font-size: 50px;
+}
+.logo {
+    color: #f4511e;
+    font-size: 200px;
+}
+#ThreeJsCanvas{
+  margin: auto;
+  bottom: 0px;
+}
+@media screen and (max-width: 991px){
+  #ThreeJsCanvas {
+    display:none;
+  }
+}
+
+
+/*material icon sizes*/
+/* Rules for sizing the icon. */
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-48 { font-size: 48px; }
+.material-icons.md-100 { font-size: 100px; }
+
+/* Rules for using icons as black on a light background. */
+.material-icons.md-dark { color: rgba(0, 0, 0, 0.54); }
+.material-icons.md-dark.md-inactive { color: rgba(0, 0, 0, 0.26); }
+
+/* Rules for using icons as white on a dark background. */
+.material-icons.md-light { color: rgba(255, 255, 255, 1); }
+.material-icons.md-light.md-inactive { color: rgba(255, 255, 255, 0.3); }
+
+/* Rules for using icons as white on a dark background. */
+.material-icons.md-custom { color: #50acfd; }
+
+
+/* button */
+.btn {
+  padding: .5em 1.5em .5em; }
+
+.btn-outlined {
+  border-radius: 0;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s;
+  border: 3px solid; }
+
+.btn-outlined.btn-custom:hover {
+  color: #FFF;
+  background: #212b35;
+  border-color: #212b35; }
+
+.btn-outlined.btn-custom {
+  background: none;
+  border-color: #212b35;
+  color: #212b35;
+}
+
+.btn-outlined.btn-custom:active {
+  background: #212b35;
+  border-color: #212b35;
+  color: white; }
+
+.text-cyan{
+  color: #50acfd;
+}

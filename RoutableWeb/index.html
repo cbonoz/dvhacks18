@@ -54,8 +54,8 @@
       <span id="ThreeJsCanvas" class="invisible viewpoint-fadeInUp-delay2" ></span>
       <div class="col-md-5 p-lg-5 mx-auto my-5 invisible viewpoint-fadeInUp">
         <h1 class="display-4 font-weight-normal">Routable</h1>
-        <p class="lead font-weight-normal">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam distinctio.</p>
-        <a class="btn btn-outline-secondary" href="#">Sign up</a>
+        <p class="lead font-weight-normal text-cyan">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam distinctio.</p>
+        <a class="btn btn-outlined btn-custom" href="#">Sign up</a>
       </div>
     </div>
 
@@ -67,18 +67,18 @@
           <h2>Features</h2>
           <h4>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure rerum eos aut saepe eveniet aliquam repellat sunt.</h4>
           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure rerum eos aut saepe eveniet aliquam repellat sunt, error vero ut expedita illum doloremque dignissimos nulla illo, maiores, quae cupiditate hic?</p>
-          <button class="btn btn-default btn-lg">Get in Touch</button>
+          <button class="btn btn-outlined btn-custom">Get in Touch</button>
         </div>
         <div class="col-sm-4">
-          <i class="material-icons">bubble_chart</i>
+          <i class="material-icons md-custom md-100">bubble_chart</i>
         </div>
       </div>
     </div>
 
     <div class="container-fluid bg-grey invisible viewpoint-fadeInUp">
       <div class="row">
-        <div class="col-sm-4">
-          <i class="material-icons">bubble_chart</i>
+        <div class="col-sm-4 text-right">
+          <i class="material-icons md-custom md-100">bubble_chart</i>
         </div>
         <div class="col-sm-8">
           <h2>Features</h2>
@@ -95,17 +95,17 @@
       <br>
       <div class="row">
         <div class="col-sm-4">
-          <i class="material-icons">bubble_chart</i>
+          <i class="material-icons md-custom md-48">bubble_chart</i>
           <h4>POWER</h4>
           <p>Lorem ipsum dolor sit amet..</p>
         </div>
         <div class="col-sm-4">
-          <i class="material-icons">bubble_chart</i>
+          <i class="material-icons md-custom md-48">bubble_chart</i>
           <h4>LOVE</h4>
           <p>Lorem ipsum dolor sit amet..</p>
         </div>
         <div class="col-sm-4">
-          <i class="material-icons">bubble_chart</i>
+          <i class="material-icons md-custom md-48">bubble_chart</i>
           <h4>JOB DONE</h4>
           <p>Lorem ipsum dolor sit amet..</p>
         </div>
@@ -220,6 +220,12 @@
       sphere_outlined.receiveShadow = true;
       // outlined sphere ends
 
+      var lambertMaterial = new THREE.MeshLambertMaterial({
+        opacity: 0.75,
+        color: 0xed0700
+      });
+      lambertMaterial.transparent=true;
+
       // geometry
       var geometry_octahedron = new THREE.BoxGeometry( 40, 40, 40 );
       var color = new THREE.Color( "#ed0700" );
@@ -230,11 +236,82 @@
         shinyness: 100
       } );
 
-      var octahedron_mesh = new THREE.Mesh(geometry_octahedron, material_phong_shiny);
-      octahedron_mesh.position.set(0, 0, 0);
-      octahedron_mesh.castShadow = true;
-      octahedron_mesh.receiveShadow = true;
-      scene_header.add( octahedron_mesh );
+
+      var geometry_torus = new THREE.TorusKnotGeometry( 20, 5, 100, 16 );
+
+      var torus_mesh = new THREE.Mesh( geometry_torus, lambertMaterial );
+      var torus_mesh_outline = new THREE.Mesh( geometry_torus, material_phong_outlined );
+
+      // torus_mesh_outline.position.set(0, 22, 0);
+      scene_header.add( torus_mesh );
+      scene_header.add( torus_mesh_outline );
+
+      //EMAIL AND ZAPIER LOGOS
+      // case for single notifications
+      notification_PivotPoint = new THREE.Object3D();
+      notification_PivotPoint.position.set(0,0,0);
+
+      var notification_geometry_email = new THREE.BoxGeometry( 39, 27, .7 );
+      var notification_geometry_location = new THREE.BoxGeometry( 20, 32, 0 );
+      //   var notification_material = new THREE.MeshBasicMaterial( {color: 0x8d8d8d} ); //test material of plain color
+      THREE.ImageUtils.crossOrigin = '';
+      // var notification_image = THREE.ImageUtils.loadTexture( 'http://oi67.tinypic.com/6fql9h.jpg' );
+      // var notification_image = THREE.ImageUtils.loadTexture( 'http://i.imgur.com/j7dzU42.jpg' );
+      var notification_image_email = THREE.ImageUtils.loadTexture( 'https://i.imgur.com/Dv6awZC.jpg' );
+      var notification_image_location = THREE.ImageUtils.loadTexture( 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Map_marker.svg/1000px-Map_marker.svg.png' );
+
+      var notification_imageMaterial_email = new THREE.MeshBasicMaterial( {
+        map: notification_image_email,
+        opacity: 0.35
+      });
+      var notification_imageMaterial_location = new THREE.MeshBasicMaterial( {
+        map: notification_image_location,
+        opacity: 0.35
+      });
+      notification_imageMaterial_email.transparent = true;
+      notification_imageMaterial_location.transparent = true;
+
+      //NOTE: tiling of images in textures only functions if image dimensions are powers of two
+      //for examples: (2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, ...)
+      notification_image_email.wrapS = notification_image_email.wrapT = THREE.RepeatWrapping;
+      var notification_Mesh_email = new THREE.Mesh( notification_geometry_email, notification_imageMaterial_email );
+
+      notification_image_location.wrapS = notification_image_location.wrapT = THREE.RepeatWrapping;
+      var notification_Mesh_location = new THREE.Mesh( notification_geometry_location, notification_imageMaterial_location );
+      var notification_Mesh_location2 = new THREE.Mesh( notification_geometry_location, notification_imageMaterial_location );
+      var notification_Mesh_location3 = new THREE.Mesh( notification_geometry_location, notification_imageMaterial_location );
+
+      scene_header.add( notification_Mesh_email );
+      scene_header.add( notification_Mesh_location );
+      scene_header.add( notification_Mesh_location2 );
+      scene_header.add( notification_Mesh_location3 );
+
+      notification_PivotPoint.add( notification_Mesh_location );
+      notification_PivotPoint.add( notification_Mesh_location2 );
+      notification_PivotPoint.add( notification_Mesh_location3 );
+      scene_header.add( notification_PivotPoint );
+
+      notification_Mesh_email.position.z = 60;
+      notification_Mesh_email.position.x = 60;
+      notification_Mesh_email.rotation.y = Math.PI/3;
+
+      notification_Mesh_location.position.z = 60;
+      notification_Mesh_location.position.x = 60;
+      notification_Mesh_location.rotation.y = Math.PI/3;
+
+      notification_Mesh_location2.position.z = -60;
+      notification_Mesh_location2.position.x = 60;
+      notification_Mesh_location2.position.x = -20;
+      notification_Mesh_location2.rotation.y = -Math.PI/2;
+
+      notification_Mesh_location3.position.z = 60;
+      notification_Mesh_location3.position.x = -60;
+      notification_Mesh_location3.rotation.y = -Math.PI/3;
+
+
+      //notifications end----------------------------
+
+
 
       //CIRCULAR FLOOR
       //Create a ground for shape to hover over
@@ -278,11 +355,21 @@
       // document.body.appendChild(scene3d.domElement);
       ThreeJsCanvas.appendChild(renderer_header.domElement);
       // renderer.render(scene, camera);
+      var steps=0;
       var render = function () {
+        steps+=0.07;
         requestAnimationFrame(render);
-        sphere_outlined.rotation.y += 0.005;
-        sphere_outlined.rotation.x += 0.0001;
-        octahedron_mesh.rotation.y -= 0.005;
+        sphere_outlined.rotation.y += 0.004;
+
+        torus_mesh_outline.rotation.y += 0.01;
+        torus_mesh.rotation.y += 0.01;
+
+        torus_mesh_outline.position.y = 22 + (1.7*(Math.cos(steps)));
+        torus_mesh.position.y = 22 + (1.7*(Math.cos(steps)));
+
+        notification_PivotPoint.rotation.y+=0.004; //rotates around center
+        // notification_Mesh_location.rotation.y += 0.01;
+        // notification_Mesh_email.rotation.y -= 0.005;
         renderer_header.render(scene_header, camera_header);
       };
       render();
