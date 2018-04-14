@@ -51,6 +51,7 @@ const library = (function () {
                 costMatrix[from][to] = costFunction(locations[from], locations[to]);
             }
         }
+        return costMatrix;
     }
 
     return {

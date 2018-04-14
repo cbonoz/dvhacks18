@@ -23,7 +23,7 @@ describe('routable', () => {
             [3, 0], [3, 1], [3, 2], [3, 3]];
 
         // Starting location (node) for vehicle.
-        const depot = 0;
+        const startNode = 0;
 
         const costMatrix = routable.getCostMatrix(locations, manhattanDistance);
 
@@ -34,12 +34,12 @@ describe('routable', () => {
 
         const searchOpts = {
             computeTimeLimit: 1000,
-            depotNode: depot
+            startNode: startNode
         };
 
         routable.solveTSP(solverOpts, searchOpts, (err, solution) => {
             console.log(solution);
-            assert.equal(solution.length, locations.length - 1, 'Number of locations in route is number of locations without depot');
+            assert.equal(solution.length, locations.length - 1, 'Number of locations in route is number of locations without startNode');
             assert.deepEqual(solution, [ 4, 8, 12, 13, 14, 15, 11, 10, 9, 5, 6, 7, 3, 2, 1 ], 'expected solution mismatch');
             done();
         });
