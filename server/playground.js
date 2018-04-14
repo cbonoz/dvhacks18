@@ -1,5 +1,6 @@
 /**
  * Created by cbuonocore on 4/14/18.
+ * https://github.com/mapbox/node-or-tools/blob/master/API.md#vrp
  */
 const assert = require("assert"); // node.js core testing module.
 const routable = require('./routable');
@@ -54,7 +55,6 @@ const searchOpts = {
 routable.solveVRP(solverOpts, searchOpts, (err, solution) => {
     if (err) {
         console.error('error', err);
-        done();
         return;
     }
     console.log('solution', JSON.stringify(solution));

@@ -18,6 +18,14 @@
             font-style: italic;
         }
 
+        #result-section {
+            margin: 5px;
+        }
+
+        #error-text {
+            color: red;
+        }
+
         .map-header {
             margin-left: 20px;
             margin: 20px;
@@ -66,9 +74,12 @@
 </nav>
 
 <div class="map-header">
+    <div id="error-text"></div>
     <h1>Job Routing Schedule:</h1>
     Date: <span id="date-section">
     </span>
+
+    <div id="result-section"></div>
 </div>
 
 <div class="mx-auto" id="map"></div>
@@ -370,15 +381,28 @@
         }
 
         const startPortId = 1;
-
         var markers;
 
+        function handleError(res, textStatus, errorThrown) {
+            console.log('handleError', textStatus, errorThrown);
+            var message;
+            if (res.status === 400) {
+                message = "Solution satisfying constraints not possible";
+            } else {
+                message = JSON.stringify(res);
+            }
+            $("#error-text").html(`Error deriving schedule, ${message}.`);
+        }
+
         function handleRouteData(data) {
+            $("#error-text").html('');
             markers = [];
             console.log('data', data);
             // TODO: generate polylines from the schedule data on the map
             const ports = data.ports;
             const routes = data.routes;
+
+            var routeText = "<ul>";
 
             routes.map((route, vehicleIndex) => {
                 const flightPlanCoordinates = [];
@@ -400,7 +424,10 @@
                     markers[markers.length - 1].setTitle(portName);
                     markers[markers.length - 1].addListener('click', toggleBounce);
                 });
-                console.log(`truck${vehicleIndex}: `, flightPlanCoordinates);
+
+                const truckRoute = `Truck ${vehicleIndex}: ${flightPlanCoordinates.join(' -> ')}`;
+                routeText += "<li>" + truckRoute + "</li>";
+                console.log(truckRoute);
                 const flightPath = new google.maps.Polyline({
                     path: flightPlanCoordinates,
                     geodesic: true,
@@ -410,6 +437,9 @@
                 });
                 flightPath.setMap(map);
             });
+
+            routeText += "</ul>";
+            $("#result-section").html('' + routeText);
 
             const startPortIndex = ports.findIndex((port) => {
                 return port.id === startPortId
@@ -440,7 +470,8 @@
             type: 'POST',
             data: JSON.stringify(data),
             contentType: 'application/json; charset=utf-8',
-            success: handleRouteData
+            success: handleRouteData,
+            error: handleError
         });
     }
 </script>
