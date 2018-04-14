@@ -19,6 +19,9 @@ ports = ports.map((p, i) => {
     return p;
 });
 
+// Set to large number to send in single run.
+const JOBS_PER_LOOP = 3;
+
 const NUM_JOBS = ports.length / 2;
 
 const portUrl = `${BASE_URL}/api/ports/add`;
@@ -35,28 +38,39 @@ axios.post(portUrl, {
         console.log('ports', portData);
 
         const jobDate = routable.getToday();
+        let start = 0;
+        let end = Math.min(JOBS_PER_LOOP, ports.length);
 
-        const jobs = [];
-        for (let i = 0; i < NUM_JOBS; i++) {
-            const p1 = ports[i];
-            const p2 = ports[i + NUM_JOBS];
-            jobs.push({
-                jobDate: jobDate,
-                pickupId: p1.id,
-                deliveryId: p2.id
+        setTimeout(() => {
+            if (start >= ports.length || end >= ports.length) {
+                return;
+            }
+            const jobs = [];
+            for (let i = 0; i < NUM_JOBS; i++) {
+                const p1 = ports[i];
+                const p2 = ports[i + NUM_JOBS];
+                jobs.push({
+                    jobDate: jobDate,
+                    pickupId: p1.id,
+                    deliveryId: p2.id
+                });
+            }
+            console.log('jobs', jobs);
+
+            const jobUrl = `${BASE_URL}/api/jobs/add`;
+            axios.post(jobUrl, {
+                jobs: jobs
+            }).then(response => {
+            }).then((jobData) => {
+                console.log('jobData', jobData);
+            }).catch((err2) => {
+                console.error('error creating jobs', err2);
             });
-        }
-        console.log('jobs', jobs);
 
-        const jobUrl = `${BASE_URL}/api/jobs/add`;
-        axios.post(jobUrl, {
-            jobs: jobs
-        }).then(response => {
-        }).then((jobData) => {
-            console.log('jobData', jobData);
-        }).catch((err2) => {
-            console.error('error creating jobs', err2);
-        });
+            start += JOBS_PER_LOOP;
+            end += JOBS_PER_LOOP;
+
+        }, 1000);
 
     }).catch((errPorts) => {
         console.error('error getting ports', errPorts);
