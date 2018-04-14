@@ -189,15 +189,15 @@
     /**
      * Add the jobs to the db.
      * {
-     *  locations: [ {pickupId, deliveryId, jobDate} ... ]
+     *  jobs: [ {pickupId, deliveryId, jobDate} ... ]
      * }
      */
     app.post('/api/jobs/add', function (req, res, next) {
         const body = req.body;
-        const locations = body.locations;
+        const jobs = body.jobs;
 
-        const values = locations.map((location) => {
-            return `(${location.pickupId}, ${location.deliveryId}, ${location.jobDate})`;
+        const values = jobs.map((job) => {
+            return `(${job.pickupId}, ${job.deliveryId}, ${job.jobDate})`;
         });
         const insertQuery = `'INSERT INTO jobs(pickupId, deliveryId, jobDate) VALUES${values.join(',')}`;
 
@@ -206,7 +206,7 @@
                 const msg = JSON.stringify(err);
                 res.json(err).status(500);
             }
-            const msg = `inserted ${locations.length} rows`;
+            const msg = `inserted ${jobs.length} rows`;
             return res.json(msg).status(200);
         });
     });

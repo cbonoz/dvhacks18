@@ -6,20 +6,33 @@ const routable = require('../routable');
 const fs = require('fs');
 
 const content = fs.readFileSync("demo/nodes.json", "utf8");
-const locations = JSON.parse(content);
+let ports = JSON.parse(content);
+ports = ports.map((p, i) => {
+    p.lat = p.latitude;
+    p.lng = p.longitude;
+    delete p.latitude;
+    delete p.longitude;
+    p.name = `port${i}`;
+    return p;
+});
+console.log(ports);
+const BASE_URL = "localhost:9001";
 
-const url = `${BASE_URL}/api/schedule/add`;
-return axios.post(url, {
-    userId: user.uid,
-    email: user.email,
-    username: user.email.split('@')[0],
-    address: address
+const portUrl = `${BASE_URL}/api/ports/add`;
+axios.post(portUrl, {
+    ports: ports
 }).then(response => {
-    const data = response.data;
-    return data;
+    const portData = response.data;
+    console.log('portData', portData);
+    const jobs = [];
+
+    const jobUrl = `${BASE_URL}/api/jobs/add`;
+    axios.post(jobUrl, {
+        jobs: jobs
+    }).then(response => {
+        const jobData = response.data;
+        console.log('jobData', jobData);
+    });
 });
 
-axios.post({
-
-});
 
