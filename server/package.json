@@ -4,7 +4,7 @@
   "description": "Routable routing microservice (api + router)",
   "main": "index.js",
   "scripts": {
-    "test": "mocha test.js"
+    "test": "mocha *test.js"
   },
   "repository": {
     "type": "git",
@@ -26,7 +26,12 @@
   },
   "homepage": "https://github.com/cbonoz/dvhacks18#readme",
   "dependencies": {
+    "axios": "^0.18.0",
+    "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
     "express": "^4.16.3",
+    "fs": "^0.0.1-security",
+    "http": "^0.0.0",
     "node_or_tools": "^1.0.5",
     "pg": "^7.4.1"
   }
