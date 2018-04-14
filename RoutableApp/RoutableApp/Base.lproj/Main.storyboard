@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="tqi-iV-79A">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -13,28 +13,71 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="RoutableApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ViewController" id="BYZ-38-t0r" customClass="ViewController" customModule="RoutableApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="tAX-TL-SXa">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tAX-TL-SXa">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <connections>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="3CW-d9-ElM"/>
+                                </connections>
                             </mapView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="tAX-TL-SXa" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="UNg-aL-39g"/>
                             <constraint firstItem="tAX-TL-SXa" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="YjW-WJ-bvM"/>
-                            <constraint firstItem="tAX-TL-SXa" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="qDW-GS-IFL"/>
+                            <constraint firstItem="tAX-TL-SXa" firstAttribute="bottom" secondItem="8bC-Xf-vdC" secondAttribute="bottom" id="qDW-GS-IFL"/>
                             <constraint firstItem="tAX-TL-SXa" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="wmt-da-Yzg"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="mapView" destination="tAX-TL-SXa" id="u2t-jZ-lqU"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="52" y="144.3778110944528"/>
         </scene>
+        <!--SplashVC-->
+        <scene sceneID="8Ni-vh-ACT">
+            <objects>
+                <viewController storyboardIdentifier="SplashVC" id="tqi-iV-79A" customClass="SplashVC" customModule="RoutableApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="BEf-IN-eof">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="routeable-splash-BG" translatesAutoresizingMaskIntoConstraints="NO" id="BMI-Ge-eKW">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="routeable-splash-icon" translatesAutoresizingMaskIntoConstraints="NO" id="ibL-zz-oVm">
+                                <rect key="frame" x="50" y="33" width="275" height="600"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="BMI-Ge-eKW" firstAttribute="bottom" secondItem="BEf-IN-eof" secondAttribute="bottom" id="4Qr-Sd-U0u"/>
+                            <constraint firstItem="BMI-Ge-eKW" firstAttribute="top" secondItem="BEf-IN-eof" secondAttribute="top" id="Ljo-kl-VV6"/>
+                            <constraint firstAttribute="trailing" secondItem="ibL-zz-oVm" secondAttribute="trailing" constant="50" id="RID-v5-6HE"/>
+                            <constraint firstItem="BMI-Ge-eKW" firstAttribute="leading" secondItem="dR0-zj-2Nc" secondAttribute="leading" id="Tdk-id-Bgz"/>
+                            <constraint firstItem="ibL-zz-oVm" firstAttribute="centerX" secondItem="BEf-IN-eof" secondAttribute="centerX" id="cIV-xB-HYo"/>
+                            <constraint firstItem="ibL-zz-oVm" firstAttribute="centerY" secondItem="BEf-IN-eof" secondAttribute="centerY" id="ch5-iN-B0v"/>
+                            <constraint firstItem="BMI-Ge-eKW" firstAttribute="trailing" secondItem="dR0-zj-2Nc" secondAttribute="trailing" id="gsC-3g-Sfs"/>
+                            <constraint firstItem="ibL-zz-oVm" firstAttribute="leading" secondItem="BEf-IN-eof" secondAttribute="leading" constant="50" id="hnX-ef-avl"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="dR0-zj-2Nc"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zZe-Xi-2cR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-814" y="144"/>
+        </scene>
     </scenes>
+    <resources>
+        <image name="routeable-splash-BG" width="1080" height="1920"/>
+        <image name="routeable-splash-icon" width="600" height="600"/>
+    </resources>
 </document>

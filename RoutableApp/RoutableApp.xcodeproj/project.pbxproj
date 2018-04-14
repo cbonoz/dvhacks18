@@ -13,6 +13,7 @@
 		D858C17A20816E6F009D847A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D858C17820816E6F009D847A /* Main.storyboard */; };
 		D858C17C20816E70009D847A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D858C17B20816E70009D847A /* Assets.xcassets */; };
 		D858C17F20816E70009D847A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D858C17D20816E70009D847A /* LaunchScreen.storyboard */; };
+		D858C1872081D68C009D847A /* SplashVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D858C1862081D68C009D847A /* SplashVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		D858C17B20816E70009D847A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D858C17E20816E70009D847A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D858C18020816E70009D847A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D858C1862081D68C009D847A /* SplashVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashVC.swift; sourceTree = "<group>"; };
 		EB6417B7CCFBC5A1A6D50114 /* Pods_RoutableApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RoutableApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0EC866AD2BBA51B1D627396 /* Pods-RoutableApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RoutableApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RoutableApp/Pods-RoutableApp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -80,6 +82,7 @@
 			children = (
 				D858C17420816E6F009D847A /* AppDelegate.swift */,
 				D858C17620816E6F009D847A /* ViewController.swift */,
+				D858C1862081D68C009D847A /* SplashVC.swift */,
 				D858C17820816E6F009D847A /* Main.storyboard */,
 				D858C17B20816E70009D847A /* Assets.xcassets */,
 				D858C17D20816E70009D847A /* LaunchScreen.storyboard */,
@@ -183,6 +186,7 @@
 			files = (
 				D858C17720816E6F009D847A /* ViewController.swift in Sources */,
 				D858C17520816E6F009D847A /* AppDelegate.swift in Sources */,
+				D858C1872081D68C009D847A /* SplashVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -330,11 +334,15 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2BY2NMR4CA;
 				INFOPLIST_FILE = RoutableApp/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.epage.RoutableApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -346,11 +354,15 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2BY2NMR4CA;
 				INFOPLIST_FILE = RoutableApp/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.epage.RoutableApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
