@@ -41,6 +41,12 @@ const library = (function () {
         return result;
     }
 
+    function getToday() {
+        const date = new Date();
+        const day = (date.getMonth() + 1) + '-' + date.getDate() + '-' + date.getFullYear();
+        return day;
+    }
+
     function createDemandMatrix(n, startNodeIndex) {
         const m = matrix(n, n, 0);
         for (let i = 0; i < n; i++) {
@@ -102,6 +108,7 @@ const library = (function () {
         createDemandMatrix: createDemandMatrix,
         getRandom: getRandom,
         getCostMatrix: getCostMatrix,
+        getToday: getToday,
         formatDateTimeMs: formatDateTimeMs,
         solveVRP: solveVRP,
         solveTSP: solveTSP
