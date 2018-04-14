@@ -57,6 +57,21 @@
     });
 
     /*
+     * Returns registered ports.
+     */
+    app.get('/api/ports', (err, res) => {
+        const portQuery = `SELECT * from port`;
+        pool.query(portQuery, (err, data) => {
+            if (err) {
+                const msg = JSON.stringify(err);
+                return res.status(500).json(msg);
+            }
+
+            return res.status(200).json(data.rows);
+        });
+    });
+
+    /*
      * Register new ports with the Routable DB.
      * {
      *  ports: [ {name, latitude, longitude}, ... ]
@@ -92,7 +107,7 @@
         const jobs = body.jobs;
 
         const values = jobs.map((job) => {
-            return `(${job.pickupId}, ${job.deliveryId}, ${job.jobDate})`;
+            return `(${job.pickupId}, ${job.deliveryId}, '${job.jobDate}')`;
         });
         const insertQuery = `INSERT INTO job(pickupId, deliveryId, jobDate) VALUES${values.join(',')} ON CONFLICT DO NOTHING`;
         console.log('job insertQuery', insertQuery);

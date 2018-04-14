@@ -29,6 +29,23 @@ Example Response:
 
 
 ===
+Get existing ports
+===
+Definition:
+GET /api/ports
+
+Example Response:
+[
+    {
+        id: 0 // database-assigned id.
+        name: 'Port 1',
+        lat: 33.89673601,
+        lng: -118.2262623
+    }
+]
+
+
+===
 Create new jobs:
 ===
 Definition:

@@ -15,7 +15,7 @@ CREATE TABLE port (
 CREATE TABLE job (
   pickupId  SERIAL REFERENCES port(ID),
   deliveryId SERIAL REFERENCES port(ID),
-  jobDate date,
+  jobDate VARCHAR(64),
   PRIMARY KEY (pickupId, deliveryId, jobDate)
 );
 

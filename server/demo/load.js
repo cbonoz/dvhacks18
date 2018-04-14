@@ -22,32 +22,40 @@ axios.post(portUrl, {
     ports: ports
 }).then(response => {
     return response.data;
-}).then((portData) => {
-    ports = portData;
-    console.log('ports', portData);
+}).then((addedPorts) => {
+    axios.get(`${BASE_URL}/api/ports`)
+        .then(response => {
+            return response.data;
+        }).then((portData) => {
+        ports = portData;
+        console.log('ports', portData);
 
-    const day = routable.getToday();
+        const jobDate = routable.getToday();
 
-    const jobs = [];
-    for (let i = 0; i < 25; i++) {
-        const p1 = ports[i];
-        const p2 = ports[i + 25];
-        jobs.push({
-            day: day,
-            pickupId: p1.id,
-            deliveryId: p2.id
+        const jobs = [];
+        for (let i = 0; i < 25; i++) {
+            const p1 = ports[i];
+            const p2 = ports[i + 25];
+            jobs.push({
+                jobDate: jobDate,
+                pickupId: p1.id,
+                deliveryId: p2.id
+            });
+        }
+        console.log('jobs', jobs);
+
+        const jobUrl = `${BASE_URL}/api/jobs/add`;
+        axios.post(jobUrl, {
+            jobs: jobs
+        }).then(response => {
+        }).then((jobData) => {
+            console.log('jobData', jobData);
+        }).catch((err2) => {
+            console.error('error creating jobs', err2);
         });
-    }
-    console.log('jobs', jobs);
 
-    const jobUrl = `${BASE_URL}/api/jobs/add`;
-    axios.post(jobUrl, {
-        jobs: jobs
-    }).then(response => {
-    }).then((jobData) => {
-        console.log('jobData', jobData);
-    }).catch((err2) => {
-        console.error('error creating jobs', err2);
+    }).catch((errPorts) => {
+        console.error('error getting ports', errPorts);
     });
 }).catch((err1) => {
     console.error('error creating ports', err1);
