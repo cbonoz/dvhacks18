@@ -1,28 +1,36 @@
 //
-//  SplashVC.swift
+//  NewJobVC.swift
 //  RoutableApp
 //
-//  Created by Edward Arenberg on 4/13/18.
+//  Created by Edward Arenberg on 4/14/18.
 //  Copyright © 2018 Edward Arenberg. All rights reserved.
 //
 
 import UIKit
 
-class SplashVC: UIViewController {
+class NewJobVC: UIViewController {
 
+    @IBOutlet weak var mtoLabel: UILabel!
+    
+    @IBOutlet weak var dropView: UIView! {
+        didSet {
+            dropView.layer.cornerRadius = 10
+            dropView.layer.borderWidth = 0.5
+            dropView.layer.borderColor = UIColor.lightGray.cgColor
+        }
+    }
+    @IBOutlet weak var dropAddressLabel: UILabel!
+    @IBOutlet weak var dropMapView: UIWebView!
+    
+    @IBOutlet weak var pickView: UIView!
+    @IBOutlet weak var pickAddressLabel: UILabel!
+    @IBOutlet weak var pickWebView: UIWebView!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            if let vc = self.storyboard?.instantiateViewController(withIdentifier: "OfflineVC") {
-                self.view.window?.rootViewController = vc
-            }
-        }
     }
 
     override func didReceiveMemoryWarning() {
