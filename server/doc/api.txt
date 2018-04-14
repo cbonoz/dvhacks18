@@ -15,7 +15,15 @@ Example Request Body:
 }
 
 Example Response:
-'inserted 1 ports'
+// List of just-inserted ports with id's assigned.
+[
+    {
+        id: 0
+        name: 'Port 1',
+        lat: 33.89673601,
+        lng: -118.2262623
+    }
+]
 
 ===
 Create new jobs:
@@ -34,7 +42,15 @@ Example Request Body:
 }
 
 Example Response:
-'inserted 1 jobs'
+// List of just-inserted jobs with id's assigned.
+[
+    {
+         id: 0
+         day: '4-14-2018', // day of job
+         pickupId: 0, // portId of pickup location
+         deliveryId: 1, // portId of delivery location
+    }
+]
 
 ===
 Get Optimal Schedule for day
@@ -55,6 +71,5 @@ Example Response:
     cost: X, // optimal cost for
     routes:[[],[]], // nodes for each vehicle to visit (index i = route for truck i)
     times:[[],[]] // times that truck i can acceptablely arrive/leave at each route node,
-
 }
 
