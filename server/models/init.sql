@@ -12,13 +12,15 @@ CREATE TABLE port (
   lng float(7)
 );
 
-CREATE TABLE driver (
-  ID SERIAL PRIMARY KEY,
-  name VARCHAR(64)
-);
-
 CREATE TABLE job (
   pickupId  SERIAL REFERENCES port(ID),
   deliveryId SERIAL REFERENCES port(ID),
-  jobDate date
+  jobDate date,
+  PRIMARY KEY (pickupId, deliveryId, jobDate)
 );
+
+--CREATE TABLE driver (
+--  ID SERIAL PRIMARY KEY,
+--  name VARCHAR(64)
+--);
+

@@ -15,15 +15,18 @@ Example Request Body:
 }
 
 Example Response:
-// List of just-inserted ports with id's assigned.
-[
-    {
-        id: 0
-        name: 'Port 1',
-        lat: 33.89673601,
-        lng: -118.2262623
-    }
-]
+// Successful DB response.
+{
+    command: 'INSERT',
+    rowCount: 1,
+    oid: 0,
+    rows: [],
+    fields: [],
+    _parsers: [],
+    RowCtor: null,
+    rowAsArray: falseli
+}
+
 
 ===
 Create new jobs:
@@ -42,15 +45,17 @@ Example Request Body:
 }
 
 Example Response:
-// List of just-inserted jobs with id's assigned.
-[
-    {
-         id: 0
-         day: '4-14-2018', // day of job
-         pickupId: 0, // portId of pickup location
-         deliveryId: 1, // portId of delivery location
-    }
-]
+// Successful DB response.
+{
+    command: 'INSERT',
+    rowCount: 1,
+    oid: 0,
+    rows: [],
+    fields: [],
+    _parsers: [],
+    RowCtor: null,
+    rowAsArray: falseli
+}
 
 ===
 Get Optimal Schedule for day

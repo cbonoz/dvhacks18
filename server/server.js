@@ -69,7 +69,7 @@
         const values = ports.map((port) => {
             return `('${port.name}', ${port.lat}, ${port.lng})`;
         });
-        const insertQuery = `INSERT INTO port(name, lat, lng) VALUES${values.join(',')}`;
+        const insertQuery = `INSERT INTO port(name, lat, lng) VALUES${values.join(',')} ON CONFLICT DO NOTHING`;
         console.log('port insertQuery', insertQuery);
         pool.query(insertQuery, [], (err, data) => {
             if (err) {
@@ -77,7 +77,6 @@
                 return res.status(500).json(msg);
             }
 
-            const msg = `inserted ${ports.length} ports`;
             return res.status(200).json(data);
         });
     });
@@ -95,7 +94,7 @@
         const values = jobs.map((job) => {
             return `(${job.pickupId}, ${job.deliveryId}, ${job.jobDate})`;
         });
-        const insertQuery = `INSERT INTO job(pickupId, deliveryId, jobDate) VALUES${values.join(',')}`;
+        const insertQuery = `INSERT INTO job(pickupId, deliveryId, jobDate) VALUES${values.join(',')} ON CONFLICT DO NOTHING`;
         console.log('job insertQuery', insertQuery);
 
         pool.query(insertQuery, (err, jobData) => {
@@ -103,7 +102,6 @@
                 const msg = JSON.stringify(err);
                 res.status(500).json(err);
             }
-            const msg = `inserted ${jobs.length} jobs`;
             return res.status(200).json(jobData);
         });
     });
