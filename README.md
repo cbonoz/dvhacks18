@@ -9,8 +9,8 @@ Ports and delivery centers still struggle to optimize scheduling because of data
 
 <ul>
 <li>*/server*: Server and api for submitting scheduling data.</li>
-<li>*/app*: Mobile app designed for providing schedule/routing information specific to each driver.</li>
-<li>*/routable*: Client side reactjs website</li>
+<li>*/RoutableApp*: Mobile app designed for providing schedule/ information specific to each driver.</li>
+<li>*/RoutableWeb*: Client side reactjs website</li>
 </ul>
 
 Check the `README.md` files in each subfolder for more information.
