@@ -21,6 +21,7 @@ db = process.env.ROUTABLE_DB // db name
 </pre>
 
 Prepare the DB by running `init.sql` from the `/models` folder.<br/>
+Once this is completed, can load sample data by invoking `node load.js` from `/demo`. This will populate several ports and jobs (in the LA area) that can be routed/visualized within the Routable Web UI and individual mobile application.
 
 <b>Running the server:</b>
 <pre>

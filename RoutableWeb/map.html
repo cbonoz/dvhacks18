@@ -390,7 +390,7 @@
                     flightPlanCoordinates.push(position);
                     markers.push(new google.maps.Marker({
                         map: map,
-                        draggable: true,
+                        draggable: false,
                         animation: google.maps.Animation.DROP,
                         position: position,
                         optimized: false
@@ -418,11 +418,11 @@
             const lng = ports[startPortIndex].lng;
             console.log('center', lat, lng);
 
+            // Center the map at the starting node
             const center = new google.maps.LatLng(lat, lng);
             map.setCenter(center);
             map.setZoom(11);
             map.setMapTypeId('satellite');
-
         }
 
         const date = new Date();
