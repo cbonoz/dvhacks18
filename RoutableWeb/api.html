@@ -61,36 +61,37 @@
         </div><!--/span-->
 
         <div class="col-12 col-md-9">
-          <div class="paper card card-1">
+          <div class="paper card card-1 bg-custom">
             <p class="d-md-none">
               <button type="button" class="btn btn-outlined btn-custom" data-toggle="offcanvas">Toggle nav</button>
             </p>
-            <div class="jumbotron jumbotron-custom bg-custom">
+            <div class="jumbotron-custom">
               <h1 class="d-block" id="skiptocontent">Lorem Ipsum Jane Doe</h1>
             </div>
             <div class="row">
               <div class="col-sm-12 col-md-6 col-lg-6">
 <pre>
+  <span class="token description">
   ===
   Register Ports:
   ===
   Definition:
   POST /api/ports/add
 
-  Example Request Body:
+  Example Request Body:</span>
   {
       <span class="token">ports</span>: [
       {
-          <span class="token json-key">name</span>: 'Port 1',
+          <span class="token json-key">name</span>: <span class="token quotes">'</span>Port 1<span class="token quotes">'</span>,
           <span class="token json-key">lat</span>: 33.89673601,
           <span class="token json-key">lng</span>: -118.2262623
       }]
   }
-
-  Example Response:
-  // Successful DB response.
+<span class="token description">
+  Example Response:</span>
+  <span class="token comment">// Successful DB response.</span>
   {
-      <span class="token json-key">command</span>: 'INSERT',
+      <span class="token json-key">command</span>: <span class="token quotes">'</span>INSERT<span class="token quotes">'</span>,
       <span class="token json-key">rowCount</span>: 1,
       <span class="token json-key">oid</span>: 0,
       <span class="token json-key">rows</span>: [],
@@ -100,44 +101,44 @@
       <span class="token json-key">rowAsArray</span>: false
   }
 
-
+<span class="token description">
   ===
   Get existing ports
   ===
   Definition:
   GET /api/ports
 
-  Example Response:
+  Example Response:</span>
   [
       {
-          <span class="token json-key">id</span>: 0 // database-assigned id.
-          <span class="token json-key">name</span>: 'Port 1',
+          <span class="token json-key">id</span>: 0 <span class="token comment">// database-assigned id.</span>
+          <span class="token json-key">name</span>: <span class="token quotes">'</span>Port 1<span class="token quotes">'</span>,
           <span class="token json-key">lat</span>: 33.89673601,
           <span class="token json-key">lng</span>: -118.2262623
       }
   ]
 
-
+<span class="token description">
   ===
   Create new jobs:
   ===
   Definition:
   POST /api/jobs/add
 
-  Example Request Body:
+  Example Request Body:</span>
   {
       <span class="token">jobs</span>: [
       {
-          <span class="token json-key">day</span>: '4-14-2018', // day of job
-          <span class="token json-key">pickupId</span>: 0, // portId of pickup location
-          <span class="token json-key">deliveryId</span>: 1, // portId of delivery location
+          <span class="token json-key">day</span>: <span class="token quotes">'</span>4-14-2018<span class="token quotes">'</span>, <span class="token comment">// day of job</span>
+          <span class="token json-key">pickupId</span>: 0, <span class="token comment">// portId of pickup location</span>
+          <span class="token json-key">deliveryId</span>: 1, <span class="token comment">// portId of delivery location</span>
       }
   }
 
-  Example Response:
-  // Successful DB response.
+  <span class="token description">Example Response:</span>
+  <span class="token comment">// Successful DB response.</span>
   {
-      <span class="token json-key">command</span>: 'INSERT',
+      <span class="token json-key">command</span>: <span class="token quotes">'</span>INSERT<span class="token quotes">'</span>,
       <span class="token json-key">rowCount</span>: 1,
       <span class="token json-key">oid</span>: 0,
       <span class="token json-key">rows</span>: [],
@@ -146,26 +147,26 @@
       <span class="token json-key">RowCtor</span>: null,
       <span class="token json-key">rowAsArray</span>: false
   }
-
+<span class="token description">
   ===
   Get Optimal Schedule for day
   ===
   Definition:
   POST /api/schedule
 
-  Example Request Body:
+  Example Request Body:</span>
   {
-      <span class="token json-key">startPortId</span>: 0, // origin and return port for vehicles
-      <span class="token json-key">numVehicles</span>: 2, // number of vehicles starting at port
-      <span class="token json-key">jobDate</span>: '4-14-2018' // jobDate for optimal schedule computation
+      <span class="token json-key">startPortId</span>: 0, <span class="token comment">// origin and return port for vehicles</span>
+      <span class="token json-key">numVehicles</span>: 2, <span class="token comment">// number of vehicles starting at port</span>
+      <span class="token json-key">jobDate</span>: '4-14-2018' <span class="token comment">// jobDate for optimal schedule computation</span>
   }
 
-
-  Example Response:
+<span class="token description">
+  Example Response:</span>
   {
-      <span class="token json-key">cost</span>: X, // optimal cost for schedule
-      <span class="token json-key">routes</span>:[[],[]], // nodes for each vehicle to visit (index i = route for truck i)
-      <span class="token json-key">times</span>:[[],[]] // times that truck i can acceptablely arrive/leave at each route node,
+      <span class="token json-key">cost</span>: X, <span class="token comment">// optimal cost for schedule</span>
+      <span class="token json-key">routes</span>:[[],[]], <span class="token comment">// nodes for each vehicle to visit (index i = route for truck i)</span>
+      <span class="token json-key">times</span>:[[],[]] <span class="token comment">// times that truck i can acceptablely arrive/leave at each route node,</span>
   }
 
 </pre>
