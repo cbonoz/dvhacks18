@@ -5,6 +5,8 @@ const library = (function () {
 
     const ortools = require('node_or_tools');
 
+    const BASE_URL = "localhost:9001";
+
     const getRandom = (items) => {
         return items[Math.floor(Math.random() * items.length)];
     };
@@ -21,6 +23,14 @@ const library = (function () {
         return str;
     }
 
+    function getDistance(point1, point2) {
+        return geolib.getDistance(point1, point2);
+        // return geolib.getDistance(
+        //     {latitude: 51.5103, longitude: 7.49347},
+        //     {latitude: "51° 31' N", longitude: "7° 28' E"}
+        // );
+    }
+
     function matrix(m, n, fillValue) {
         const result = [];
         for(let i = 0; i < n; i++) {
@@ -29,8 +39,12 @@ const library = (function () {
         return result;
     }
 
-    function createTimeWindowMatrix(n) {
-        return matrix(n, n, Infinity);
+    function createDemandMatrix(n, startNodeIndex) {
+        const m = matrix(n, n, 1);
+        for (let i = 0; i < n; i++) {
+            m[startNodeIndex][i] = 0;
+        }
+        return m;
     }
 
     function createArrayList(n, val) {
@@ -81,8 +95,9 @@ const library = (function () {
     return {
         capitalize: capitalize,
         matrix: matrix,
+        getDistance: getDistance,
         createArrayList: createArrayList,
-        createTimeWindowMatrix: createTimeWindowMatrix,
+        createDemandMatrix: createDemandMatrix,
         getRandom: getRandom,
         getCostMatrix: getCostMatrix,
         formatDateTimeMs: formatDateTimeMs,

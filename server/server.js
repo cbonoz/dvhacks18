@@ -57,7 +57,7 @@
      *  startNode: starting location of the driver.
      * @return list of nodes in order to visit.
      */
-    app.post('/api/schedule/:day/:driver/:start', function (req, res, next) {
+    app.post('/api/schedule', function (req, res, next) {
         const body = req.body;
         const startNode = body.startNode;
         const driver = body.driver;
@@ -108,6 +108,11 @@
 
     app.post('/api/schedule/add', function (req, res, next) {
         const body = req.body;
+        const locations = body.locations;
+
+        locations.map((location) => {
+
+        });
 
         // TODO: store data to DB and return success.
         return res.json(body);
