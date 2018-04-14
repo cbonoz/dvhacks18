@@ -336,9 +336,6 @@
             ]
         });
 
-        const date = new Date();
-        const day = (date.getMonth() + 1) + '-' + date.getDate() + '-' + date.getFullYear();
-
         function handleRouteData(data) {
             console.log('data', data);
             // TODO: generate polylines from the schedule data on the map
@@ -355,8 +352,12 @@
             flightPath.setMap(map);
         }
 
+        const date = new Date();
+        const jobDate = (date.getMonth() + 1) + '-' + date.getDate() + '-' + date.getFullYear();
+
         const data = {
-            day: day,
+            jobDate: jobDate,
+            startPortId: 1,
             numVehicles: 3,
         };
 

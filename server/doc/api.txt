@@ -82,7 +82,7 @@ POST /api/schedule
 
 Example Request Body:
 {
-    startingPortId: 0, // origin and return port for vehicles
+    startPortId: 0, // origin and return port for vehicles
     numVehicles: 2, // number of vehicles starting at port
     jobDate: '4-14-2018' // jobDate for optimal schedule computation
 }

@@ -129,32 +129,37 @@
      */
     app.post('/api/schedule', function (req, res, next) {
         const body = req.body;
+        console.log('/api/schedule');
 
         const jobDate = body.jobDate;
-        const startingPortId = body.startingPortId || 1;
+        const startPortId = body.startPortId || 1;
         const numVehicles = body.numVehicles;
         const vehicleCapacity = body.vehicleCapacity || 2;
+        console.log('jobDate', jobDate);
 
-        const query = `SELECT * FROM job WHERE day=${day}`;
-        pool.query(query, [], (err, jobData) => {
+        const query = `SELECT * FROM job WHERE jobDate='${jobDate}'`;
+        pool.query(query, (err, jobData) => {
             if (err) {
                 const msg = JSON.stringify(err);
                 return res.status(500).json(msg);
             }
 
             const jobs = jobData.rows; // {pickupId, deliveryId, jobDate}
+            console.log('calculating schedule for ' + JSON.stringify(jobs));
             if (!jobs) {
                 // No tasks required.
-                return res.status(200).json(routable.createArrayList(numVehicles), [])
+                return res.status(200).json(routable.createArrayList(numVehicles), []);
             }
 
-            const ids = new Set();
+            let ids = new Set();
             jobs.map((job) => {
-                ids.add(job.pickupId);
-                ids.add(job.deliveryId);
+                ids.add(job.pickupid);
+                ids.add(job.deliveryid);
             });
+            ids = Array.from(ids);
+            console.log('ids', ids);
 
-            // Retrieve the ports
+            // Retrieve the ports used in the current jobs.
             const portQuery = `SELECT * FROM port where id in (${ids.join(',')})`;
             pool.query(portQuery, (err, portData) => {
                 if (err) {
@@ -172,20 +177,20 @@
                 const deliveries = [];
                 jobs.map((job) => {
                     const pid = rows.findIndex((loc) => {
-                        return loc.id === job.pickupId;
+                        return loc.id === job.pickupid;
                     });
                     pickups.push(pid);
                     const did = rows.findIndex((loc) => {
-                        return loc.id === job.pickupId;
+                        return loc.id === job.deliveryid;
                     });
                     deliveries.push(did);
                 });
 
-                const costMatrix = routable.getCostMatrix(ports);
+                const costMatrix = routable.getCostMatrix(ports, routable.getDistance);
 
-                const n = jobs.length;
+                const n = ports.length;
                 const startNode = rows.findIndex((loc) => {
-                    return loc.id === startingPortId;
+                    return loc.id === startPortId;
                 });
 
                 const solverOpts = {
@@ -210,6 +215,9 @@
                     deliveries: deliveries
                 };
 
+                console.log('solver', solverOpts);
+                console.log('search', searchOpts);
+
                 routable.solveVRP(solverOpts, searchOpts, (err, solution) => {
                     if (err) {
                         const errorMessage = JSON.stringify(err);
@@ -218,6 +226,7 @@
                     solution.ports = ports;
                     solution.pickups = pickups;
                     solution.deliveries = deliveries;
+                    solution.jobDate = jobDate;
                     console.log('solution', solution);
                     return res.status(200).json(solution);
                 });
