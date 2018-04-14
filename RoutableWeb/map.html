@@ -339,16 +339,8 @@
         const date = new Date();
         const day = (date.getMonth() + 1) + '-' + date.getDate() + '-' + date.getFullYear();
 
-        const data = {
-            day: day,
-            numVehicles: 3,
-            startingPortId: 0,
-        };
-
-        function handleData(data) {
+        function handleRouteData(data) {
             console.log('data', data);
-            //do some stuff
-
             // TODO: generate polylines from the schedule data on the map
             const flightPlanCoordinates = [];
 
@@ -363,12 +355,18 @@
             flightPath.setMap(map);
         }
 
+        const data = {
+            day: day,
+            numVehicles: 3,
+            startingPortId: 0,
+        };
+
         $.ajax({
             url: 'http://localhost:9001/api/schedule',
             type: 'POST',
             data: JSON.stringify(data),
             contentType: 'application/json; charset=utf-8',
-            success: handleData
+            success: handleRouteData
         });
     }
 </script>
