@@ -5,24 +5,7 @@ const library = (function () {
 
     const geolib = require('geolib');
     const ortools = require('node_or_tools');
-
     const BASE_URL = "localhost:9001";
-
-    const getRandom = (items) => {
-        return items[Math.floor(Math.random() * items.length)];
-    };
-
-    const formatDateTimeMs = (timeMs) => {
-        const date = new Date(parseInt(timeMs));
-        return `${date.toDateString()} ${date.toLocaleTimeString()}`;
-    };
-
-    function capitalize(str) {
-        if (str) {
-            return str.charAt(0).toUpperCase() + str.slice(1);
-        }
-        return str;
-    }
 
     // Returns the arc distance between two lat/lng pairs.
     // ex: return geolib.getDistance(
@@ -43,8 +26,7 @@ const library = (function () {
 
     function getToday() {
         const date = new Date();
-        const day = (date.getMonth() + 1) + '-' + date.getDate() + '-' + date.getFullYear();
-        return day;
+        return (date.getMonth() + 1) + '-' + date.getDate() + '-' + date.getFullYear();
     }
 
     function createDemandMatrix(n, startNodeIndex) {
@@ -101,15 +83,12 @@ const library = (function () {
     }
 
     return {
-        capitalize: capitalize,
         matrix: matrix,
         getDistance: getDistance,
         createArrayList: createArrayList,
         createDemandMatrix: createDemandMatrix,
-        getRandom: getRandom,
         getCostMatrix: getCostMatrix,
         getToday: getToday,
-        formatDateTimeMs: formatDateTimeMs,
         solveVRP: solveVRP,
         solveTSP: solveTSP
     };
