@@ -13,6 +13,8 @@ Ports and delivery centers still struggle to optimize scheduling because of data
 <li>*/routable*: Client side reactjs website</li>
 </ul>
 
+Check the `README.md` files in each subfolder for more information.
+
 ### TODO:
 * Create Logo.
 * Update pitch deck in drive folder.

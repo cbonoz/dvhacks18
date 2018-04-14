@@ -56,6 +56,28 @@
             return res.json("hello world");
         });
 
+        /*
+         * Register new ports with the Routable DB.
+         */
+        app.post('/api/ports/add', function (req, res, next) {
+            const body = req.body;
+            const ports = req.ports;
+
+            const values = ports.map((port) => {
+                return `(${port.name}, ${port.latitude}, ${port.longitude})`;
+            });
+            const insertQuery = `'INSERT INTO ports(name, lat, lng) VALUES${values.join(',')}`;
+            pool.query(insertQuery, [], (err, res) => {
+                if (err) {
+                    const msg = JSON.stringify(err);
+                    return res.json(msg).status(500);
+                }
+
+                const msg = `inserted ${ports.length} rows`;
+                return res.json(msg).status(200);
+            });
+        });
+
         /**
          * Returns the optimal schedule for the given driver and day.
          * Returned as a list of ordered nodes.
@@ -65,7 +87,7 @@
          *  startNode: starting location of the driver.
          * @return list of nodes in order to visit.
          */
-        app.post('/api/schedule', function (req, res, next) {
+        app.post('/api/jobs', function (req, res, next) {
             const body = req.body;
 
             const day = body.day;
@@ -150,7 +172,7 @@
             });
         });
 
-        app.post('/api/schedule/add', function (req, res, next) {
+        app.post('/api/jobs/add', function (req, res, next) {
             const body = req.body;
             const locations = body.locations;
 
