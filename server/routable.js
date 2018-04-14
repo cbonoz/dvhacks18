@@ -24,12 +24,13 @@ const library = (function () {
         return str;
     }
 
+    // Returns the arc distance between two lat/lng pairs.
+    // ex: return geolib.getDistance(
+    //     {latitude: 51.5103, longitude: 7.49347},
+    //     {latitude: "51° 31' N", longitude: "7° 28' E"}
+    // );
     function getDistance(point1, point2) {
         return geolib.getDistance(point1, point2);
-        // return geolib.getDistance(
-        //     {latitude: 51.5103, longitude: 7.49347},
-        //     {latitude: "51° 31' N", longitude: "7° 28' E"}
-        // );
     }
 
     function matrix(m, n, fillValue) {
