@@ -10,7 +10,27 @@ body{
 .border-bottom {
   border-bottom: 1px solid #e5e5e5;
 }
-
+.bg-custom{
+    background: #ebeced;
+    background-image: url(../img/bg_pattern.png);
+    background-image: url(../img/bg_pattern.png), linear-gradient(to bottom, #ebeced, #ffffff);
+    background-attachment: fixed;
+    -o-background-size: 35% auto;
+    -webkit-background-size: 100% auto;
+    -moz-background-size: 100% auto;
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+}
+.bg-custom-white{
+    background: #ffffff;
+    background-image: url(../img/bg_pattern.png);
+    background-attachment: fixed;
+    -o-background-size: 35% auto;
+    -webkit-background-size: 100% auto;
+    -moz-background-size: 100% auto;
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+}
 .box-shadow {
   box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
