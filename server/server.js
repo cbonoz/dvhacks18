@@ -90,7 +90,8 @@
         const body = req.body;
 
         const day = body.day;
-        const startingPortId = body.startingPortId;
+        const startingPortId = body.startingPortId || 0;
+        const vehicleCapacity = body.vehicleCapacity || 2;
         const numVehicles = body.numVehicles;
 
         const query = `SELECT * FROM job WHERE day=${day}`;
@@ -120,20 +121,32 @@
                     return res.json(msg).status(500);
                 }
 
+                const rows = res.rows;
+                // minimal set of locations needed to cover the pickups and deliveries for today.
+                const locations = rows.map((row) => {
+                    return [row.lat, row.lng];
+                });
+
                 // TODO: Construct the location, pickups, and deliveries arrays based on the jobs list.
-                const locations = [];
                 const pickups = [];
                 const deliveries = [];
-                jobs.map(() => {
-                    return [];
+                jobs.map((job) => {
+                    const pid = rows.findIndex((loc) => {
+                        return loc.id === job.pickupId;
+                    });
+                    pickups.push(pid);
+                    const did = rows.findIndex((loc) => {
+                        return loc.id === job.pickupId;
+                    });
+                    deliveries.push(did);
                 });
 
                 const costMatrix = routable.getCostMatrix(locations);
 
                 const n = jobs.length;
-                // TODO: find the startNode in the locations list based on the startingPortId.
-
-                const startNode = startingPortId;
+                const startNode = rows.findIndex((loc) => {
+                    return loc.id === startingPortId;
+                });
 
                 const solverOpts = {
                     numNodes: n,
