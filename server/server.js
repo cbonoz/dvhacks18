@@ -1,118 +1,127 @@
 // Author: Chris Buonocore (April 2018)
+// Project: Routable
 // License: MIT
 // Made for DV Hacks 2018
 
 (function () {
     "use strict";
 
+    /*************************
+     * CONFIGURATION VARIABLES
+     *************************/
+    const user = process.env.ROUTABLE_DB_USER;
+    const pass = process.env.ROUTABLE_DB_PASS;
+    const host = process.env.ROUTABLE_HOST || "localhost:5432";
+    const db = process.env.ROUTABLE_DB;
+
+    const PORT = process.env.ROUTABLE_SERVER_PORT || 9001;
+
+    const COMPUTE_LIMIT_MS = 1000;
+
+    /***********
+     * LIBRARIES
+     ***********/
     const axios = require('axios');
     const express = require('express');
     const cors = require('cors');
     const bodyParser = require('body-parser');
     const fs = require('fs');
     const http = require('http');
-// https://github.com/expressjs/multer
-    const multer = require('multer');
-    const upload = multer({dest: 'uploads/'});
+    const {Pool, Client} = require('pg');
+    const routable = require('./routable');
 
-// const https = require('https');
-// const pg = require('pg');
-
-    const PORT = 9001;
-
+    /*******
+     * SETUP
+     *******/
     const app = express();
     const server = http.createServer(app);
-// const io = require('socket.io')(server, {origins: '*:*'});
-
-    const neon = require('./neon');
-    const rekeyed = require('./rekeyed');
-
-// neon.saveFileMetadata(args....).then()
-
+    // const io = require('socket.io')(server, {origins: '*:*'});
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({extended: true}));
 
-
     app.use(cors());
 
+    /***********
+     * ENDPOINTS
+     ***********/
     app.get('/api/hello', (req, res) => {
         return res.json("hello world");
-    })
-
-// Return a list of files associated with the given address.
-    app.get('/api/files/:address', (req, res) => {
-        const address = req.params.address;
-        console.log('address');
-
-// TODO [NEO]: make request to blockchain to retrieve all file metadatas associated with this address.
-        const files = [];
-
-
-        return res.json(files);
-    })
-    /** Permissible loading a single file,
-     the value of the attribute "name" in the form of "recfile". **/
-    const type = upload.any();
-
-
-    app.post('/api/authorize', type, function (req, res, next) {
-        // req.body contains the text fields
-        const privateKey = req.body.privateKey;
-        const publicKey = req.body.publicKey;
-        const targetAddress = req.body.address;
-
-
-        const fileName = address + "_" + name;
-
-        // Save the encrypted file to the upload directory, and return success.
-        rekeyed.encryptAndSaveFile(fileContent, fileName, key, function (err, results) {
-
-            if (err) {
-                console.error('error', err);
-                return res.status(500).json(err);
-            }
-
-            // TODO [NEO]: Save the metdata for the current file to the Neo blockchain after saved here.
-
-
-            console.log('results', results);
-            return res.json(results);
-        });
     });
 
+    /**
+     * Returns the optimal schedule for the given driver and day.
+     * Returned as a list of ordered nodes.
+     * Body params:
+     *  day: date in format MM-dd-YYYY.
+     *  driver: driver identifier of the desired user.
+     *  startNode: starting location of the driver.
+     * @return list of nodes in order to visit.
+     */
+    app.post('/api/schedule/:day/:driver/:start', function (req, res, next) {
+        const body = req.body;
+        const startNode = body.startNode;
+        const driver = body.driver;
+        const day = body.day;
 
-    app.post('/api/upload', type, function (req, res, next) {
-        // req.body contains the text fields
-        const fileContent = req.body.file;
-        const metadata = JSON.parse(req.body.metadata);
-        // TODO: save these metadata fields to Neo.
-        const name = metadata.name;
-        const lastModified = metadata.lastModifiedDate;
-        const address = metadata.address;
-        const fileHash = metadata.hash;
-        const key = metadata.key; // TODO: confirm signing authority.
-        console.log(fileContent);
+        // TODO: Retrieve cost matrix based on the day and driver and solve.
+        const locations = [];
+        const costMatrix = routable.getCostMatrix(locations);
 
-        const fileName = address + "_" + name;
+        const n = locations.length;
+        const timeWindows = routable.matrix(n, [0, Infinity]);
+        // TODO: retrieve number of distinct vehicle id's, pickup nodes, and deliveries relative to the current startNode.
+        const numVehicles = n;
+        const pickUps = [1,2];
+        const deliveries = [0,3];
 
-        // Save the encrypted file to the upload directory, and return success.
-        rekeyed.encryptAndSaveFile(fileContent, fileName, key, function (err, results) {
+        const solverOpts = {
+            numNodes: n,
+            costs: costMatrix,
+            durations: routable.matrix(n, n, 1),
+            timeWindows: timeWindows,
+            demands: routable.matrix(n, n, 1)
+        };
 
+        const searchOpts = {
+            computeTimeLimit: 1000,
+            numVehicles: numVehicles,
+            depotNode: startNode,
+            timeHorizon: Infinity,
+            vehicleCapacity: vehicleCapacity,
+            routeLocks: routable.createArrayList(n, []),
+            pickups: pickUps,
+            deliveries: deliveries
+        };
+
+        console.log(solverOpts, searchOpts);
+
+        routable.solveVRP(solverOpts, searchOpts, (err, solution) => {
             if (err) {
-                console.error('error', err);
-                return res.status(500).json(err);
+                const errorMessage = JSON.stringify(err);
+                res.json(errorMessage).status(500);
             }
-
-            // TODO [NEO]: Save the metdata for the current file to the Neo blockchain after saved here.
-
-
-            console.log('results', results);
-            return res.json(results);
+            console.log('solution', solution);
+            return res.json(solution);
         });
+
     });
 
+    app.post('/api/schedule/add', function (req, res, next) {
+        const body = req.body;
 
-    // TODO: add route for retrieving decrypted file if sufficient permissions.
+        // TODO: store data to DB and return success.
+        return res.json(body);
+    });
+
+    const connectionString = `postgresql://${user}:${pass}@${host}/${db}`;
+    console.log('connectionString', connectionString);
+
+    const pool = new Pool({
+        connectionString: connectionString,
+    });
+
+    // TODO: verify syntax and connect pool asynchronously.
+    pool.connect();
 
     server.listen(PORT, () => {
         console.log('Express server listening on localhost port: ' + PORT);
