@@ -22,6 +22,12 @@ Format:
 TODO: {}
 </pre>
 
+### Assumptions for demo
+<ol>
+<li>Time windows are infinite (i.e. ports do not close, trucks can arrive at dropoff/pickup locations at any time).</li>
+<li>Capacity of trucks is unit size (i.e. each truck after visiting a pickup location is full - this can be easily changed by using a different parameter in the model per truck)</li>
+</ol>
+
 ### Dev Notes:
 Running the server:
 <pre>

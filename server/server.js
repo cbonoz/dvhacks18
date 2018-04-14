@@ -57,7 +57,7 @@
      *  startNode: starting location of the driver.
      * @return list of nodes in order to visit.
      */
-    app.post('/api/schedule/:day/:driver/:start', function (req, res, next) {
+    app.post('/api/schedule', function (req, res, next) {
         const body = req.body;
         const startNode = body.startNode;
         const driver = body.driver;
@@ -74,32 +74,14 @@
         const pickUps = [1,2];
         const deliveries = [0,3];
 
-        const solverOpts = {
-            numNodes: n,
-            costs: costMatrix,
-            durations: routable.matrix(n, n, 1),
-            timeWindows: timeWindows,
-            demands: routable.matrix(n, n, 1)
-        };
-
-        const searchOpts = {
-            computeTimeLimit: 1000,
-            numVehicles: numVehicles,
-            depotNode: startNode,
-            timeHorizon: Infinity,
-            vehicleCapacity: vehicleCapacity,
-            routeLocks: routable.createArrayList(n, []),
-            pickups: pickUps,
-            deliveries: deliveries
-        };
-
-        console.log(solverOpts, searchOpts);
-
         routable.solveVRP(solverOpts, searchOpts, (err, solution) => {
             if (err) {
                 const errorMessage = JSON.stringify(err);
                 res.json(errorMessage).status(500);
             }
+            solution.locations = locations;
+            solution.pickups = pickups;
+            solution.deliveries = deliveries;
             console.log('solution', solution);
             return res.json(solution);
         });
@@ -108,6 +90,11 @@
 
     app.post('/api/schedule/add', function (req, res, next) {
         const body = req.body;
+        const locations = body.locations;
+
+        locations.map((location) => {
+
+        });
 
         // TODO: store data to DB and return success.
         return res.json(body);
