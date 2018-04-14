@@ -84,7 +84,7 @@ Example Request Body:
 {
     startingPortId: 0, // origin and return port for vehicles
     numVehicles: 2, // number of vehicles starting at port
-    day: '4-14-2018' // day for schedule computation
+    jobDate: '4-14-2018' // jobDate for optimal schedule computation
 }
 
 

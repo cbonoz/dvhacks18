@@ -130,8 +130,8 @@
     app.post('/api/schedule', function (req, res, next) {
         const body = req.body;
 
-        const day = body.day;
-        const startingPortId = body.startingPortId || 0;
+        const jobDate = body.jobDate;
+        const startingPortId = body.startingPortId || 1;
         const numVehicles = body.numVehicles;
         const vehicleCapacity = body.vehicleCapacity || 2;
 
