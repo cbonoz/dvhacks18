@@ -34,7 +34,7 @@ describe('routable', () => {
 
         const searchOpts = {
             computeTimeLimit: 1000,
-            startNode: startNode
+            depotNode: startNode
         };
 
         routable.solveTSP(solverOpts, searchOpts, (err, solution) => {
