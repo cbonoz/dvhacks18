@@ -395,7 +395,9 @@
                         position: position,
                         optimized: false
                     }));
-                    markers[markers.length - 1].setTitle(portName)
+
+                    // TODO: fix title not appearing on map
+                    markers[markers.length - 1].setTitle(portName);
                     markers[markers.length - 1].addListener('click', toggleBounce);
                 });
                 console.log(`truck${vehicleIndex}: `, flightPlanCoordinates);
