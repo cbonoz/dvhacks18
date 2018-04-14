@@ -14,6 +14,15 @@
     <title>Routable</title>
 
     <style>
+        #date-section {
+            font-style: italic;
+        }
+
+        .map-header {
+            margin-left: 20px;
+            margin: 20px;
+        }
+
         /* Always set the map height explicitly to define the size of the div
          * element that contains the map. */
         #map {
@@ -55,6 +64,12 @@
         </ul>
     </div>
 </nav>
+
+<div class="map-header">
+    <h1>Job Routing Schedule:</h1>
+    Date: <span id="date-section">
+    </span>
+</div>
 
 <div class="mx-auto" id="map"></div>
 
@@ -336,28 +351,85 @@
             ]
         });
 
+        function getRandomColor() {
+            const letters = '0123456789ABCDEF';
+            let color = '#';
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+
+        function toggleBounce() {
+            const marker = this;
+            if (marker.getAnimation() !== null) {
+                marker.setAnimation(null);
+            } else {
+                marker.setAnimation(google.maps.Animation.BOUNCE);
+            }
+        }
+
+        const startPortId = 1;
+
+        var markers;
+
         function handleRouteData(data) {
+            markers = [];
             console.log('data', data);
             // TODO: generate polylines from the schedule data on the map
-            const flightPlanCoordinates = [];
+            const ports = data.ports;
+            const routes = data.routes;
 
-            const flightPath = new google.maps.Polyline({
-                path: flightPlanCoordinates,
-                geodesic: true,
-                strokeColor: '#FF0000', // Use variable color for each vehicle on the map.
-                strokeOpacity: 1.0,
-                strokeWeight: 2
+            routes.map((route, vehicleIndex) => {
+                const flightPlanCoordinates = [];
+                route.map((portIndex) => {
+                    const currentPort = ports[portIndex];
+                    const portName = ports[portIndex].name;
+                    // console.log('placing', portName);
+                    const position = {lat: currentPort.lat, lng: currentPort.lng};
+                    flightPlanCoordinates.push(position);
+                    markers.push(new google.maps.Marker({
+                        map: map,
+                        draggable: true,
+                        animation: google.maps.Animation.DROP,
+                        position: position,
+                        optimized: false
+                    }));
+                    markers[markers.length - 1].setTitle(portName)
+                    markers[markers.length - 1].addListener('click', toggleBounce);
+                });
+                console.log(`truck${vehicleIndex}: `, flightPlanCoordinates);
+                const flightPath = new google.maps.Polyline({
+                    path: flightPlanCoordinates,
+                    geodesic: true,
+                    strokeColor: getRandomColor(), // Use variable color for each vehicle on the map.
+                    strokeOpacity: 1.0,
+                    strokeWeight: 5
+                });
+                flightPath.setMap(map);
             });
 
-            flightPath.setMap(map);
+            const startPortIndex = ports.findIndex((port) => {
+                return port.id === startPortId
+            });
+            const lat = ports[startPortIndex].lat;
+            const lng = ports[startPortIndex].lng;
+            console.log('center', lat, lng);
+
+            const center = new google.maps.LatLng(lat, lng);
+            map.setCenter(center);
+            map.setZoom(11);
+            map.setMapTypeId('satellite');
+
         }
 
         const date = new Date();
         const jobDate = (date.getMonth() + 1) + '-' + date.getDate() + '-' + date.getFullYear();
+        $("#date-section").html(jobDate);
 
         const data = {
             jobDate: jobDate,
-            startPortId: 1,
+            startPortId: startPortId,
             numVehicles: 3,
         };
 

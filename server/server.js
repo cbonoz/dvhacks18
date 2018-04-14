@@ -223,7 +223,7 @@
                         const errorMessage = JSON.stringify(err);
                         res.status(500).json(errorMessage);
                     }
-                    solution.ports = ports;
+                    solution.ports = rows;
                     solution.pickups = pickups;
                     solution.deliveries = deliveries;
                     solution.jobDate = jobDate;
