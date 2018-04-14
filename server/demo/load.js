@@ -24,7 +24,20 @@ axios.post(portUrl, {
 }).then(response => {
     const portData = response.data;
     console.log('portData', portData);
+
+    const day = routable.getToday();
+
     const jobs = [];
+    for (let i = 0; i < 25; i++) {
+        const p1 = ports[i];
+        const p2 = ports[i + 25];
+        jobs.push({
+            day: day,
+            pickupId: p1.id,
+            deliveryId: p2.id
+        });
+    }
+    console.log('jobs', jobs);
 
     const jobUrl = `${BASE_URL}/api/jobs/add`;
     axios.post(jobUrl, {
