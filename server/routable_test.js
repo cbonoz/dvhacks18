@@ -104,7 +104,7 @@ describe('routable', () => {
         // Starting location (node) for vehicle.
         const startNode = 0;
         const numVehicles = 5;
-        const vehicleCapacity = 1;
+        const vehicleCapacity = 5;
         const n = locations.length;
 
         const costMatrix = routable.getCostMatrix(locations, routable.getDistance);
