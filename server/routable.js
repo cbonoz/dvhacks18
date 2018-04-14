@@ -21,6 +21,30 @@ const library = (function () {
         return str;
     }
 
+    function matrix(m, n, fillValue) {
+        const result = [];
+        for(let i = 0; i < n; i++) {
+            result.push(new Array(m).fill(fillValue));
+        }
+        return result;
+    }
+
+    function createTimeWindowMatrix(n) {
+        return matrix(n, n, Infinity);
+    }
+
+    function createArrayList(n, val) {
+        const result = [];
+        for (let i = 0; i < n; i++) {
+            if (val) {
+                result.push(val);
+            } else {
+                result.push([]);
+            }
+        }
+        return result;
+    }
+
     /**
      * Multi-vehicle node visit optimization
      * @param vrpSolverOpts options for solving port vrp.
@@ -56,6 +80,9 @@ const library = (function () {
 
     return {
         capitalize: capitalize,
+        matrix: matrix,
+        createArrayList: createArrayList,
+        createTimeWindowMatrix: createTimeWindowMatrix,
         getRandom: getRandom,
         getCostMatrix: getCostMatrix,
         formatDateTimeMs: formatDateTimeMs,

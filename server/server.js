@@ -67,18 +67,39 @@
         const locations = [];
         const costMatrix = routable.getCostMatrix(locations);
 
+        const n = locations.length;
+        const timeWindows = routable.matrix(n, [0, Infinity]);
+        // TODO: retrieve number of distinct vehicle id's, pickup nodes, and deliveries relative to the current startNode.
+        const numVehicles = n;
+        const pickUps = [1,2];
+        const deliveries = [0,3];
+
         const solverOpts = {
-            numNodes: locations.length,
-            costs: costMatrix
+            numNodes: n,
+            costs: costMatrix,
+            durations: routable.matrix(n, n, 1),
+            timeWindows: timeWindows,
+            demands: routable.matrix(n, n, 1)
         };
 
         const searchOpts = {
-            computeTimeLimit: COMPUTE_LIMIT_MS,
-            depotNode: startNode
+            computeTimeLimit: 1000,
+            numVehicles: numVehicles,
+            depotNode: startNode,
+            timeHorizon: Infinity,
+            vehicleCapacity: vehicleCapacity,
+            routeLocks: routable.createArrayList(n, []),
+            pickups: pickUps,
+            deliveries: deliveries
         };
 
-        console.log('get schedule', day, driver);
-        routable.solveTSP(solverOpts, searchOpts, (err, solution) => {
+        console.log(solverOpts, searchOpts);
+
+        routable.solveVRP(solverOpts, searchOpts, (err, solution) => {
+            if (err) {
+                const errorMessage = JSON.stringify(err);
+                res.json(errorMessage).status(500);
+            }
             console.log('solution', solution);
             return res.json(solution);
         });
