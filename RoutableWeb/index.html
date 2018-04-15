@@ -36,7 +36,7 @@
             <a class="nav-link mx-4" href="map.html">Map</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link mx-4" href="#">API</a>
+            <a class="nav-link mx-4" href="api.html">API</a>
           </li>
           <li class="nav-item">
             <a class="nav-link mx-4" href="#">Sign Up</a>
@@ -243,37 +243,37 @@
       location_icon_PivotPoint = new THREE.Object3D();
       location_icon_PivotPoint.position.set( 0, 0, 0 );
 
-      var location_icon_geometry_email = new THREE.BoxGeometry( 39, 27, .7 );
+      var location_icon_geometry_logo = new THREE.BoxGeometry( 30, 30, 0 );
       var location_icon_geometry = new THREE.BoxGeometry( 20, 32, 0 );
       //   var location_icon_material = new THREE.MeshBasicMaterial( {color: 0x8d8d8d} ); //test material of plain color
       THREE.ImageUtils.crossOrigin = '';
       // var location_icon_image = THREE.ImageUtils.loadTexture( 'http://oi67.tinypic.com/6fql9h.jpg' );
       // var location_icon_image = THREE.ImageUtils.loadTexture( 'http://i.imgur.com/j7dzU42.jpg' );
-      var location_icon_image_email = THREE.ImageUtils.loadTexture( 'https://i.imgur.com/Dv6awZC.jpg' );
+      var location_icon_image_logo = THREE.ImageUtils.loadTexture( 'https://i.imgur.com/tu52RXt.png' );
       var location_icon_image = THREE.ImageUtils.loadTexture( 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Map_marker.svg/1000px-Map_marker.svg.png' );
 
-      var location_icon_imageMaterial_email = new THREE.MeshBasicMaterial( {
-        map: location_icon_image_email,
+      var location_icon_imageMaterial_logo = new THREE.MeshBasicMaterial( {
+        map: location_icon_image_logo,
         opacity: 0.75
       });
       var location_icon_imageMaterial = new THREE.MeshBasicMaterial( {
         map: location_icon_image,
         opacity: 0.75
       });
-      location_icon_imageMaterial_email.transparent = true;
+      location_icon_imageMaterial_logo.transparent = true;
       location_icon_imageMaterial.transparent = true;
 
       //NOTE: tiling of images in textures only functions if image dimensions are powers of two
       //for examples: (2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, ...)
-      location_icon_image_email.wrapS = location_icon_image_email.wrapT = THREE.RepeatWrapping;
-      var location_icon_Mesh_email = new THREE.Mesh( location_icon_geometry_email, location_icon_imageMaterial_email );
+      location_icon_image_logo.wrapS = location_icon_image_logo.wrapT = THREE.RepeatWrapping;
+      var location_icon_Mesh_logo = new THREE.Mesh( location_icon_geometry_logo, location_icon_imageMaterial_logo );
 
       location_icon_image.wrapS = location_icon_image.wrapT = THREE.RepeatWrapping;
       var location_icon_Mesh = new THREE.Mesh( location_icon_geometry, location_icon_imageMaterial );
       var location_icon_Mesh2 = new THREE.Mesh( location_icon_geometry, location_icon_imageMaterial );
       var location_icon_Mesh3 = new THREE.Mesh( location_icon_geometry, location_icon_imageMaterial );
 
-      scene_header.add( location_icon_Mesh_email );
+      scene_header.add( location_icon_Mesh_logo );
       scene_header.add( location_icon_Mesh );
       scene_header.add( location_icon_Mesh2 );
       scene_header.add( location_icon_Mesh3 );
@@ -283,9 +283,9 @@
       location_icon_PivotPoint.add( location_icon_Mesh3 );
       scene_header.add( location_icon_PivotPoint );
 
-      location_icon_Mesh_email.position.z = 60;
-      location_icon_Mesh_email.position.x = 60;
-      location_icon_Mesh_email.rotation.y = Math.PI/2;
+      location_icon_Mesh_logo.position.z = 60;
+      location_icon_Mesh_logo.position.x = 60;
+      // location_icon_Mesh_logo.rotation.y = Math.PI/2;
 
       location_icon_Mesh.position.z = 60;
       location_icon_Mesh.position.x = 60;
@@ -360,8 +360,14 @@
         torus_mesh.position.y = 5 + (1.7*(Math.cos(steps)));
 
         location_icon_PivotPoint.rotation.y+=0.004; //rotates around center
+        // location_icon_PivotPoint.rotation.x += 0.03;
+
         // location_icon_Mesh.rotation.y += 0.01;
-        // location_icon_Mesh_email.rotation.y -= 0.005;
+
+        location_icon_Mesh_logo.rotation.x -= 0.009;
+        location_icon_Mesh_logo.rotation.y -= 0.009;
+        location_icon_Mesh_logo.rotation.z -= 0.009;
+
         renderer_header.render(scene_header, camera_header);
       };
       render();
