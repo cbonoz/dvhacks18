@@ -99,13 +99,6 @@ class NewJobVC: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        let dloc = CLLocationCoordinate2D(latitude: 33.9012292, longitude: -118.391747)
-        let daddr = "1240 Rosecrans\nManhattan Beach, CA 90266"
-        let ploc = CLLocationCoordinate2D(latitude: 34.053718, longitude: -118.2448473)
-        let paddr = "200 N Spring St\nLos Angeles, CA 90012"
-        let job = Job(portName: "San Pedro: Port 4",
-                      dropAddr: daddr, dropLoc: dloc, pickAddr: paddr, pickLoc: ploc)
-        self.job = job
     }
 
     override func didReceiveMemoryWarning() {
