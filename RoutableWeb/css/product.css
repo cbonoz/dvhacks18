@@ -70,7 +70,10 @@ body{
   border-radius: 0;
   color: #212b35;
   background-color: transparent;
-  border-bottom: 2px solid #F5F7FA; }
+  border-bottom: 2px solid #F5F7FA;
+  padding: .5rem 1rem;
+  margin-bottom: 10px;
+}
 
 .container-fluid {
     padding: 60px 50px;
@@ -119,7 +122,10 @@ body{
 /* Rules for using icons as white on a dark background. */
 .material-icons.md-custom { color: #50acfd; }
 
-
+.v-align{
+  display: inline-flex;
+  vertical-align: middle;
+}
 /* button */
 .btn {
   padding: .5em 1.5em .5em; }
@@ -211,6 +217,9 @@ pre .line::before {
     font-weight: 500;
     display: block;
 }
+.code-content{
+  padding:10px;
+}
 /*
  * Off Canvas
  * --------------------------------------------------
@@ -263,24 +272,24 @@ a.list-group-item.list-group-item-blue {
 
 a.list-group-item.active {
   background-color: white;
-  color: #3344dd;
+  color: #50acfd;
   border: none;
   font-weight: 600;
-  border-left: 4px solid #3057D5; }
+  border-left: 4px solid #50acfd; }
 
 .sidebar-offcanvas .list-group-item:hover {
   -webkit-transition: all 0.3s;
   -moz-transition: all 0.3s;
   -o-transition: all 0.3s;
   transition: all 0.3s;
-  color: #3344dd; }
+  color: #50acfd; }
 
 .sidebar-offcanvas .list-group-item:active {
   -webkit-transition: all 0.3s;
   -moz-transition: all 0.3s;
   -o-transition: all 0.3s;
   transition: all 0.3s;
-  background: #3344dd;
+  background: #50acfd;
   color: white;
   -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
@@ -292,3 +301,22 @@ a.list-group-item.active {
 .list-group-item {
   border: 0;
   border-radius: 0 !important; }
+
+
+/*card styles*/
+
+.paper {
+  padding: 2rem;
+  background: white; }
+
+.card {
+  background: white;
+  border-radius: 2px; }
+
+.card-1 {
+  -webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+  /*   box-shadow: 0 1.2rem 3.6rem rgba(0,0,0,.2); */
+  -webkit-transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  -o-transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); }

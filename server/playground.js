@@ -12,7 +12,7 @@ const INF = 100000000;
 
 const content = fs.readFileSync("demo/nodes.json", "utf8");
 let locations = JSON.parse(content);
-locations = locations.splice(0,100);
+locations = locations.splice(0, 25);
 // const locations = [
     // [13.414649963378906, 52.522905940278065],
     // [13.363409042358397, 52.549218541178455],
@@ -30,7 +30,7 @@ console.log('locations', locations.length);
 // Starting location (node) for vehicle.
 const depotIndex = 0;
 const computeTimeLimit = 10000;
-const numVehicles = 100;
+const numVehicles = 10;
 const vehicleCapacity = 2;
 const n = locations.length;
 
