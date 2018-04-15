@@ -13,7 +13,9 @@ Routable
 
 ### Concept:
 
-Ports and delivery centers still struggle to optimize scheduling because of data siloing. Routable is a neutral third party hosted solution which is able to optimize scheduling across multiple centers - without sharing any data with other parties - so that drivers' time can be saved, gas can be saved, and more deliveries can be served at any given delivery center or port.
+90 percent of short-haul trucking from maritime ports in the US are performed by individual truckers or small fleets of less than 6 vehicles. They are at the mercy of brokers who charge 25-35% fees, and dole out single-transaction jobs on an unknown schedule. This causes most trucks to return to the ports empty, and idle needlessly waiting for jobs.
+
+Routable is a new service that eliminates the broker, and implements a routing algorithm that emphasizes dual-transaction routes - delivery from port to hub followed by a hub pickup and return to port. Drivers will have more full loads and daily trips, ports will be able to transact more containers per day, and port pollution will be reduced. Routing is performed regularly to self-heal from truck breakdowns or driver issues.
 
 View the pitch deck here: <a href="https://docs.google.com/presentation/d/1rC6jKaGLiJJWgyQHkIo4bEdZeTz1ex22JDnd4DLX3EQ/edit?usp=sharing">Pitch Deck</a>
 
@@ -42,6 +44,7 @@ View the pitch deck here: <a href="https://docs.google.com/presentation/d/1rC6jK
         <img src="./screenshots/api_single.png" width="600" style="margin: 0 auto"/>
     <h3>Mobile App Screenshots</h3>
         <img src="./screenshots/ip-job.png" width="600" style="margin: 0 auto"/>
+        <img src="./screenshots/ip-map.png" width="600" style="margin: 0 auto"/>
 </div>
 
 
