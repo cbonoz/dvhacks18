@@ -21,8 +21,7 @@ ports = ports.map((p, i) => {
 
 // Set to large number to send in single run.
 const JOBS_PER_LOOP = 3;
-
-const NUM_JOBS = ports.length / 2;
+const NUM_JOBS = 10;
 
 const portUrl = `${BASE_URL}/api/ports/add`;
 axios.post(portUrl, {

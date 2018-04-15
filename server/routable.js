@@ -4,16 +4,18 @@
 const library = (function () {
 
     const geolib = require('geolib');
+    // const geoLib = require('geo-lib');
     const ortools = require('node_or_tools');
     const BASE_URL = "localhost:9001";
 
-    // Returns the arc distance between two lat/lng pairs.
+    // Returns the arc distance between two lat/lng pairs in kilometers.
     // ex: return geolib.getDistance(
     //     {latitude: 51.5103, longitude: 7.49347},
     //     {latitude: "51° 31' N", longitude: "7° 28' E"}
     // );
     function getDistance(point1, point2) {
-        return geolib.getDistance(point1, point2);
+        return geolib.getDistance(point1, point2) / 1000.0; // km
+        // return geoLib.distance([[point1.latitude,point1.longitude], [point2.latitude, point2.longitude]]).distance;
     }
 
     function matrix(m, n, fillValue) {
@@ -30,7 +32,7 @@ const library = (function () {
     }
 
     function createDemandMatrix(n, startNodeIndex) {
-        const m = matrix(n, n, 0);
+        const m = matrix(n, n, 1);
         for (let i = 0; i < n; i++) {
             m[startNodeIndex][i] = 0;
         }

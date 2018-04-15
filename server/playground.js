@@ -8,53 +8,80 @@ const fs = require('fs');
 const util = require('util');
 const _ = require('lodash');
 
+const INF = 100000000;
+
 const content = fs.readFileSync("demo/nodes.json", "utf8");
-const locations = JSON.parse(content);
+let locations = JSON.parse(content);
+locations = locations.splice(0,100);
+// const locations = [
+    // [13.414649963378906, 52.522905940278065],
+    // [13.363409042358397, 52.549218541178455],
+    // [13.394737243652344, 52.55062769982075],
+    // [13.426065444946289, 52.54640008814808],
+    // [13.375682830810547, 52.536534077147714],
+    // [13.39010238647461, 52.546191306649376],
+    // [13.351736068725584, 52.50754964045259],
+    // [13.418254852294922, 52.52927670688215],
+// ];
+
 
 console.log('locations', locations.length);
 
 // Starting location (node) for vehicle.
-const startNode = 0;
-const numVehicles = 5;
-const vehicleCapacity = 5;
+const depotIndex = 0;
+const computeTimeLimit = 10000;
+const numVehicles = 100;
+const vehicleCapacity = 2;
 const n = locations.length;
 
-const costMatrix = routable.getCostMatrix(locations, routable.getDistance);
-const INF = 1000000; // also max time horizon.
+// 9am -- 5pm
+var dayStarts = 0;
+var dayEnds = 8 * 60 * 60;
 
-const solverOpts = {
-    numNodes: n,
-    costs: costMatrix,
-    durations: routable.matrix(n,n,1),
-    timeWindows: routable.createArrayList(n, [0, INF]),
-    demands: routable.createDemandMatrix(n, startNode)
+const costs = routable.getCostMatrix(locations, routable.getDistance);
+
+// Dummy durations, no service times included
+var durations = costs;
+
+// Dummy time windows for the full day
+var timeWindows = new Array(durations.length);
+
+for (var at = 0; at < durations.length; ++at) {
+    timeWindows[at] = [dayStarts, dayEnds];
+}
+
+var demands = routable.createDemandMatrix(n, depotIndex);
+
+// No route locks per vehicle, let solver decide freely
+var routeLocks = routable.createArrayList(numVehicles, []);
+
+
+var solverOpts = {
+    numNodes: durations.length,
+    costs: costs,
+    durations: durations,
+    timeWindows: timeWindows,
+    demands: demands
 };
 
-const routeLocks = routable.createArrayList(numVehicles, []);
+var timeHorizon = INF; //dayEnds - dayStarts;
 
-// Select random subset of pickup/destination indices.
-const indexes = _.range(n);
-const pickups = indexes.slice(0, n/2);
-const deliveries = indexes.slice(n/2);
-// console.log('pickups',pickups.length, pickups);
-// console.log('deliveries', deliveries.length, deliveries);
-
-const searchOpts = {
-    computeTimeLimit: 1000,
+var searchOpts = {
+    computeTimeLimit: computeTimeLimit,
     numVehicles: numVehicles,
-    depotNode: startNode,
-    timeHorizon: INF,
+    depotNode: depotIndex,
+    timeHorizon: timeHorizon,
     vehicleCapacity: vehicleCapacity,
     routeLocks: routeLocks,
-    pickups: pickups,
-    deliveries: deliveries
+    pickups: [],
+    deliveries: []
 };
 
 // console.log(solverOpts, searchOpts);
 //
 routable.solveVRP(solverOpts, searchOpts, (err, solution) => {
     if (err) {
-        console.error('error', err);
+        console.error(err);
         return;
     }
     console.log('solution', JSON.stringify(solution));

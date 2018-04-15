@@ -47,6 +47,7 @@ npm manifest:
       "cors": "^2.8.4",
       "express": "^4.16.3",
       "fs": "^0.0.1-security",
+      "geo-lib": "^0.3.1",
       "geolib": "^2.0.24",
       "http": "^0.0.0",
       "lodash": "^4.17.5",
@@ -1020,6 +1021,10 @@ Lockfile:
       string-width "^1.0.1"
       strip-ansi "^3.0.1"
       wide-align "^1.1.0"
+  
+  geo-lib@^0.3.1:
+    version "0.3.1"
+    resolved "https://registry.yarnpkg.com/geo-lib/-/geo-lib-0.3.1.tgz#8cf984baa3b4d209b1fa27d4d8459ff624dfed1e"
   
   geolib@^2.0.24:
     version "2.0.24"

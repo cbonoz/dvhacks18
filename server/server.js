@@ -17,7 +17,7 @@
     const PORT = process.env.ROUTABLE_SERVER_PORT || 9001;
 
     const COMPUTE_LIMIT_MS = 1000;
-    const INF = 100000;
+    const INF = 1000000;
 
     /***********
      * LIBRARIES
@@ -179,11 +179,11 @@
                     const pid = rows.findIndex((loc) => {
                         return loc.id === job.pickupid;
                     });
-                    pickups.push(pid);
+                    // pickups.push(pid);
                     const did = rows.findIndex((loc) => {
                         return loc.id === job.deliveryid;
                     });
-                    deliveries.push(did);
+                    // deliveries.push(did);
                 });
 
                 const costMatrix = routable.getCostMatrix(ports, routable.getDistance);
@@ -196,7 +196,7 @@
                 const solverOpts = {
                     numNodes: n,
                     costs: costMatrix,
-                    durations: routable.matrix(n, n, 1),
+                    durations: costMatrix,
                     timeWindows: routable.createArrayList(n, [0, INF]),
                     demands: routable.createDemandMatrix(n, startNode)
                 };
@@ -215,8 +215,8 @@
                     deliveries: deliveries
                 };
 
-                console.log('solver', solverOpts);
-                console.log('search', searchOpts);
+                // console.log('solver', solverOpts);
+                // console.log('search', searchOpts);
 
                 routable.solveVRP(solverOpts, searchOpts, (err, solution) => {
                     if (err) {
