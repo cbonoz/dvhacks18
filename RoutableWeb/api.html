@@ -52,12 +52,23 @@
       <div class="row row-offcanvas row-offcanvas-right">
 
         <div class="col-6 col-md-3 sidebar-offcanvas" id="sidebar">
-          <div class="list-group card card-1">
-            <a href="#" class="list-group-item active"><i class="material-icons">insert_photo</i> test title</a>
-            <a href="explorations/virtual-aquarium/aquarium.html" class="list-group-item list-group-item-blue" target="_blank"><i class="material-icons">bubble_chart</i> lorem ipsum</a>
-            <a href="explorations/panoTestImages.html" class="list-group-item list-group-item-blue" target="_blank"><i class="material-icons">language</i> lorem ipsum</a>
-            <a href="explorations/Sound-Visualizer/batTestTemp.html" class="list-group-item list-group-item-blue" target="_blank"><i class="material-icons">audiotrack</i> lorem ipsum</a>
-          </div>
+          <nav>
+            <div class="list-group card card-1" id="nav-tab" role="tablist">
+              <a class="list-group-item active" id="nav-home-tab" data-toggle="tab" href="#nav-register" role="tab" aria-controls="nav-home" aria-selected="true">
+                <i class="material-icons">insert_photo</i> Register Ports
+              </a>
+              <a class="list-group-item list-group-item-blue" id="nav-profile-tab" data-toggle="tab" href="#nav-ports" role="tab" aria-controls="nav-profile" aria-selected="false">
+                <i class="material-icons">bubble_chart</i> Get existing ports
+              </a>
+              <a class="list-group-item list-group-item-blue" id="nav-contact-tab" data-toggle="tab" href="#nav-jobs" role="tab" aria-controls="nav-contact" aria-selected="false">
+                <i class="material-icons">language</i> Create new jobs
+              </a>
+              <a class="list-group-item list-group-item-blue" id="nav-contact-tab" data-toggle="tab" href="#nav-schedule" role="tab" aria-controls="nav-contact" aria-selected="false">
+                <i class="material-icons">audiotrack</i> Get Optimal Schedule for day
+              </a>
+            </div>
+          </nav>
+
         </div><!--/span-->
 
         <div class="col-12 col-md-9">
@@ -68,15 +79,20 @@
             <div class="jumbotron-custom">
               <h1 class="d-block" id="skiptocontent">Lorem Ipsum Jane Doe</h1>
             </div>
-            <div class="row">
-              <div class="col-sm-12 col-md-6 col-lg-6">
+            <div class="code-content">
+              <div class="tab-content" id="nav-tabContent">
+
+                <div class="tab-pane fade show active" id="nav-register" role="tabpanel" aria-labelledby="nav-home-tab">1
 <pre>
   <span class="token description">
   ===
   Register Ports:
-  ===
-  Definition:
-  POST /api/ports/add</span>
+  ===</span>
+
+  <span class="token title">Definition:</span>
+  <span class="token code-body">
+  POST /api/ports/add
+  </span>
 
   <span class="token title">Example Request Body: </span>
   <span class="token code-body">
@@ -102,14 +118,32 @@
       <span class="token json-key">_parsers</span>: [],
       <span class="token json-key">RowCtor</span>: <span class="token state">null</span>,
       <span class="token json-key">rowAsArray</span>: <span class="token state">false</span>
-  }</span>
+  }
+  </span>
+</pre>
+                </div>
+                <!-- end register ports -->
 
+                <div class="tab-pane fade" id="nav-ports" role="tabpanel" aria-labelledby="nav-profile-tab">2
+
+                </div>
+
+                <div class="tab-pane fade" id="nav-jobs" role="tabpanel" aria-labelledby="nav-contact-tab">3</div>
+
+                <div class="tab-pane fade" id="nav-schedule" role="tabpanel" aria-labelledby="nav-contact-tab">4</div>
+
+              </div>
+
+<pre>
   <span class="token description">
   ===
   Get existing ports
-  ===
-  Definition:
-  GET /api/ports</span>
+  ===</span>
+
+  <span class="token title">Definition:</span>
+  <span class="token code-body">
+  GET /api/ports
+  </span>
 
   <span class="token title">Example Response:</span>
   <span class="token code-body">
@@ -120,14 +154,18 @@
           <span class="token json-key">lat</span>: <span class="token number">33.89673601</span>,
           <span class="token json-key">lng</span>: -<span class="token number">118.2262623</span>
       }
-  ]</span>
+  ]
+  </span>
 
   <span class="token description">
   ===
   Create new jobs:
-  ===
-  Definition:
-  POST /api/jobs/add</span>
+  ===</span>
+
+  <span class="token title">Definition:</span>
+  <span class="token code-body">
+  POST /api/jobs/add
+  </span>
 
   <span class="token title">Example Request Body: </span>
   <span class="token code-body">
@@ -138,9 +176,10 @@
           <span class="token json-key">pickupId</span>: <span class="token number">0</span>, <span class="token comment">// portId of pickup location</span>
           <span class="token json-key">deliveryId</span>: <span class="token number">1</span>, <span class="token comment">// portId of delivery location</span>
       }
-  }</span>
+  }
+  </span>
 
-  <span class="token description">Example Response:</span>
+  <span class="token title">Example Response:</span>
   <span class="token comment">// Successful DB response.</span>
   <span class="token code-body">
   {
@@ -152,13 +191,17 @@
       <span class="token json-key">_parsers</span>: [],
       <span class="token json-key">RowCtor</span>: <span class="token state">null</span>,
       <span class="token json-key">rowAsArray</span>: <span class="token state">false</span>
-  }</span>
+  }
+  </span>
   <span class="token description">
   ===
   Get Optimal Schedule for day
-  ===
-  Definition:
-  POST / api / schedule</span>
+  ===</span>
+
+  <span class="token title">Definition:</span>
+  <span class="token code-body">
+  POST /api/schedule
+  </span>
 
   <span class="token title">Example Request Body:</span>
   <span class="token code-body">
@@ -166,7 +209,8 @@
       <span class="token json-key">startPortId</span>: <span class="token number">0</span>, <span class="token comment">// origin and return port for vehicles</span>
       <span class="token json-key">numVehicles</span>: <span class="token number">2</span>, <span class="token comment">// number of vehicles starting at port</span>
       <span class="token json-key">jobDate</span>: <span class="token quotes">'</span><span class="token string">4-14-2018</span><span class="token quotes">'</span> <span class="token comment">// jobDate for optimal schedule computation</span>
-  }</span>
+  }
+  </span>
 
   <span class="token title">Example Response:</span>
   <span class="token code-body">
@@ -177,8 +221,7 @@
   }</span>
 
 </pre>
-              </div>
-            </div>
+            </div> <!-- .row -->
 
             <div class="row">
               <div class="col-sm-12 col-md-12 col-lg-4">
@@ -213,59 +256,6 @@
     </main><!--/.container-->
     <!-- off canvas nav ends -->
 
-    <!-- Container (About Section) -->
-    <div class="container-fluid invisible viewpoint-fadeInUp-delay4">
-      <div class="row">
-        <div class="col-sm-8">
-          <h2><strong>Features </strong></h2>
-          <h4 class="mt-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure rerum eos aut saepe eveniet aliquam repellat sunt.</h4>
-          <p class="mt-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure rerum eos aut saepe eveniet aliquam repellat sunt, error vero ut expedita illum doloremque dignissimos nulla illo, maiores, quae cupiditate hic?</p>
-          <button class="btn btn-outlined btn-custom mt-4">Get in Touch</button>
-        </div>
-        <div class="col-sm-4">
-          <i class="material-icons md-custom md-100">bubble_chart</i>
-        </div>
-      </div>
-    </div>
-
-    <div class="container-fluid bg-custom-white invisible viewpoint-fadeInUp">
-      <div class="row">
-        <div class="col-sm-4 text-right">
-          <i class="material-icons md-custom md-100">bubble_chart</i>
-        </div>
-        <div class="col-sm-8">
-          <h2><strong>Features</strong></h2>
-          <h4 class="mt-4"><strong>MISSION:</strong> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure rerum eos aut saepe eveniet aliquam repellat sunt.</h4>
-          <p class="mt-4"><strong>VISION:</strong> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure rerum eos aut saepe eveniet aliquam repellat sunt, error vero ut expedita illum doloremque dignissimos nulla illo, maiores, quae cupiditate hic?</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Container (Services Section) -->
-    <div class="container-fluid bg-light text-center invisible viewpoint-fadeInUp">
-      <h2>SERVICES</h2>
-      <h4>What we offer</h4>
-      <br>
-      <div class="row">
-        <div class="col-sm-4">
-          <i class="material-icons md-custom md-48">bubble_chart</i>
-          <h4>POWER</h4>
-          <p>Lorem ipsum dolor sit amet..</p>
-        </div>
-        <div class="col-sm-4">
-          <i class="material-icons md-custom md-48">bubble_chart</i>
-          <h4>LOVE</h4>
-          <p>Lorem ipsum dolor sit amet..</p>
-        </div>
-        <div class="col-sm-4">
-          <i class="material-icons md-custom md-48">bubble_chart</i>
-          <h4>JOB DONE</h4>
-          <p>Lorem ipsum dolor sit amet..</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- <hr> -->
 
     <footer class="container py-4 mt-4">
       <div class="row">

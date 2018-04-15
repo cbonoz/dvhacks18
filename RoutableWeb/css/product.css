@@ -211,6 +211,9 @@ pre .line::before {
     font-weight: 500;
     display: block;
 }
+.code-content{
+  padding:10px;
+}
 /*
  * Off Canvas
  * --------------------------------------------------
