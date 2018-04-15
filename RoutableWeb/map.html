@@ -75,7 +75,8 @@
 
 <div class="map-header">
     <div id="error-text"></div>
-    <h1>Job Routing Schedule:</h1>
+    <h1>Optimal Job Routing Schedule:</h1>
+    <span id="map-header-subtitle"></span>,
     Date: <span id="date-section">
     </span>
 
@@ -402,27 +403,9 @@
             $("#error-text").html(`Error deriving schedule, ${message}.`);
         }
 
-        var contentString = '<div id="content">'+
-            '<div id="siteNotice">'+
-            '</div>'+
-            '<h1 id="firstHeading" class="firstHeading">Uluru</h1>'+
-            '<div id="bodyContent">'+
-            '<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large ' +
-            'sandstone rock formation in the southern part of the '+
-            'Northern Territory, central Australia. It lies 335&#160;km (208&#160;mi) '+
-            'south west of the nearest large town, Alice Springs; 450&#160;km '+
-            '(280&#160;mi) by road. Kata Tjuta and Uluru are the two major '+
-            'features of the Uluru - Kata Tjuta National Park. Uluru is '+
-            'sacred to the Pitjantjatjara and Yankunytjatjara, the '+
-            'Aboriginal people of the area. It has many springs, waterholes, '+
-            'rock caves and ancient paintings. Uluru is listed as a World '+
-            'Heritage Site.</p>'+
-            '<p>Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">'+
-            'https://en.wikipedia.org/w/index.php?title=Uluru</a> '+
-            '(last visited June 22, 2009).</p>'+
-            '</div>'+
-            '</div>';
-
+        function getMarkerInfo(truck, portName, pickup, stopNumber) {
+            return `<div id="content"><div id="siteNotice"></div><h1 id="firstHeading" class="firstHeading">${portName}</h1><div id="bodyContent"><p><b>Port Name: ${portName}</b></p><p><b>Truck ${truck}</b></p><p>Stop Type: ${pickup ? 'Pickup' : 'Deliver'}, Stop Number ${stopNumber}</p></div></div>`;
+        }
 
         function handleRouteData(data) {
             $("#error-text").html('');
@@ -459,10 +442,11 @@
                     // console.log('placing', portName);
                     const position = {lat: currentPort.lat, lng: currentPort.lng};
                     flightPlanCoordinates.push(position);
+                    const isPickup = i % 2;
                     const marker = new google.maps.Marker({
                         map: map,
                         draggable: false,
-                        icon: i % 2 ? icons.pickup : icons.delivery,
+                        icon: isPickup ? icons.pickup : icons.delivery,
                         animation: firstRun ? google.maps.Animation.DROP : null,
                         position: position,
                         title: portName,
@@ -471,14 +455,14 @@
                     markers.push(marker);
                     marker.addListener('click', toggleBounce);
                     var infowindow = new google.maps.InfoWindow({
-                        content: contentString
+                        content: getMarkerInfo(vehicleIndex, portName, isPickup, i)
                     });
-                    marker.addListener('click', function() {
+                    marker.addListener('click', function () {
                         infowindow.open(map, marker);
                     });
 
                 });
-                const truckRoute = `Truck ${vehicleIndex}: ${[startPortIndex].concat(route).concat([startPortIndex]).join(' -> ')}`;
+                const truckRoute = `Route ${vehicleIndex}: ${[startPortIndex].concat(route).concat([startPortIndex]).join(' -> ')}`;
                 routeText += "<li>" + truckRoute + "</li>";
                 console.log(truckRoute);
                 flightPlanCoordinates.push({lat: startPort.lat, lng: startPort.lng});
@@ -494,8 +478,8 @@
                 for (var i = 0, n = flightPlanCoordinates.length; i < n; i++) {
 
                     var coordinates = new Array();
-                    for (var j = i; j < i+2 && j < n; j++) {
-                        coordinates[j-i] = flightPlanCoordinates[j];
+                    for (var j = i; j < i + 2 && j < n; j++) {
+                        coordinates[j - i] = flightPlanCoordinates[j];
                     }
 
 
@@ -554,6 +538,8 @@
             numVehicles: 10,
             vehicleCapacity: 2
         };
+
+        $("#map-header-subtitle").html(`For ${data.numVehicles} vehicles with ${data.vehicleCapacity} unit capacity`);
 
         function makeRouteRequest() {
             console.log('makeRouteRequest');
