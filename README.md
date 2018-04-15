@@ -1,7 +1,17 @@
 Routable
 ---
 
-### Concept
+<b>Team Brontosaurus:</b>
+<br/>
+
+* Chris Buonocore (back end / maps)
+* Ed Arenburg (ios)
+* Brandon In (research / back end)
+* Sarah Han (UI / UX / front end)
+
+<b>Check the `README.md` files in each subfolder for more information.</b>
+
+### Concept:
 
 Ports and delivery centers still struggle to optimize scheduling because of data siloing. Routable is a neutral third party hosted solution which is able to optimize scheduling across multiple centers - without sharing any data with other parties - so that drivers' time can be saved, gas can be saved, and more deliveries can be served at any given delivery center or port.
 
@@ -15,8 +25,6 @@ View the pitch deck here: <a href="https://docs.google.com/presentation/d/1rC6jK
 <li><b>/RoutableWeb</b>: Client side reactjs website</li>
 <li><b>/screenshots</b>: Screenshots of app</b></li>  
 </ul>
-
-Check the `README.md` files in each subfolder for more information.
 
 ### Screenshots
 
