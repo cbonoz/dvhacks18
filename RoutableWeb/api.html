@@ -1,0 +1,337 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- <link rel="icon" href="favicon.ico"> -->
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+
+    <title>Routable</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+
+    <!-- Custom styles for this template -->
+    <link href="css/product.css" rel="stylesheet">
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-expand-sm navbar-light bg-light">
+      <a class="navbar-brand mx-4" href="index.html"><strong>Routable</strong></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+
+          <li class="nav-item">
+            <a class="nav-link mx-4" href="map.html">Map</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link mx-4" href="#">API</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link mx-4" href="#">Sign Up</a>
+          </li>
+
+        </ul>
+
+      </div>
+    </nav>
+
+    <!-- add off canvas nav here -->
+    <main role="main" class="container-fluid pt-4">
+      <div class="row row-offcanvas row-offcanvas-right">
+
+        <div class="col-6 col-md-3 sidebar-offcanvas" id="sidebar">
+          <div class="list-group card card-1">
+            <a href="#" class="list-group-item active"><i class="material-icons">insert_photo</i> test title</a>
+            <a href="explorations/virtual-aquarium/aquarium.html" class="list-group-item list-group-item-blue" target="_blank"><i class="material-icons">bubble_chart</i> lorem ipsum</a>
+            <a href="explorations/panoTestImages.html" class="list-group-item list-group-item-blue" target="_blank"><i class="material-icons">language</i> lorem ipsum</a>
+            <a href="explorations/Sound-Visualizer/batTestTemp.html" class="list-group-item list-group-item-blue" target="_blank"><i class="material-icons">audiotrack</i> lorem ipsum</a>
+          </div>
+        </div><!--/span-->
+
+        <div class="col-12 col-md-9">
+          <div class="paper card card-1 bg-custom">
+            <p class="d-md-none">
+              <button type="button" class="btn btn-outlined btn-custom" data-toggle="offcanvas">Toggle nav</button>
+            </p>
+            <div class="jumbotron-custom">
+              <h1 class="d-block" id="skiptocontent">Lorem Ipsum Jane Doe</h1>
+            </div>
+            <div class="row">
+              <div class="col-sm-12 col-md-6 col-lg-6">
+<pre>
+  <span class="token description">
+  ===
+  Register Ports:
+  ===
+  Definition:
+  POST /api/ports/add</span>
+
+  <span class="token title">Example Request Body: </span>
+  <span class="token code-body">
+  {
+      <span class="token purple">ports</span>: [
+      {
+          <span class="token json-key">name</span>: <span class="token quotes">'</span><span class="token string">Port 1</span><span class="token quotes">'</span>,
+          <span class="token json-key">lat</span>: <span class="token number">33.89673601</span>,
+          <span class="token json-key">lng</span>: -<span class="token number">118.2262623</span>
+      }]
+  }
+  </span>
+  <span class="token title">
+  Example Response: </span>
+  <span class="token comment">// Successful DB response.</span>
+  <span class="token code-body">
+  {
+      <span class="token json-key">command</span>: <span class="token quotes">'</span><span class="token string">INSERT</span><span class="token quotes">'</span>,
+      <span class="token json-key">rowCount</span>: <span class="token number">1</span>,
+      <span class="token json-key">oid</span>: <span class="token number">0</span>,
+      <span class="token json-key">rows</span>: [],
+      <span class="token json-key">fields</span>: [],
+      <span class="token json-key">_parsers</span>: [],
+      <span class="token json-key">RowCtor</span>: <span class="token state">null</span>,
+      <span class="token json-key">rowAsArray</span>: <span class="token state">false</span>
+  }</span>
+
+  <span class="token description">
+  ===
+  Get existing ports
+  ===
+  Definition:
+  GET /api/ports</span>
+
+  <span class="token title">Example Response:</span>
+  <span class="token code-body">
+  [
+      {
+          <span class="token json-key">id</span>: <span class="token number">0</span> <span class="token comment">// database-assigned id.</span>
+          <span class="token json-key">name</span>: <span class="token quotes">'</span><span class="token string">Port 1</span><span class="token quotes">'</span>,
+          <span class="token json-key">lat</span>: <span class="token number">33.89673601</span>,
+          <span class="token json-key">lng</span>: -<span class="token number">118.2262623</span>
+      }
+  ]</span>
+
+  <span class="token description">
+  ===
+  Create new jobs:
+  ===
+  Definition:
+  POST /api/jobs/add</span>
+
+  <span class="token title">Example Request Body: </span>
+  <span class="token code-body">
+  {
+      <span class="token purple">jobs</span>: [
+      {
+          <span class="token json-key">day</span>: <span class="token quotes">'</span><span class="token string">4-14-2018</span><span class="token quotes">'</span>, <span class="token comment">// day of job</span>
+          <span class="token json-key">pickupId</span>: <span class="token number">0</span>, <span class="token comment">// portId of pickup location</span>
+          <span class="token json-key">deliveryId</span>: <span class="token number">1</span>, <span class="token comment">// portId of delivery location</span>
+      }
+  }</span>
+
+  <span class="token description">Example Response:</span>
+  <span class="token comment">// Successful DB response.</span>
+  <span class="token code-body">
+  {
+      <span class="token json-key">command</span>: <span class="token quotes">'</span><span class="token string">INSERT</span><span class="token quotes">'</span>,
+      <span class="token json-key">rowCount</span>: <span class="token number">1</span>,
+      <span class="token json-key">oid</span>: <span class="token number">0</span>,
+      <span class="token json-key">rows</span>: [],
+      <span class="token json-key">fields</span>: [],
+      <span class="token json-key">_parsers</span>: [],
+      <span class="token json-key">RowCtor</span>: <span class="token state">null</span>,
+      <span class="token json-key">rowAsArray</span>: <span class="token state">false</span>
+  }</span>
+  <span class="token description">
+  ===
+  Get Optimal Schedule for day
+  ===
+  Definition:
+  POST / api / schedule</span>
+
+  <span class="token title">Example Request Body:</span>
+  <span class="token code-body">
+  {
+      <span class="token json-key">startPortId</span>: <span class="token number">0</span>, <span class="token comment">// origin and return port for vehicles</span>
+      <span class="token json-key">numVehicles</span>: <span class="token number">2</span>, <span class="token comment">// number of vehicles starting at port</span>
+      <span class="token json-key">jobDate</span>: <span class="token quotes">'</span><span class="token string">4-14-2018</span><span class="token quotes">'</span> <span class="token comment">// jobDate for optimal schedule computation</span>
+  }</span>
+
+  <span class="token title">Example Response:</span>
+  <span class="token code-body">
+  {
+      <span class="token json-key">cost</span>: X, <span class="token comment">// optimal cost for schedule</span>
+      <span class="token json-key">routes</span>:[[],[]], <span class="token comment">// nodes for each vehicle to visit (index i = route for truck i)</span>
+      <span class="token json-key">times</span>:[[],[]] <span class="token comment">// times that truck i can acceptablely arrive/leave at each route node,</span>
+  }</span>
+
+</pre>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-12 col-md-12 col-lg-4">
+                <h2 class="text-center">Hello</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam officia unde dolores atque deserunt dolorem aperiam error eum dignissimos dicta?</p>
+                <p class="text-center"><a class="btn btn-outlined btn-custom" href="#" role="button" target="_blank">submit &raquo;</a></p>
+              </div><!--/span-->
+              <div class="col-sm-12 col-md-12 col-lg-4">
+                <h2 class="text-center">World</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam officia unde dolores atque deserunt dolorem aperiam error eum dignissimos dicta?</p>
+                <p class="text-center"><a class="btn btn-outlined btn-custom" href="#" role="button" target="_blank">submit &raquo;</a></p>
+              </div><!--/span-->
+              <div class="col-sm-12 col-md-12 col-lg-4">
+                <h2 class="text-center">Test</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam officia unde dolores atque deserunt dolorem aperiam error eum dignissimos dicta?</p>
+                <p class="text-center"><a class="btn btn-outlined btn-custom" href="#" role="button" target="_blank">submit &raquo;</a></p>
+              </div><!--/span-->
+
+            </div><!--/row-->
+
+            <hr>
+
+            <div class="">
+              <p>test hello world hi hello<a href="#">www.routable.com</a>. Have a nice day!</p>
+            </div>
+
+          </div><!--/paper-->
+        </div><!--/span-->
+      <!-- off canvas links -->
+      </div><!--/row-->
+      <hr>
+    </main><!--/.container-->
+    <!-- off canvas nav ends -->
+
+    <!-- Container (About Section) -->
+    <div class="container-fluid invisible viewpoint-fadeInUp-delay4">
+      <div class="row">
+        <div class="col-sm-8">
+          <h2><strong>Features </strong></h2>
+          <h4 class="mt-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure rerum eos aut saepe eveniet aliquam repellat sunt.</h4>
+          <p class="mt-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure rerum eos aut saepe eveniet aliquam repellat sunt, error vero ut expedita illum doloremque dignissimos nulla illo, maiores, quae cupiditate hic?</p>
+          <button class="btn btn-outlined btn-custom mt-4">Get in Touch</button>
+        </div>
+        <div class="col-sm-4">
+          <i class="material-icons md-custom md-100">bubble_chart</i>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid bg-custom-white invisible viewpoint-fadeInUp">
+      <div class="row">
+        <div class="col-sm-4 text-right">
+          <i class="material-icons md-custom md-100">bubble_chart</i>
+        </div>
+        <div class="col-sm-8">
+          <h2><strong>Features</strong></h2>
+          <h4 class="mt-4"><strong>MISSION:</strong> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure rerum eos aut saepe eveniet aliquam repellat sunt.</h4>
+          <p class="mt-4"><strong>VISION:</strong> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure rerum eos aut saepe eveniet aliquam repellat sunt, error vero ut expedita illum doloremque dignissimos nulla illo, maiores, quae cupiditate hic?</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Container (Services Section) -->
+    <div class="container-fluid bg-light text-center invisible viewpoint-fadeInUp">
+      <h2>SERVICES</h2>
+      <h4>What we offer</h4>
+      <br>
+      <div class="row">
+        <div class="col-sm-4">
+          <i class="material-icons md-custom md-48">bubble_chart</i>
+          <h4>POWER</h4>
+          <p>Lorem ipsum dolor sit amet..</p>
+        </div>
+        <div class="col-sm-4">
+          <i class="material-icons md-custom md-48">bubble_chart</i>
+          <h4>LOVE</h4>
+          <p>Lorem ipsum dolor sit amet..</p>
+        </div>
+        <div class="col-sm-4">
+          <i class="material-icons md-custom md-48">bubble_chart</i>
+          <h4>JOB DONE</h4>
+          <p>Lorem ipsum dolor sit amet..</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- <hr> -->
+
+    <footer class="container py-4 mt-4">
+      <div class="row">
+        <div class="col-12 col-md">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="d-block mb-2"><circle cx="12" cy="12" r="10"></circle><line x1="14.31" y1="8" x2="20.05" y2="17.94"></line><line x1="9.69" y1="8" x2="21.17" y2="8"></line><line x1="7.38" y1="12" x2="13.12" y2="2.06"></line><line x1="9.69" y1="16" x2="3.95" y2="6.06"></line><line x1="14.31" y1="16" x2="2.83" y2="16"></line><line x1="16.62" y1="12" x2="10.88" y2="21.94"></line></svg>
+          <small class="d-block mb-3 text-muted">&copy; 2017-2018</small>
+        </div>
+        <div class="col-6 col-md">
+          <h5>Features</h5>
+          <ul class="list-unstyled text-small">
+            <li><a class="text-muted" href="#">Cool stuff</a></li>
+            <li><a class="text-muted" href="#">Random feature</a></li>
+            <li><a class="text-muted" href="#">Team feature</a></li>
+            <li><a class="text-muted" href="#">Stuff for developers</a></li>
+            <li><a class="text-muted" href="#">Another one</a></li>
+            <li><a class="text-muted" href="#">Last time</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-md">
+          <h5>Resources</h5>
+          <ul class="list-unstyled text-small">
+            <li><a class="text-muted" href="#">Resource</a></li>
+            <li><a class="text-muted" href="#">Resource name</a></li>
+            <li><a class="text-muted" href="#">Another resource</a></li>
+            <li><a class="text-muted" href="#">Final resource</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-md">
+          <h5>Resources</h5>
+          <ul class="list-unstyled text-small">
+            <li><a class="text-muted" href="#">Business</a></li>
+            <li><a class="text-muted" href="#">Education</a></li>
+            <li><a class="text-muted" href="#">Government</a></li>
+            <li><a class="text-muted" href="#">Gaming</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-md">
+          <h5>About</h5>
+          <ul class="list-unstyled text-small">
+            <li><a class="text-muted" href="#">Team</a></li>
+            <li><a class="text-muted" href="#">Locations</a></li>
+            <li><a class="text-muted" href="#">Privacy</a></li>
+            <li><a class="text-muted" href="#">Terms</a></li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.js"
+      integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+      crossorigin="anonymous">
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r69/three.min.js"></script>
+    <script src="js/animate-viewport.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-viewport-checker/1.8.8/jquery.viewportchecker.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    <script src="js/custom.js"></script>
+
+  </body>
+</html>

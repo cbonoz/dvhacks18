@@ -1,8 +1,8 @@
 Arguments: 
-  /usr/local/Cellar/node/9.5.0/bin/node /usr/local/bin/yarn test
+  /usr/local/Cellar/node/9.5.0/bin/node /usr/local/bin/yarn start
 
 PATH: 
-  /usr/local/sbin:/Users/cbuonocore/go/bin:/Users/cbuonocore/.yarn/bin:~/.local/bin:/usr/local/bin/python2:/Users/cbuonocore/bin:/usr/local/bin:/usr/local/sbin:/Users/cbuonocore/go/bin:/Users/cbuonocore/.yarn/bin:~/.local/bin:/usr/local/bin/python2:/Users/cbuonocore/bin:/usr/local/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/TeX/texbin:/usr/local/go/bin:/Users/cbuonocore/Toast/git-repos/play1:/Users/cbuonocore/Library/Android/sdk/tools:/Users/cbuonocore/Library/Android/sdk/platform-tools:/Users/cbuonocore/Toast/git-repos/play1:/Users/cbuonocore/Library/Android/sdk/tools:/Users/cbuonocore/Library/Android/sdk/platform-tools:/Users/cbuonocore/anaconda3/bin:/Users/cbuonocore/.local/bin:/Users/cbuonocore/bin:/Users/cbuonocore/anaconda3/bin:/Users/cbuonocore/.local/bin:/Users/cbuonocore/bin
+  /usr/local/sbin:/Users/cbuonocore/go/bin:/Users/cbuonocore/.yarn/bin:~/.local/bin:/usr/local/bin/python2:/Users/cbuonocore/bin:/usr/local/bin:/usr/local/sbin:/Users/cbuonocore/go/bin:/Users/cbuonocore/.yarn/bin:~/.local/bin:/usr/local/bin/python2:/Users/cbuonocore/bin:/usr/local/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/TeX/texbin:/usr/local/go/bin:/usr/local/sbin:/Users/cbuonocore/go/bin:/Users/cbuonocore/.yarn/bin:~/.local/bin:/usr/local/bin/python2:/Users/cbuonocore/bin:/Users/cbuonocore/Toast/git-repos/play1:/Users/cbuonocore/Library/Android/sdk/tools:/Users/cbuonocore/Library/Android/sdk/platform-tools:/Users/cbuonocore/anaconda3/bin:/Users/cbuonocore/.local/bin:/Users/cbuonocore/Toast/git-repos/play1:/Users/cbuonocore/Library/Android/sdk/tools:/Users/cbuonocore/Library/Android/sdk/platform-tools:/Users/cbuonocore/Toast/git-repos/play1:/Users/cbuonocore/Library/Android/sdk/tools:/Users/cbuonocore/Library/Android/sdk/platform-tools:/Users/cbuonocore/anaconda3/bin:/Users/cbuonocore/.local/bin:/Users/cbuonocore/bin:/Users/cbuonocore/anaconda3/bin:/Users/cbuonocore/.local/bin:/Users/cbuonocore/bin
 
 Yarn version: 
   1.5.1
@@ -47,6 +47,7 @@ npm manifest:
       "cors": "^2.8.4",
       "express": "^4.16.3",
       "fs": "^0.0.1-security",
+      "geo-lib": "^0.3.1",
       "geolib": "^2.0.24",
       "http": "^0.0.0",
       "lodash": "^4.17.5",
@@ -1020,6 +1021,10 @@ Lockfile:
       string-width "^1.0.1"
       strip-ansi "^3.0.1"
       wide-align "^1.1.0"
+  
+  geo-lib@^0.3.1:
+    version "0.3.1"
+    resolved "https://registry.yarnpkg.com/geo-lib/-/geo-lib-0.3.1.tgz#8cf984baa3b4d209b1fa27d4d8459ff624dfed1e"
   
   geolib@^2.0.24:
     version "2.0.24"
@@ -3008,7 +3013,7 @@ Trace:
   Error: Command failed.
   Exit code: 1
   Command: sh
-  Arguments: -c mocha *test.js
+  Arguments: -c node server.js
   Directory: /Users/cbuonocore/personal/hackathon/dvhacks/server
   Output:
   

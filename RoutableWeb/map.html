@@ -1,7 +1,6 @@
-
 <!doctype html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
@@ -15,18 +14,36 @@
     <title>Routable</title>
 
     <style>
-      /* Always set the map height explicitly to define the size of the div
-       * element that contains the map. */
-      #map {
-        margin: 20px;
-        width: 90%;
-        height: 700px;
-      }
+        #date-section {
+            font-style: italic;
+        }
+
+        #result-section {
+            margin: 5px;
+        }
+
+        #error-text {
+            color: red;
+        }
+
+        .map-header {
+            margin-left: 20px;
+            margin: 20px;
+        }
+
+        /* Always set the map height explicitly to define the size of the div
+         * element that contains the map. */
+        #map {
+            margin: 20px;
+            width: 90%;
+            height: 700px;
+        }
 
     </style>
 
     <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+          integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
 
     <!-- Custom styles for this template -->
     <link href="css/product.css" rel="stylesheet">
@@ -34,339 +51,513 @@
 
 <body>
 
-    <nav class="navbar navbar-expand-sm navbar-light bg-light">
-      <a class="navbar-brand mx-4" href="index.html">Routable</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+<nav class="navbar navbar-expand-sm navbar-light bg-light">
+    <a class="navbar-brand mx-4" href="index.html">Routable</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
-      </button>
+    </button>
 
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
-
-          <li class="nav-item">
-            <a class="nav-link mx-4" href="index.html">About</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link mx-4" href="map.html">Map</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link mx-4" href="#">API</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link mx-4" href="#">Sign Up</a>
-          </li>
-
+            <li class="nav-item">
+                <a class="nav-link mx-4" href="map.html">Map</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link mx-4" href="#">API</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link mx-4" href="#">Sign Up</a>
+            </li>
         </ul>
+    </div>
+</nav>
 
-      </div>
-    </nav>
+<div class="map-header">
+    <div id="error-text"></div>
+    <h1>Job Routing Schedule:</h1>
+    Date: <span id="date-section">
+    </span>
 
-    <div class="mx-auto" id="map"></div>
+    <div id="result-section"></div>
+</div>
 
-    <hr>
+<div class="mx-auto" id="map"></div>
 
-    <footer class="container py-5">
-      <div class="row">
+<hr>
+
+<footer class="container py-5">
+    <div class="row">
         <div class="col-12 col-md">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="d-block mb-2"><circle cx="12" cy="12" r="10"></circle><line x1="14.31" y1="8" x2="20.05" y2="17.94"></line><line x1="9.69" y1="8" x2="21.17" y2="8"></line><line x1="7.38" y1="12" x2="13.12" y2="2.06"></line><line x1="9.69" y1="16" x2="3.95" y2="6.06"></line><line x1="14.31" y1="16" x2="2.83" y2="16"></line><line x1="16.62" y1="12" x2="10.88" y2="21.94"></line></svg>
-          <small class="d-block mb-3 text-muted">&copy; 2017-2018</small>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                 class="d-block mb-2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="14.31" y1="8" x2="20.05" y2="17.94"></line>
+                <line x1="9.69" y1="8" x2="21.17" y2="8"></line>
+                <line x1="7.38" y1="12" x2="13.12" y2="2.06"></line>
+                <line x1="9.69" y1="16" x2="3.95" y2="6.06"></line>
+                <line x1="14.31" y1="16" x2="2.83" y2="16"></line>
+                <line x1="16.62" y1="12" x2="10.88" y2="21.94"></line>
+            </svg>
+            <small class="d-block mb-3 text-muted">&copy; 2017-2018</small>
         </div>
         <div class="col-6 col-md">
-          <h5>Features</h5>
-          <ul class="list-unstyled text-small">
-            <li><a class="text-muted" href="#">Cool stuff</a></li>
-            <li><a class="text-muted" href="#">Random feature</a></li>
-            <li><a class="text-muted" href="#">Team feature</a></li>
-            <li><a class="text-muted" href="#">Stuff for developers</a></li>
-            <li><a class="text-muted" href="#">Another one</a></li>
-            <li><a class="text-muted" href="#">Last time</a></li>
-          </ul>
+            <h5>Features</h5>
+            <ul class="list-unstyled text-small">
+                <li><a class="text-muted" href="#">Cool stuff</a></li>
+                <li><a class="text-muted" href="#">Random feature</a></li>
+                <li><a class="text-muted" href="#">Team feature</a></li>
+                <li><a class="text-muted" href="#">Stuff for developers</a></li>
+                <li><a class="text-muted" href="#">Another one</a></li>
+                <li><a class="text-muted" href="#">Last time</a></li>
+            </ul>
         </div>
         <div class="col-6 col-md">
-          <h5>Resources</h5>
-          <ul class="list-unstyled text-small">
-            <li><a class="text-muted" href="#">Resource</a></li>
-            <li><a class="text-muted" href="#">Resource name</a></li>
-            <li><a class="text-muted" href="#">Another resource</a></li>
-            <li><a class="text-muted" href="#">Final resource</a></li>
-          </ul>
+            <h5>Resources</h5>
+            <ul class="list-unstyled text-small">
+                <li><a class="text-muted" href="#">Resource</a></li>
+                <li><a class="text-muted" href="#">Resource name</a></li>
+                <li><a class="text-muted" href="#">Another resource</a></li>
+                <li><a class="text-muted" href="#">Final resource</a></li>
+            </ul>
         </div>
         <div class="col-6 col-md">
-          <h5>Resources</h5>
-          <ul class="list-unstyled text-small">
-            <li><a class="text-muted" href="#">Business</a></li>
-            <li><a class="text-muted" href="#">Education</a></li>
-            <li><a class="text-muted" href="#">Government</a></li>
-            <li><a class="text-muted" href="#">Gaming</a></li>
-          </ul>
+            <h5>Resources</h5>
+            <ul class="list-unstyled text-small">
+                <li><a class="text-muted" href="#">Business</a></li>
+                <li><a class="text-muted" href="#">Education</a></li>
+                <li><a class="text-muted" href="#">Government</a></li>
+                <li><a class="text-muted" href="#">Gaming</a></li>
+            </ul>
         </div>
         <div class="col-6 col-md">
-          <h5>About</h5>
-          <ul class="list-unstyled text-small">
-            <li><a class="text-muted" href="#">Team</a></li>
-            <li><a class="text-muted" href="#">Locations</a></li>
-            <li><a class="text-muted" href="#">Privacy</a></li>
-            <li><a class="text-muted" href="#">Terms</a></li>
-          </ul>
+            <h5>About</h5>
+            <ul class="list-unstyled text-small">
+                <li><a class="text-muted" href="#">Team</a></li>
+                <li><a class="text-muted" href="#">Locations</a></li>
+                <li><a class="text-muted" href="#">Privacy</a></li>
+                <li><a class="text-muted" href="#">Terms</a></li>
+            </ul>
         </div>
-      </div>
-    </footer>
-    <script>
+    </div>
+</footer>
+<!-- Placed at the end of the document so the pages load faster -->
+<script
+        src="https://code.jquery.com/jquery-3.3.1.js"
+        integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+        crossorigin="anonymous">
+</script>
 
-      // This example creates a 2-pixel-wide red polyline showing the path of
-      // the first trans-Pacific flight between Oakland, CA, and Brisbane,
-      // Australia which was made by Charles Kingsford Smith.
+<script>
 
-      function initMap() {
+    // This example creates a 2-pixel-wide red polyline showing the path of
+    // the first trans-Pacific flight between Oakland, CA, and Brisbane,
+    // Australia which was made by Charles Kingsford Smith.
+
+    function initMap() {
         var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 3,
-          center: {lat: 0, lng: -180},
-          styles: [
-    {
-        "elementType": "labels",
-        "stylers": [
-            {
-                "visibility": "off"
-            },
-            {
-                "color": "#f49f53"
-            }
-        ]
-    },
-    {
-        "featureType": "landscape",
-        "stylers": [
-            {
-                "color": "#f9ddc5"
-            },
-            {
-                "lightness": -7
-            }
-        ]
-    },
-    {
-        "featureType": "road",
-        "stylers": [
-            {
-                "color": "#813033"
-            },
-            {
-                "lightness": 43
-            }
-        ]
-    },
-    {
-        "featureType": "poi.business",
-        "stylers": [
-            {
-                "color": "#645c20"
-            },
-            {
-                "lightness": 38
-            }
-        ]
-    },
-    {
-        "featureType": "water",
-        "stylers": [
-            {
-                "color": "#1994bf"
-            },
-            {
-                "saturation": -69
-            },
-            {
-                "gamma": 0.99
-            },
-            {
-                "lightness": 43
-            }
-        ]
-    },
-    {
-        "featureType": "road.local",
-        "elementType": "geometry.fill",
-        "stylers": [
-            {
-                "color": "#f19f53"
-            },
-            {
-                "weight": 1.3
-            },
-            {
-                "visibility": "on"
-            },
-            {
-                "lightness": 16
-            }
-        ]
-    },
-    {
-        "featureType": "poi.business"
-    },
-    {
-        "featureType": "poi.park",
-        "stylers": [
-            {
-                "color": "#645c20"
-            },
-            {
-                "lightness": 39
-            }
-        ]
-    },
-    {
-        "featureType": "poi.school",
-        "stylers": [
-            {
-                "color": "#a95521"
-            },
-            {
-                "lightness": 35
-            }
-        ]
-    },
-    {},
-    {
-        "featureType": "poi.medical",
-        "elementType": "geometry.fill",
-        "stylers": [
-            {
-                "color": "#813033"
-            },
-            {
-                "lightness": 38
-            },
-            {
-                "visibility": "off"
-            }
-        ]
-    },
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {
-        "elementType": "labels"
-    },
-    {
-        "featureType": "poi.sports_complex",
-        "stylers": [
-            {
-                "color": "#9e5916"
-            },
-            {
-                "lightness": 32
-            }
-        ]
-    },
-    {},
-    {
-        "featureType": "poi.government",
-        "stylers": [
-            {
-                "color": "#9e5916"
-            },
-            {
-                "lightness": 46
-            }
-        ]
-    },
-    {
-        "featureType": "transit.station",
-        "stylers": [
-            {
-                "visibility": "off"
-            }
-        ]
-    },
-    {
-        "featureType": "transit.line",
-        "stylers": [
-            {
-                "color": "#813033"
-            },
-            {
-                "lightness": 22
-            }
-        ]
-    },
-    {
-        "featureType": "transit",
-        "stylers": [
-            {
-                "lightness": 38
-            }
-        ]
-    },
-    {
-        "featureType": "road.local",
-        "elementType": "geometry.stroke",
-        "stylers": [
-            {
-                "color": "#f19f53"
-            },
-            {
-                "lightness": -10
-            }
-        ]
-    },
-    {},
-    {},
-    {}
-]
+            zoom: 3,
+            center: {lat: 0, lng: -180},
+            styles: [
+                {
+                    "elementType": "labels",
+                    "stylers": [
+                        {
+                            "visibility": "off"
+                        },
+                        {
+                            "color": "#f49f53"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "landscape",
+                    "stylers": [
+                        {
+                            "color": "#f9ddc5"
+                        },
+                        {
+                            "lightness": -7
+                        }
+                    ]
+                },
+                {
+                    "featureType": "road",
+                    "stylers": [
+                        {
+                            "color": "#813033"
+                        },
+                        {
+                            "lightness": 43
+                        }
+                    ]
+                },
+                {
+                    "featureType": "poi.business",
+                    "stylers": [
+                        {
+                            "color": "#645c20"
+                        },
+                        {
+                            "lightness": 38
+                        }
+                    ]
+                },
+                {
+                    "featureType": "water",
+                    "stylers": [
+                        {
+                            "color": "#1994bf"
+                        },
+                        {
+                            "saturation": -69
+                        },
+                        {
+                            "gamma": 0.99
+                        },
+                        {
+                            "lightness": 43
+                        }
+                    ]
+                },
+                {
+                    "featureType": "road.local",
+                    "elementType": "geometry.fill",
+                    "stylers": [
+                        {
+                            "color": "#f19f53"
+                        },
+                        {
+                            "weight": 1.3
+                        },
+                        {
+                            "visibility": "on"
+                        },
+                        {
+                            "lightness": 16
+                        }
+                    ]
+                },
+                {
+                    "featureType": "poi.business"
+                },
+                {
+                    "featureType": "poi.park",
+                    "stylers": [
+                        {
+                            "color": "#645c20"
+                        },
+                        {
+                            "lightness": 39
+                        }
+                    ]
+                },
+                {
+                    "featureType": "poi.school",
+                    "stylers": [
+                        {
+                            "color": "#a95521"
+                        },
+                        {
+                            "lightness": 35
+                        }
+                    ]
+                },
+                {},
+                {
+                    "featureType": "poi.medical",
+                    "elementType": "geometry.fill",
+                    "stylers": [
+                        {
+                            "color": "#813033"
+                        },
+                        {
+                            "lightness": 38
+                        },
+                        {
+                            "visibility": "off"
+                        }
+                    ]
+                },
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {
+                    "elementType": "labels"
+                },
+                {
+                    "featureType": "poi.sports_complex",
+                    "stylers": [
+                        {
+                            "color": "#9e5916"
+                        },
+                        {
+                            "lightness": 32
+                        }
+                    ]
+                },
+                {},
+                {
+                    "featureType": "poi.government",
+                    "stylers": [
+                        {
+                            "color": "#9e5916"
+                        },
+                        {
+                            "lightness": 46
+                        }
+                    ]
+                },
+                {
+                    "featureType": "transit.station",
+                    "stylers": [
+                        {
+                            "visibility": "off"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "transit.line",
+                    "stylers": [
+                        {
+                            "color": "#813033"
+                        },
+                        {
+                            "lightness": 22
+                        }
+                    ]
+                },
+                {
+                    "featureType": "transit",
+                    "stylers": [
+                        {
+                            "lightness": 38
+                        }
+                    ]
+                },
+                {
+                    "featureType": "road.local",
+                    "elementType": "geometry.stroke",
+                    "stylers": [
+                        {
+                            "color": "#f19f53"
+                        },
+                        {
+                            "lightness": -10
+                        }
+                    ]
+                },
+                {},
+                {},
+                {}
+            ]
         });
 
+        function getRandomColor() {
+            const letters = '0123456789ABCDEF';
+            let color = '#';
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+
+        function toggleBounce() {
+            const marker = this;
+            if (marker.getAnimation() !== null) {
+                marker.setAnimation(null);
+            } else {
+                marker.setAnimation(google.maps.Animation.BOUNCE);
+            }
+        }
+
+        const startPortId = 1;
+        var markers;
+
+        var firstRun = true;
+
+        const icons = {
+            pickup: './img/pickup.png',
+            delivery: './img/delivery.png',
+            start: './img/start.png'
+        };
+
+        function handleError(res, textStatus, errorThrown) {
+            console.log('handleError', textStatus, errorThrown);
+            var message;
+            if (res.status === 400) {
+                message = "Solution satisfying constraints not possible";
+            } else {
+                message = JSON.stringify(res);
+            }
+            $("#error-text").html(`Error deriving schedule, ${message}.`);
+        }
+
+        var contentString = '<div id="content">'+
+            '<div id="siteNotice">'+
+            '</div>'+
+            '<h1 id="firstHeading" class="firstHeading">Uluru</h1>'+
+            '<div id="bodyContent">'+
+            '<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large ' +
+            'sandstone rock formation in the southern part of the '+
+            'Northern Territory, central Australia. It lies 335&#160;km (208&#160;mi) '+
+            'south west of the nearest large town, Alice Springs; 450&#160;km '+
+            '(280&#160;mi) by road. Kata Tjuta and Uluru are the two major '+
+            'features of the Uluru - Kata Tjuta National Park. Uluru is '+
+            'sacred to the Pitjantjatjara and Yankunytjatjara, the '+
+            'Aboriginal people of the area. It has many springs, waterholes, '+
+            'rock caves and ancient paintings. Uluru is listed as a World '+
+            'Heritage Site.</p>'+
+            '<p>Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">'+
+            'https://en.wikipedia.org/w/index.php?title=Uluru</a> '+
+            '(last visited June 22, 2009).</p>'+
+            '</div>'+
+            '</div>';
 
 
-        var flightPlanCoordinates = [
-          {lat: 37.772, lng: -122.214},
-          {lat: 21.291, lng: -157.821},
-          {lat: -18.142, lng: 178.431},
-          {lat: -27.467, lng: 153.027}
-        ];
-        var flightPath = new google.maps.Polyline({
-          path: flightPlanCoordinates,
-          geodesic: true,
-          strokeColor: '#FF0000',
-          strokeOpacity: 1.0,
-          strokeWeight: 2
-        });
+        function handleRouteData(data) {
+            $("#error-text").html('');
+            markers = [];
+            console.log('data', data);
+            // TODO: generate polylines from the schedule data on the map
+            const ports = data.ports;
 
-        flightPath.setMap(map);
-      }
-    </script>
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap">
-    </script>
-    <!-- Replace the value of the key parameter with your own API key. -->
-    <script async defer
+            const startPortIndex = ports.findIndex((port) => {
+                return port.id === startPortId
+            });
+
+            let routes = data.routes;
+            routes = routes.filter((route => route.length));
+
+            var routeText = "<ul>";
+            const startPort = ports[startPortIndex];
+
+            markers.push(new google.maps.Marker({
+                map: map,
+                draggable: false,
+                icon: icons.start,
+                animation: firstRun ? google.maps.Animation.DROP : null,
+                position: {lat: startPort.lat, lng: startPort.lng},
+                optimized: false
+            }));
+
+            routes.map((route, vehicleIndex) => {
+                const flightPlanCoordinates = [];
+                flightPlanCoordinates.push({lat: startPort.lat, lng: startPort.lng});
+                route.map((portIndex, i) => {
+                    const currentPort = ports[portIndex];
+                    const portName = ports[portIndex].name;
+                    // console.log('placing', portName);
+                    const position = {lat: currentPort.lat, lng: currentPort.lng};
+                    flightPlanCoordinates.push(position);
+                    const marker = new google.maps.Marker({
+                        map: map,
+                        draggable: false,
+                        icon: i % 2 ? icons.pickup : icons.delivery,
+                        animation: firstRun ? google.maps.Animation.DROP : null,
+                        position: position,
+                        optimized: false
+                    });
+                    markers.push(marker);
+                    marker.setTitle(portName);
+                    marker.addListener('click', toggleBounce);
+                    var infowindow = new google.maps.InfoWindow({
+                        content: contentString
+                    });
+                    marker.addListener('click', function() {
+                        infowindow.open(map, marker);
+                    });
+
+                });
+                const truckRoute = `Truck ${vehicleIndex}: ${[startPortIndex].concat(route).concat([startPortIndex]).join(' -> ')}`;
+                routeText += "<li>" + truckRoute + "</li>";
+                console.log(truckRoute);
+                flightPlanCoordinates.push({lat: startPort.lat, lng: startPort.lng});
+                const flightPath = new google.maps.Polyline({
+                    path: flightPlanCoordinates,
+                    geodesic: true,
+                    strokeColor: getRandomColor(), // Use variable color for each vehicle on the map.
+                    strokeOpacity: 1.0,
+                    strokeWeight: 3
+                });
+                flightPath.setMap(map);
+            });
+
+            firstRun = false;
+            routeText += "</ul>";
+            $("#result-section").html('' + routeText);
+
+            const lat = ports[startPortIndex].lat;
+            const lng = ports[startPortIndex].lng;
+            console.log('center', lat, lng);
+
+            // Center the map at the starting node
+            const center = new google.maps.LatLng(lat, lng);
+            map.setCenter(center);
+            map.setZoom(11);
+            map.setMapTypeId('satellite');
+        }
+
+        const date = new Date();
+        const jobDate = (date.getMonth() + 1) + '-' + date.getDate() + '-' + date.getFullYear();
+        $("#date-section").html(jobDate);
+
+        const data = {
+            jobDate: jobDate,
+            startPortId: startPortId,
+            numVehicles: 10,
+            vehicleCapacity: 2
+        };
+
+        function makeRouteRequest() {
+            console.log('makeRouteRequest');
+            $.ajax({
+                url: 'http://localhost:9001/api/schedule',
+                type: 'POST',
+                data: JSON.stringify(data),
+                contentType: 'application/json; charset=utf-8',
+                success: handleRouteData,
+                error: handleError
+            });
+        }
+
+        // Refresh the map page every 10000ms.
+//        setInterval(makeRouteRequest, 10000);
+        makeRouteRequest();
+
+    }
+</script>
+<!-- Replace the value of the key parameter with your own API key. -->
+<script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZv3FYTJL94Iob7eHNYHef3-obGTzpTcg&libraries=visualization&callback=initMap">
-    </script>
+</script>
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+<!-- Bootstrap core JavaScript
+================================================== -->
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" type="text/javascript"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r69/three.min.js"></script>
-    <script src="js/animate-viewport.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-viewport-checker/1.8.8/jquery.viewportchecker.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r69/three.min.js"></script>
+<script src="js/animate-viewport.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-viewport-checker/1.8.8/jquery.viewportchecker.min.js"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
+        integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
+        integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
+        crossorigin="anonymous"></script>
 
-    <script>
+<script>
 
-    </script>
-  </body>
+</script>
+</body>
 </html>

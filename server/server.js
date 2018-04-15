@@ -17,7 +17,7 @@
     const PORT = process.env.ROUTABLE_SERVER_PORT || 9001;
 
     const COMPUTE_LIMIT_MS = 1000;
-    const INF = 100000;
+    const INF = 1000000;
 
     /***********
      * LIBRARIES
@@ -57,6 +57,21 @@
     });
 
     /*
+     * Returns registered ports.
+     */
+    app.get('/api/ports', (err, res) => {
+        const portQuery = `SELECT * from port`;
+        pool.query(portQuery, (err, data) => {
+            if (err) {
+                const msg = JSON.stringify(err);
+                return res.status(500).json(msg);
+            }
+
+            return res.status(200).json(data.rows);
+        });
+    });
+
+    /*
      * Register new ports with the Routable DB.
      * {
      *  ports: [ {name, latitude, longitude}, ... ]
@@ -64,22 +79,48 @@
      */
     app.post('/api/ports/add', function (req, res, next) {
         const body = req.body;
-        const ports = req.ports;
+        const ports = body.ports;
 
         const values = ports.map((port) => {
-            return `(${port.name}, ${port.latitude}, ${port.longitude})`;
+            return `('${port.name}', ${port.lat}, ${port.lng})`;
         });
-        const insertQuery = `'INSERT INTO ports(name, lat, lng) VALUES${values.join(',')}`;
-        pool.query(insertQuery, [], (err, res) => {
+        const insertQuery = `INSERT INTO port(name, lat, lng) VALUES${values.join(',')} ON CONFLICT DO NOTHING`;
+        console.log('port insertQuery', insertQuery);
+        pool.query(insertQuery, [], (err, data) => {
             if (err) {
                 const msg = JSON.stringify(err);
-                return res.json(msg).status(500);
+                return res.status(500).json(msg);
             }
 
-            const msg = `inserted ${ports.length} rows`;
-            return res.json(msg).status(200);
+            return res.status(200).json(data);
         });
     });
+
+    /**
+     * Add the jobs to the db.
+     * {
+     *  jobs: [ {pickupId, deliveryId, jobDate} ... ]
+     * }
+     */
+    app.post('/api/jobs/add', function (req, res, next) {
+        const body = req.body;
+        const jobs = body.jobs;
+
+        const values = jobs.map((job) => {
+            return `(${job.pickupId}, ${job.deliveryId}, '${job.jobDate}')`;
+        });
+        const insertQuery = `INSERT INTO job(pickupId, deliveryId, jobDate) VALUES${values.join(',')} ON CONFLICT DO NOTHING`;
+        console.log('job insertQuery', insertQuery);
+
+        pool.query(insertQuery, (err, jobData) => {
+            if (err) {
+                const msg = JSON.stringify(err);
+                res.status(500).json(err);
+            }
+            return res.status(200).json(jobData);
+        });
+    });
+
 
     /**
      * Returns the optimal schedule for the given driver and day.
@@ -88,57 +129,74 @@
      */
     app.post('/api/schedule', function (req, res, next) {
         const body = req.body;
+        console.log('/api/schedule');
 
-        const day = body.day;
-        const startingPortId = body.startingPortId;
+        const jobDate = body.jobDate;
+        const startPortId = body.startPortId || 1;
         const numVehicles = body.numVehicles;
+        const vehicleCapacity = body.vehicleCapacity || 2;
+        console.log('jobDate', jobDate);
 
-        const query = `SELECT * FROM job WHERE day=${day}`;
-        pool.query(query, [], (err, res) => {
+        const query = `SELECT * FROM job WHERE jobDate='${jobDate}'`;
+        pool.query(query, (err, jobData) => {
             if (err) {
                 const msg = JSON.stringify(err);
-                return res.json(msg).status(500);
+                return res.status(500).json(msg);
             }
 
-            const jobs = res.rows; // {pickupId, deliveryId, jobDate}
+            const jobs = jobData.rows; // {pickupId, deliveryId, jobDate}
+            console.log('calculating schedule for ' + JSON.stringify(jobs));
             if (!jobs) {
                 // No tasks required.
-                return res.json(routable.createArrayList(numVehicles), []).status(200);
+                return res.status(200).json(routable.createArrayList(numVehicles), []);
             }
 
-            const ids = new Set();
+            let ids = new Set();
             jobs.map((job) => {
-                ids.add(job.pickupId);
-                ids.add(job.deliveryId);
+                ids.add(job.pickupid);
+                ids.add(job.deliveryid);
             });
+            ids = Array.from(ids);
+            console.log('ids', ids);
 
-            // Retrieve the ports
-            const locationQuery = `SELECT * FROM port where id in (${ids.join(',')})`;
-            pool.query(locationQuery, (err, res) => {
+            // Retrieve the ports used in the current jobs.
+            const portQuery = `SELECT * FROM port where id in (${ids.join(',')})`;
+            pool.query(portQuery, (err, portData) => {
                 if (err) {
                     const msg = JSON.stringify(err);
-                    return res.json(msg).status(500);
+                    return res.status(500).json(msg);
                 }
 
-                // TODO: Construct the location, pickups, and deliveries arrays based on the jobs list.
-                const locations = [];
-                const pickups = [];
-                const deliveries = [];
-                jobs.map(() => {
-                    return [];
+                const rows = portData.rows;
+                // minimal set of ports needed to cover the pickups and deliveries for today.
+                const ports = rows.map((row) => {
+                    return [row.lat, row.lng];
                 });
 
-                const costMatrix = routable.getCostMatrix(locations);
+                const pickups = [];
+                const deliveries = [];
+                jobs.map((job) => {
+                    const pid = rows.findIndex((loc) => {
+                        return loc.id === job.pickupid;
+                    });
+                    // pickups.push(pid);
+                    const did = rows.findIndex((loc) => {
+                        return loc.id === job.deliveryid;
+                    });
+                    // deliveries.push(did);
+                });
 
-                const n = jobs.length;
-                // TODO: find the startNode in the locations list based on the startingPortId.
+                const costMatrix = routable.getCostMatrix(ports, routable.getDistance);
 
-                const startNode = startingPortId;
+                const n = ports.length;
+                const startNode = rows.findIndex((loc) => {
+                    return loc.id === startPortId;
+                });
 
                 const solverOpts = {
                     numNodes: n,
                     costs: costMatrix,
-                    durations: routable.matrix(n, n, 1),
+                    durations: costMatrix,
                     timeWindows: routable.createArrayList(n, [0, INF]),
                     demands: routable.createDemandMatrix(n, startNode)
                 };
@@ -157,44 +215,24 @@
                     deliveries: deliveries
                 };
 
+                // console.log('solver', solverOpts);
+                // console.log('search', searchOpts);
+
                 routable.solveVRP(solverOpts, searchOpts, (err, solution) => {
                     if (err) {
                         const errorMessage = JSON.stringify(err);
-                        res.json(errorMessage).status(500);
+                        res.status(400).send(errorMessage);
+                        return;
                     }
-                    solution.locations = locations;
+                    solution.ports = rows;
                     solution.pickups = pickups;
                     solution.deliveries = deliveries;
+                    solution.jobDate = jobDate;
                     console.log('solution', solution);
-                    return res.json(solution).status(200);
+                    return res.status(200).json(solution);
                 });
             });
 
-        });
-    });
-
-    /**
-     * Add the jobs to the db.
-     * {
-     *  locations: [ {pickupId, deliveryId, jobDate} ... ]
-     * }
-     */
-    app.post('/api/jobs/add', function (req, res, next) {
-        const body = req.body;
-        const locations = body.locations;
-
-        const values = locations.map((location) => {
-            return `(${location.pickupId}, ${location.deliveryId}, ${location.jobDate})`;
-        });
-        const insertQuery = `'INSERT INTO jobs(pickupId, deliveryId, jobDate) VALUES${values.join(',')}`;
-
-        pool.query(insertQuery, (err, res) => {
-            if (err) {
-                const msg = JSON.stringify(err);
-                res.json(err).status(500);
-            }
-            const msg = `inserted ${locations.length} rows`;
-            return res.json(msg).status(200);
         });
     });
 
