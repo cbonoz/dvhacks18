@@ -385,6 +385,12 @@
 
         var firstRun = true;
 
+        const icons = {
+            pickup: './img/pickup.png',
+            delivery: './img/delivery.png',
+            start: './img/start.png'
+        };
+
         function handleError(res, textStatus, errorThrown) {
             console.log('handleError', textStatus, errorThrown);
             var message;
@@ -396,46 +402,92 @@
             $("#error-text").html(`Error deriving schedule, ${message}.`);
         }
 
+        var contentString = '<div id="content">'+
+            '<div id="siteNotice">'+
+            '</div>'+
+            '<h1 id="firstHeading" class="firstHeading">Uluru</h1>'+
+            '<div id="bodyContent">'+
+            '<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large ' +
+            'sandstone rock formation in the southern part of the '+
+            'Northern Territory, central Australia. It lies 335&#160;km (208&#160;mi) '+
+            'south west of the nearest large town, Alice Springs; 450&#160;km '+
+            '(280&#160;mi) by road. Kata Tjuta and Uluru are the two major '+
+            'features of the Uluru - Kata Tjuta National Park. Uluru is '+
+            'sacred to the Pitjantjatjara and Yankunytjatjara, the '+
+            'Aboriginal people of the area. It has many springs, waterholes, '+
+            'rock caves and ancient paintings. Uluru is listed as a World '+
+            'Heritage Site.</p>'+
+            '<p>Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">'+
+            'https://en.wikipedia.org/w/index.php?title=Uluru</a> '+
+            '(last visited June 22, 2009).</p>'+
+            '</div>'+
+            '</div>';
+
+
         function handleRouteData(data) {
             $("#error-text").html('');
             markers = [];
             console.log('data', data);
             // TODO: generate polylines from the schedule data on the map
             const ports = data.ports;
-            const routes = data.routes;
+
+            const startPortIndex = ports.findIndex((port) => {
+                return port.id === startPortId
+            });
+
+            let routes = data.routes;
+            routes = routes.filter((route => route.length));
 
             var routeText = "<ul>";
+            const startPort = ports[startPortIndex];
+
+            markers.push(new google.maps.Marker({
+                map: map,
+                draggable: false,
+                icon: icons.start,
+                animation: firstRun ? google.maps.Animation.DROP : null,
+                position: {lat: startPort.lat, lng: startPort.lng},
+                optimized: false
+            }));
 
             routes.map((route, vehicleIndex) => {
                 const flightPlanCoordinates = [];
-                route.map((portIndex) => {
+                flightPlanCoordinates.push({lat: startPort.lat, lng: startPort.lng});
+                route.map((portIndex, i) => {
                     const currentPort = ports[portIndex];
                     const portName = ports[portIndex].name;
                     // console.log('placing', portName);
                     const position = {lat: currentPort.lat, lng: currentPort.lng};
                     flightPlanCoordinates.push(position);
-                    markers.push(new google.maps.Marker({
+                    const marker = new google.maps.Marker({
                         map: map,
                         draggable: false,
+                        icon: i % 2 ? icons.pickup : icons.delivery,
                         animation: firstRun ? google.maps.Animation.DROP : null,
                         position: position,
                         optimized: false
-                    }));
+                    });
+                    markers.push(marker);
+                    marker.setTitle(portName);
+                    marker.addListener('click', toggleBounce);
+                    var infowindow = new google.maps.InfoWindow({
+                        content: contentString
+                    });
+                    marker.addListener('click', function() {
+                        infowindow.open(map, marker);
+                    });
 
-                    // TODO: fix title not appearing on map
-                    markers[markers.length - 1].setTitle(portName);
-                    markers[markers.length - 1].addListener('click', toggleBounce);
                 });
-
-                const truckRoute = `Truck ${vehicleIndex}: ${flightPlanCoordinates.join(' -> ')}`;
+                const truckRoute = `Truck ${vehicleIndex}: ${[startPortIndex].concat(route).concat([startPortIndex]).join(' -> ')}`;
                 routeText += "<li>" + truckRoute + "</li>";
                 console.log(truckRoute);
+                flightPlanCoordinates.push({lat: startPort.lat, lng: startPort.lng});
                 const flightPath = new google.maps.Polyline({
                     path: flightPlanCoordinates,
                     geodesic: true,
                     strokeColor: getRandomColor(), // Use variable color for each vehicle on the map.
                     strokeOpacity: 1.0,
-                    strokeWeight: 5
+                    strokeWeight: 3
                 });
                 flightPath.setMap(map);
             });
@@ -443,10 +495,6 @@
             firstRun = false;
             routeText += "</ul>";
             $("#result-section").html('' + routeText);
-
-            const startPortIndex = ports.findIndex((port) => {
-                return port.id === startPortId
-            });
 
             const lat = ports[startPortIndex].lat;
             const lng = ports[startPortIndex].lng;
@@ -466,7 +514,8 @@
         const data = {
             jobDate: jobDate,
             startPortId: startPortId,
-            numVehicles: 3,
+            numVehicles: 10,
+            vehicleCapacity: 2
         };
 
         function makeRouteRequest() {
@@ -482,7 +531,7 @@
         }
 
         // Refresh the map page every 10000ms.
-        setInterval(makeRouteRequest, 10000);
+//        setInterval(makeRouteRequest, 10000);
         makeRouteRequest();
 
     }
