@@ -5,7 +5,7 @@ Routable
 <br/>
 
 * Chris Buonocore (back end / maps)
-* Ed Arenburg (ios)
+* Ed Arenberg (iOS)
 * Brandon In (research / back end)
 * Sarah Han (UI / UX / front end)
 
@@ -40,6 +40,8 @@ View the pitch deck here: <a href="https://docs.google.com/presentation/d/1rC6jK
         <img src="./screenshots/api.png" width="600" style="margin: 0 auto"/>
     <h3>API Documentation (Detailed View)</h3>
         <img src="./screenshots/api_single.png" width="600" style="margin: 0 auto"/>
+    <h3>Mobile App Screenshots</h3>
+        <img src="./screenshots/ip-job.png" width="600" style="margin: 0 auto"/>
 </div>
 
 
