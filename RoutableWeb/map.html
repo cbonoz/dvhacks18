@@ -512,10 +512,10 @@
             firstRun = false;
             routeText += "</ul>";
             routeText += `<br/><p>Total Distance: <b>${data.cost}km</b></p>`;
-            if (data.pickups) {
+            if (data.pickups.length > 0) {
                 routeText += `<p>Pickups: <b>${data.pickups.join('\n')}</b></p>`;
             }
-            if (data.deliveries) {
+            if (data.deliveries.length > 0) {
                 routeText += `<p>Deliveries: <b>${data.deliveries.join('\n')}</b></p>`;
             }
             $("#result-section").html('' + routeText);
@@ -539,10 +539,8 @@
             jobDate: jobDate,
             startPortId: startPortId,
             numVehicles: 50,
-            vehicleCapacity: 5
+            vehicleCapacity: 2
         };
-
-        $("#map-header-subtitle").html(`For ${data.numVehicles} vehicles with ${data.vehicleCapacity} unit capacity`);
 
         function makeRouteRequest() {
             console.log('makeRouteRequest');
@@ -555,6 +553,8 @@
                 error: handleError
             });
         }
+
+        $("#map-header-subtitle").html(`For ${data.numVehicles} vehicles with ${data.vehicleCapacity} unit capacity`);
 
         // Refresh the map page every 10000ms.
 //        setInterval(makeRouteRequest, 10000);

@@ -182,11 +182,11 @@
                     const pid = rows.findIndex((loc) => {
                         return loc.id === job.pickupid;
                     });
-                    pickups.push(pid);
+                    // pickups.push(pid);
                     const did = rows.findIndex((loc) => {
                         return loc.id === job.deliveryid;
                     });
-                    deliveries.push(did);
+                    // deliveries.push(did);
                 });
 
                 const costMatrix = routable.getCostMatrix(ports, routable.getDistance);
