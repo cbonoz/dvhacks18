@@ -59,6 +59,12 @@ class OfflineVC: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        NotificationCenter.default.addObserver(forName: NSNotification.Name("AcceptJob"), object: nil, queue: .main, using: { notification in
+            guard let job = notification.userInfo?["Job"] as? Job else { return }
+            if let vc = self.storyboard?.instantiateViewController(withIdentifier: "ViewController") {
+                self.view.window?.rootViewController = vc
+            }
+        })
     }
 
     override func didReceiveMemoryWarning() {
