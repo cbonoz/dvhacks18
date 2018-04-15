@@ -21,16 +21,14 @@ Check the `README.md` files in each subfolder for more information.
 
 
 <div width="400" style="text-align:center">
-    <h3>Login Page</h3>
-        <img src="./assets/login.png" width="400" style="margin: 0 auto"/>
     <h3>Routable Home Page</h3>
-        <img src="./screenshots/home.png" width="400" style="margin: 0 auto"/>
+        <img src="./screenshots/home.png" width="600" style="margin: 0 auto"/>
     <h3>Detailed Routing (Expanded View)</h3>
-        <img src="./screenshots/map_routes.png" width="400" style="margin: 0 auto"/>
+        <img src="./screenshots/map_routes.png" width="600" style="margin: 0 auto"/>
     <h3>Map Route Page</h3>
-        <img src="./screenshots/map.png" width="400" style="margin: 0 auto"/>
+        <img src="./screenshots/map.png" width="600" style="margin: 0 auto"/>
     <h3>API Documentation</h3>
-        <img src="./screenshots/api.png" width="400" style="margin: 0 auto"/>
+        <img src="./screenshots/api.png" width="600" style="margin: 0 auto"/>
 </div>
 
 
