@@ -231,7 +231,7 @@
       } );
 
       //torus
-      var geometry_torus = new THREE.TorusKnotGeometry( 30, 5, 100, 16 );
+      var geometry_torus = new THREE.TorusKnotGeometry( 35, 4, 100, 10 );
 
       var torus_mesh = new THREE.Mesh( geometry_torus, lambertMaterial );
       var torus_mesh_outline = new THREE.Mesh( geometry_torus, material_phong_outlined );
@@ -283,8 +283,8 @@
       location_icon_PivotPoint.add( location_icon_Mesh3 );
       scene_header.add( location_icon_PivotPoint );
 
-      location_icon_Mesh_logo.position.z = 60;
-      location_icon_Mesh_logo.position.x = 60;
+      // location_icon_Mesh_logo.position.z = 60;
+      // location_icon_Mesh_logo.position.x = 60;
       // location_icon_Mesh_logo.rotation.y = Math.PI/2;
 
       location_icon_Mesh.position.z = 60;
@@ -294,7 +294,7 @@
       location_icon_Mesh2.position.z = -60;
       location_icon_Mesh2.position.x = 60;
       location_icon_Mesh2.position.x = -20;
-      location_icon_Mesh2.rotation.y = -Math.PI/2;
+      // location_icon_Mesh2.rotation.y = -Math.PI/2;
 
       location_icon_Mesh3.position.z = 60;
       location_icon_Mesh3.position.x = -60;
@@ -364,9 +364,10 @@
 
         // location_icon_Mesh.rotation.y += 0.01;
 
-        location_icon_Mesh_logo.rotation.x -= 0.009;
-        location_icon_Mesh_logo.rotation.y -= 0.009;
-        location_icon_Mesh_logo.rotation.z -= 0.009;
+        // location_icon_Mesh_logo.rotation.x -= 0.009;
+        // location_icon_Mesh_logo.rotation.y -= 0.009;
+        // location_icon_Mesh_logo.rotation.z -= 0.009;
+        location_icon_Mesh_logo.position.y = (2*(Math.cos(steps)));
 
         renderer_header.render(scene_header, camera_header);
       };

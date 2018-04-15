@@ -70,7 +70,10 @@ body{
   border-radius: 0;
   color: #212b35;
   background-color: transparent;
-  border-bottom: 2px solid #F5F7FA; }
+  border-bottom: 2px solid #F5F7FA;
+  padding: .5rem 1rem;
+  margin: 10px;
+}
 
 .container-fluid {
     padding: 60px 50px;
@@ -295,3 +298,22 @@ a.list-group-item.active {
 .list-group-item {
   border: 0;
   border-radius: 0 !important; }
+
+
+/*card styles*/
+
+.paper {
+  padding: 2rem;
+  background: white; }
+
+.card {
+  background: white;
+  border-radius: 2px; }
+
+.card-1 {
+  -webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+  /*   box-shadow: 0 1.2rem 3.6rem rgba(0,0,0,.2); */
+  -webkit-transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  -o-transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); }
