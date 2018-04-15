@@ -465,10 +465,10 @@
                         icon: i % 2 ? icons.pickup : icons.delivery,
                         animation: firstRun ? google.maps.Animation.DROP : null,
                         position: position,
+                        title: portName,
                         optimized: false
                     });
                     markers.push(marker);
-                    marker.setTitle(portName);
                     marker.addListener('click', toggleBounce);
                     var infowindow = new google.maps.InfoWindow({
                         content: contentString
@@ -482,14 +482,51 @@
                 routeText += "<li>" + truckRoute + "</li>";
                 console.log(truckRoute);
                 flightPlanCoordinates.push({lat: startPort.lat, lng: startPort.lng});
-                const flightPath = new google.maps.Polyline({
-                    path: flightPlanCoordinates,
-                    geodesic: true,
-                    strokeColor: getRandomColor(), // Use variable color for each vehicle on the map.
-                    strokeOpacity: 1.0,
-                    strokeWeight: 3
-                });
-                flightPath.setMap(map);
+
+                // Define a symbol using a predefined path (an arrow)
+                // supplied by the Google Maps JavaScript API.
+                var lineSymbol = {
+                    path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW
+                };
+
+                const color = getRandomColor();
+
+                for (var i = 0, n = flightPlanCoordinates.length; i < n; i++) {
+
+                    var coordinates = new Array();
+                    for (var j = i; j < i+2 && j < n; j++) {
+                        coordinates[j-i] = flightPlanCoordinates[j];
+                    }
+
+
+                    var polyline = new google.maps.Polyline({
+                        path: coordinates,
+                        strokeColor: color,
+                        strokeOpacity: 1.0,
+                        strokeWeight: 2,
+                        geodesic: true,
+                        icons: [{
+                            icon: lineSymbol,
+                            offset: '100%'
+                        }]
+                    });
+                    polyline.setMap(map);
+//                    polylines.push(polyline);
+
+                }
+//
+//                const flightPath = new google.maps.Polyline({
+//                    path: flightPlanCoordinates,
+//                    geodesic: true,
+//                    icons: [{
+//                        icon: lineSymbol,
+//                        offset: '100%'
+//                    }],
+//                    strokeColor: getRandomColor(), // Use variable color for each vehicle on the map.
+//                    strokeOpacity: 1.0,
+//                    strokeWeight: 3
+//                });
+//                flightPath.setMap(map);
             });
 
             firstRun = false;
