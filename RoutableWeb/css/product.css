@@ -122,7 +122,10 @@ body{
 /* Rules for using icons as white on a dark background. */
 .material-icons.md-custom { color: #50acfd; }
 
-
+.v-align{
+  display: inline-flex;
+  vertical-align: middle;
+}
 /* button */
 .btn {
   padding: .5em 1.5em .5em; }
@@ -269,24 +272,24 @@ a.list-group-item.list-group-item-blue {
 
 a.list-group-item.active {
   background-color: white;
-  color: #3344dd;
+  color: #50acfd;
   border: none;
   font-weight: 600;
-  border-left: 4px solid #3057D5; }
+  border-left: 4px solid #50acfd; }
 
 .sidebar-offcanvas .list-group-item:hover {
   -webkit-transition: all 0.3s;
   -moz-transition: all 0.3s;
   -o-transition: all 0.3s;
   transition: all 0.3s;
-  color: #3344dd; }
+  color: #50acfd; }
 
 .sidebar-offcanvas .list-group-item:active {
   -webkit-transition: all 0.3s;
   -moz-transition: all 0.3s;
   -o-transition: all 0.3s;
   transition: all 0.3s;
-  background: #3344dd;
+  background: #50acfd;
   color: white;
   -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
