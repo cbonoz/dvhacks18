@@ -133,9 +133,12 @@
 
         const jobDate = body.jobDate;
         const startPortId = body.startPortId || 1;
-        const numVehicles = body.numVehicles;
+        const numVehicles = body.numVehicles || 2;
         const vehicleCapacity = body.vehicleCapacity || 2;
         console.log('jobDate', jobDate);
+        if (!jobDate) {
+            return res.status(400).send('jobDate must be provided');
+        }
 
         const query = `SELECT * FROM job WHERE jobDate='${jobDate}'`;
         pool.query(query, (err, jobData) => {
