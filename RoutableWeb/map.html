@@ -381,7 +381,7 @@
             }
         }
 
-        const startPortId = 1;
+        const startPortId = 50;
         var markers;
 
         var firstRun = true;
@@ -404,7 +404,7 @@
         }
 
         function getMarkerInfo(truck, portName, pickup, stopNumber) {
-            return `<div id="content"><div id="siteNotice"></div><h1 id="firstHeading" class="firstHeading">${portName}</h1><div id="bodyContent"><p><b>Port Name: ${portName}</b></p><p><b>Truck ${truck}</b></p><p>Stop Type: ${pickup ? 'Pickup' : 'Deliver'}, Stop Number ${stopNumber}</p></div></div>`;
+            return `<div id="content"><div id="siteNotice"></div><h1 id="firstHeading" class="firstHeading">${portName}</h1><div id="bodyContent"><p><b>Port Name: ${portName}</b></p><p><b>Route ${truck}</b></p><p>Stop Type: ${pickup ? 'Pickup' : 'Deliver'}, Stop Number ${stopNumber}</p></div></div>`;
         }
 
         function handleRouteData(data) {
@@ -487,7 +487,7 @@
                         path: coordinates,
                         strokeColor: color,
                         strokeOpacity: 1.0,
-                        strokeWeight: 2,
+                        strokeWeight: 3,
                         geodesic: true,
                         icons: [{
                             icon: lineSymbol,
@@ -536,8 +536,8 @@
         const data = {
             jobDate: jobDate,
             startPortId: startPortId,
-            numVehicles: 10,
-            vehicleCapacity: 50
+            numVehicles: 50,
+            vehicleCapacity: 5
         };
 
         $("#map-header-subtitle").html(`For ${data.numVehicles} vehicles with ${data.vehicleCapacity} unit capacity`);
