@@ -75,7 +75,8 @@
 
 <div class="map-header">
     <div id="error-text"></div>
-    <h1>Job Routing Schedule:</h1>
+    <h1>Optimal Job Routing Schedule:</h1>
+    <span id="map-header-subtitle"></span>,
     Date: <span id="date-section">
     </span>
 
@@ -478,7 +479,7 @@
                     });
 
                 });
-                const truckRoute = `Truck ${vehicleIndex}: ${[startPortIndex].concat(route).concat([startPortIndex]).join(' -> ')}`;
+                const truckRoute = `Route ${vehicleIndex}: ${[startPortIndex].concat(route).concat([startPortIndex]).join(' -> ')}`;
                 routeText += "<li>" + truckRoute + "</li>";
                 console.log(truckRoute);
                 flightPlanCoordinates.push({lat: startPort.lat, lng: startPort.lng});
@@ -554,6 +555,8 @@
             numVehicles: 10,
             vehicleCapacity: 2
         };
+
+        $("#map-header-subtitle").html(`For ${data.numVehicles} vehicles with ${data.vehicleCapacity} unit capacity`);
 
         function makeRouteRequest() {
             console.log('makeRouteRequest');
