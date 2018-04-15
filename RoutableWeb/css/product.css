@@ -158,7 +158,8 @@ pre {
   counter-reset: line-numbering;
   background: #171719;
   padding: 12px 0px 14px 0;
-  width: 600px;
+  /*width: 600px;*/
+  width: 100%;
   color: #ecf0f1;
   line-height: 140%;
 }
@@ -176,17 +177,39 @@ pre .line::before {
 .token.json-key{
   color: #BBE16C;
 }
+.token.title{
+  color: #EC7968;
+}
 .token.description{
   color: #46AEE8;
 }
 .token.purple{
   color: #BB95EF;
 }
+.token.state{
+  color: #3D8F9A;
+}
 .token.quotes{
   color: #FF91C5;
 }
+.token.number{
+  color: #DBCD5E;
+}
+.token.string{
+  color: #8AA6FF;
+}
 .token.comment{
   color: #74717E;
+}
+.token.code-body{
+    margin: 20px;
+    padding: 5px 10px;
+    background: #272b2d;
+    font-family: Source Code Pro,Menlo,monospace;
+    font-size: 13px;
+    line-height: 1.5em;
+    font-weight: 500;
+    display: block;
 }
 /*
  * Off Canvas
