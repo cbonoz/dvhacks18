@@ -232,7 +232,9 @@
                         return res.status(200).json(solution);
                     });
                 } catch (e) {
-                    return res.status(400).send(`Invalid Request Format: ${JSON.stringify(e)}`);
+                    const errorMessage = `Invalid Schedule Request Format: ${JSON.stringify(e)}`;
+                    console.error('error', errorMessage);
+                    return res.status(400).send(errorMessage);
                 }
             });
 
