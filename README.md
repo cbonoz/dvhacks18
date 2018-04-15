@@ -10,9 +10,10 @@ View the pitch deck here: <a href="https://docs.google.com/presentation/d/1rC6jK
 ### Structure
 
 <ul>
-<li>*/server*: Server and api for submitting scheduling data.</li>
-<li>*/RoutableApp*: Mobile app designed for providing schedule/ information specific to each driver.</li>
-<li>*/RoutableWeb*: Client side reactjs website</li>
+<li><b>/server</b>: Server and api for submitting scheduling data.</li>
+<li><b>/RoutableApp</b>: Mobile app designed for providing schedule/ information specific to each driver.</li>
+<li><b>/RoutableWeb</b>: Client side reactjs website</li>
+<li><b>/screenshots</b>: Screenshots of app</b></li>  
 </ul>
 
 Check the `README.md` files in each subfolder for more information.
@@ -27,7 +28,7 @@ Check the `README.md` files in each subfolder for more information.
         <img src="./screenshots/map_routes.png" width="600" style="margin: 0 auto"/>
     <h3>Map Route Page showing 50 jobs (pickup/delivery pairs)</h3>
         <img src="./screenshots/map.png" width="600" style="margin: 0 auto"/>
-    <h3>API Documentation</h3>
+    <h3>API Documentation Page</h3>
         <img src="./screenshots/api.png" width="600" style="margin: 0 auto"/>
 </div>
 
