@@ -516,6 +516,12 @@
             firstRun = false;
             routeText += "</ul>";
             routeText += `<br/><p>Total Distance: <b>${data.cost}km</b></p>`;
+            if (data.pickups) {
+                routeText += `<p>Pickups: <b>${data.pickups.join('\n')}</b></p>`;
+            }
+            if (data.deliveries) {
+                routeText += `<p>Deliveries: <b>${data.deliveries.join('\n')}</b></p>`;
+            }
             $("#result-section").html('' + routeText);
 
             const lat = ports[startPortIndex].lat;
