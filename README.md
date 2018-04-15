@@ -5,7 +5,7 @@ Routable
 <br/>
 
 * Chris Buonocore (back end / maps)
-* Ed Arenburg (ios)
+* Ed Arenberg (iOS)
 * Brandon In (research / back end)
 * Sarah Han (UI / UX / front end)
 
