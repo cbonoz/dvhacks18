@@ -36,8 +36,10 @@ View the pitch deck here: <a href="https://docs.google.com/presentation/d/1rC6jK
         <img src="./screenshots/map_routes.png" width="600" style="margin: 0 auto"/>
     <h3>Map Route Page showing 50 jobs (pickup/delivery pairs)</h3>
         <img src="./screenshots/map.png" width="600" style="margin: 0 auto"/>
-    <h3>API Documentation Page</h3>
+    <h3>API Documentation</h3>
         <img src="./screenshots/api.png" width="600" style="margin: 0 auto"/>
+    <h3>API Documentation (Detailed View)</h3>
+        <img src="./screenshots/api_single.png" width="600" style="margin: 0 auto"/>
 </div>
 
 
@@ -54,3 +56,4 @@ View the pitch deck here: <a href="https://docs.google.com/presentation/d/1rC6jK
 * Check jobs table for duplicates. X
 
 ### Dev Notes
+<b>Check the `README.md` files in each subproject for how to start services.</b>
