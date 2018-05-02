@@ -15,7 +15,7 @@ ports = ports.map((p, i) => {
     p.lng = p.longitude;
     delete p.latitude;
     delete p.longitude;
-    p.name = `port${i}`;
+    p.name = `Port ${i}`;
     return p;
 });
 
@@ -41,7 +41,7 @@ axios.post(portUrl, {
             let start = 0;
             let end = Math.min(JOBS_PER_LOOP, ports.length);
 
-            setInterval(() => {
+            setTimeout(() => {
                 if (start >= ports.length || end >= ports.length) {
                     return;
                 }

@@ -133,9 +133,12 @@
 
         const jobDate = body.jobDate;
         const startPortId = body.startPortId || 1;
-        const numVehicles = body.numVehicles;
+        const numVehicles = body.numVehicles || 2;
         const vehicleCapacity = body.vehicleCapacity || 2;
         console.log('jobDate', jobDate);
+        if (!jobDate) {
+            return res.status(400).send('jobDate must be provided');
+        }
 
         const query = `SELECT * FROM job WHERE jobDate='${jobDate}'`;
         pool.query(query, (err, jobData) => {
@@ -145,7 +148,7 @@
             }
 
             const jobs = jobData.rows; // {pickupId, deliveryId, jobDate}
-            console.log('calculating schedule for ' + JSON.stringify(jobs));
+            // console.log('calculating schedule for ' + JSON.stringify(jobs));
             if (!jobs) {
                 // No tasks required.
                 return res.status(200).json(routable.createArrayList(numVehicles), []);
@@ -157,7 +160,7 @@
                 ids.add(job.deliveryid);
             });
             ids = Array.from(ids);
-            console.log('ids', ids);
+            // console.log('ids', ids);
 
             // Retrieve the ports used in the current jobs.
             const portQuery = `SELECT * FROM port where id in (${ids.join(',')})`;
@@ -217,20 +220,25 @@
 
                 // console.log('solver', solverOpts);
                 // console.log('search', searchOpts);
-
-                routable.solveVRP(solverOpts, searchOpts, (err, solution) => {
-                    if (err) {
-                        const errorMessage = JSON.stringify(err);
-                        res.status(400).send(errorMessage);
-                        return;
-                    }
-                    solution.ports = rows;
-                    solution.pickups = pickups;
-                    solution.deliveries = deliveries;
-                    solution.jobDate = jobDate;
-                    console.log('solution', solution);
-                    return res.status(200).json(solution);
-                });
+                try {
+                    routable.solveVRP(solverOpts, searchOpts, (err, solution) => {
+                        if (err) {
+                            const errorMessage = JSON.stringify(err);
+                            res.status(400).send(errorMessage);
+                            return;
+                        }
+                        solution.ports = rows;
+                        solution.pickups = pickups;
+                        solution.deliveries = deliveries;
+                        solution.jobDate = jobDate;
+                        console.log('solution', solution);
+                        return res.status(200).json(solution);
+                    });
+                } catch (e) {
+                    const errorMessage = `Invalid Schedule Request Format: ${JSON.stringify(e)}`;
+                    console.error('error', errorMessage);
+                    return res.status(400).send(errorMessage);
+                }
             });
 
         });

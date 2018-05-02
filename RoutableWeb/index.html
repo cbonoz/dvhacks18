@@ -24,7 +24,10 @@
   <body>
 
     <nav class="navbar navbar-expand-sm navbar-light bg-light">
-      <a class="navbar-brand mx-4" href="index.html"><strong>Routable</strong></a>
+      <a class="navbar-brand mx-4" href="index.html">
+        <img style="max-width:35px;" class="navbar-left" src="img/logo.png">
+        <strong>Routable</strong>
+      </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -52,60 +55,61 @@
       <div class="col-md-5 p-lg-5 mx-auto my-5 invisible viewpoint-fadeInRight">
         <h1 class="display-4 font-weight-normal"><strong>Routable</strong></h1>
         <p class="lead font-weight-normal text-cyan">A Universal, Intelligent Delivery Routing Platform.</p>
-        <a class="btn btn-outlined btn-big btn-custom" href="#">Sign up</a>
-      </div>
-    </div>
-
-
-    <!-- Container (About Section) -->
-    <div class="container-fluid invisible viewpoint-fadeInUp-delay4">
-      <div class="row">
-        <div class="col-sm-8">
-          <h2><strong>Features </strong></h2>
-          <h4 class="mt-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure rerum eos aut saepe eveniet aliquam repellat sunt.</h4>
-          <p class="mt-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure rerum eos aut saepe eveniet aliquam repellat sunt, error vero ut expedita illum doloremque dignissimos nulla illo, maiores, quae cupiditate hic?</p>
-          <button class="btn btn-outlined btn-custom mt-4">Get in Touch</button>
-        </div>
-        <div class="col-sm-4">
-          <i class="material-icons md-custom md-100">bubble_chart</i>
-        </div>
-      </div>
-    </div>
-
-    <div class="container-fluid bg-custom-white invisible viewpoint-fadeInUp">
-      <div class="row">
-        <div class="col-sm-4 text-right">
-          <i class="material-icons md-custom md-100">bubble_chart</i>
-        </div>
-        <div class="col-sm-8">
-          <h2><strong>Features</strong></h2>
-          <h4 class="mt-4"><strong>MISSION:</strong> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure rerum eos aut saepe eveniet aliquam repellat sunt.</h4>
-          <p class="mt-4"><strong>VISION:</strong> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure rerum eos aut saepe eveniet aliquam repellat sunt, error vero ut expedita illum doloremque dignissimos nulla illo, maiores, quae cupiditate hic?</p>
-        </div>
+        <a class="btn btn-outlined btn-big btn-custom" href="#">Sign up <i class="material-icons v-align md-18">arrow_forward</i></a>
       </div>
     </div>
 
     <!-- Container (Services Section) -->
-    <div class="container-fluid bg-light text-center invisible viewpoint-fadeInUp">
-      <h2>SERVICES</h2>
-      <h4>What we offer</h4>
+    <div class="container-fluid text-center">
+      <h2><strong>FEATURES</strong></h2>
+      <!-- <h4>What we offer</h4> -->
       <br>
+      <div class="row pt-4">
+        <div class="col-sm-4 invisible viewpoint-fadeInUp-delay4">
+          <i class="material-icons md-custom md-48">phone_iphone</i>
+          <h4 class="pt-4">Mobile App</h4>
+          <!-- <p>Lorem ipsum dolor sit amet..</p> -->
+        </div>
+        <div class="col-sm-4 invisible viewpoint-fadeInUp">
+          <i class="material-icons md-custom md-48">location_on</i>
+          <h4 class="pt-4">Map Routing</h4>
+          <!-- <p>Lorem ipsum dolor sit amet..</p> -->
+        </div>
+        <div class="col-sm-4 invisible viewpoint-fadeInUp-delay2">
+          <i class="material-icons md-custom md-48">code</i>
+          <h4 class="pt-4">API Integration</h4>
+          <!-- <p>Lorem ipsum dolor sit amet..</p> -->
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid bg-light">
       <div class="row">
-        <div class="col-sm-4">
-          <i class="material-icons md-custom md-48">bubble_chart</i>
-          <h4>POWER</h4>
-          <p>Lorem ipsum dolor sit amet..</p>
+        <div class="col-sm-8 text-right invisible viewpoint-fadeInLeft">
+          <!-- <i class="material-icons md-custom md-100">timer</i> -->
+          <img class="img-fluid" src="img/iphone.png">
         </div>
-        <div class="col-sm-4">
-          <i class="material-icons md-custom md-48">bubble_chart</i>
-          <h4>LOVE</h4>
-          <p>Lorem ipsum dolor sit amet..</p>
+        <div class="col-sm-4 invisible viewpoint-fadeInUp">
+          <h2><strong>Mobile App</strong></h2>
+          <h4 class="mt-4 pt-4"><strong>DECIDE:</strong> Choose to go to multiple rides in the most efficient way possible.</h4>
+          <p class="mt-4 pt-4"><strong>ACTIVATION:</strong> The user has the ability to choose to be available or not available to shipment.</p>
+          <button class="btn btn-outlined btn-custom mt-4">Download the app <i class="material-icons v-align md-18">arrow_forward</i></button>
         </div>
-        <div class="col-sm-4">
-          <i class="material-icons md-custom md-48">bubble_chart</i>
-          <h4>JOB DONE</h4>
-          <p>Lorem ipsum dolor sit amet..</p>
-        </div>
+      </div>
+    </div>
+
+    <!-- Container (About Section) -->
+    <div class="container-fluid bg-custom invisible viewpoint-fadeInUp">
+      <div class="container">
+        <h2 class="text-center"><strong>Route Map </strong></h2>
+        <img class="img-fluid mt-4 pt-4" src="img/routing.png">
+      </div>
+    </div>
+
+    <div class="container-fluid bg-light invisible viewpoint-fadeInUp">
+      <div class="container mt-4 pt-4">
+        <h2 class="text-center"><strong>API Integration</strong></h2>
+        <img class="img-fluid mt-4 pt-4" src="img/api.png">
       </div>
     </div>
 
@@ -114,43 +118,41 @@
     <footer class="container py-4 mt-4">
       <div class="row">
         <div class="col-12 col-md">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="d-block mb-2"><circle cx="12" cy="12" r="10"></circle><line x1="14.31" y1="8" x2="20.05" y2="17.94"></line><line x1="9.69" y1="8" x2="21.17" y2="8"></line><line x1="7.38" y1="12" x2="13.12" y2="2.06"></line><line x1="9.69" y1="16" x2="3.95" y2="6.06"></line><line x1="14.31" y1="16" x2="2.83" y2="16"></line><line x1="16.62" y1="12" x2="10.88" y2="21.94"></line></svg>
-          <small class="d-block mb-3 text-muted">&copy; 2017-2018</small>
+          <span class="navbar-brand">
+            <img style="max-width:35px; color: black;" class="navbar-left" src="img/logo.png">
+            <strong>Routable</strong>
+          </span>
+          <span class="d-block mb-3 text-muted">&copy; 2018</span>
         </div>
         <div class="col-6 col-md">
           <h5>Features</h5>
           <ul class="list-unstyled text-small">
-            <li><a class="text-muted" href="#">Cool stuff</a></li>
-            <li><a class="text-muted" href="#">Random feature</a></li>
-            <li><a class="text-muted" href="#">Team feature</a></li>
-            <li><a class="text-muted" href="#">Stuff for developers</a></li>
-            <li><a class="text-muted" href="#">Another one</a></li>
-            <li><a class="text-muted" href="#">Last time</a></li>
+            <li><a class="text-muted" href="#">Map routing</a></li>
+            <li><a class="text-muted" href="#">API docs</a></li>
+            <li><a class="text-muted" href="#">Mobile app</a></li>
           </ul>
         </div>
         <div class="col-6 col-md">
-          <h5>Resources</h5>
+          <h5>Map</h5>
           <ul class="list-unstyled text-small">
-            <li><a class="text-muted" href="#">Resource</a></li>
-            <li><a class="text-muted" href="#">Resource name</a></li>
-            <li><a class="text-muted" href="#">Another resource</a></li>
-            <li><a class="text-muted" href="#">Final resource</a></li>
+            <li><a class="text-muted" href="#">Schedule</a></li>
+            <li><a class="text-muted" href="#">Vehicles</a></li>
+            <li><a class="text-muted" href="#">Routing</a></li>
           </ul>
         </div>
         <div class="col-6 col-md">
-          <h5>Resources</h5>
+          <h5>API</h5>
           <ul class="list-unstyled text-small">
-            <li><a class="text-muted" href="#">Business</a></li>
-            <li><a class="text-muted" href="#">Education</a></li>
-            <li><a class="text-muted" href="#">Government</a></li>
-            <li><a class="text-muted" href="#">Gaming</a></li>
+            <li><a class="text-muted" href="#">Register ports</a></li>
+            <li><a class="text-muted" href="#">Existing ports</a></li>
+            <li><a class="text-muted" href="#">Create new jobs</a></li>
+            <li><a class="text-muted" href="#">Optimal schedule</a></li>
           </ul>
         </div>
         <div class="col-6 col-md">
           <h5>About</h5>
           <ul class="list-unstyled text-small">
             <li><a class="text-muted" href="#">Team</a></li>
-            <li><a class="text-muted" href="#">Locations</a></li>
             <li><a class="text-muted" href="#">Privacy</a></li>
             <li><a class="text-muted" href="#">Terms</a></li>
           </ul>
@@ -231,7 +233,7 @@
       } );
 
       //torus
-      var geometry_torus = new THREE.TorusKnotGeometry( 30, 5, 100, 16 );
+      var geometry_torus = new THREE.TorusKnotGeometry( 35, 4, 100, 10 );
 
       var torus_mesh = new THREE.Mesh( geometry_torus, lambertMaterial );
       var torus_mesh_outline = new THREE.Mesh( geometry_torus, material_phong_outlined );
@@ -283,8 +285,8 @@
       location_icon_PivotPoint.add( location_icon_Mesh3 );
       scene_header.add( location_icon_PivotPoint );
 
-      location_icon_Mesh_logo.position.z = 60;
-      location_icon_Mesh_logo.position.x = 60;
+      // location_icon_Mesh_logo.position.z = 60;
+      // location_icon_Mesh_logo.position.x = 60;
       // location_icon_Mesh_logo.rotation.y = Math.PI/2;
 
       location_icon_Mesh.position.z = 60;
@@ -294,7 +296,7 @@
       location_icon_Mesh2.position.z = -60;
       location_icon_Mesh2.position.x = 60;
       location_icon_Mesh2.position.x = -20;
-      location_icon_Mesh2.rotation.y = -Math.PI/2;
+      // location_icon_Mesh2.rotation.y = -Math.PI/2;
 
       location_icon_Mesh3.position.z = 60;
       location_icon_Mesh3.position.x = -60;
@@ -364,9 +366,10 @@
 
         // location_icon_Mesh.rotation.y += 0.01;
 
-        location_icon_Mesh_logo.rotation.x -= 0.009;
-        location_icon_Mesh_logo.rotation.y -= 0.009;
-        location_icon_Mesh_logo.rotation.z -= 0.009;
+        // location_icon_Mesh_logo.rotation.x -= 0.009;
+        // location_icon_Mesh_logo.rotation.y -= 0.009;
+        // location_icon_Mesh_logo.rotation.z -= 0.009;
+        location_icon_Mesh_logo.position.y = (2*(Math.cos(steps)));
 
         renderer_header.render(scene_header, camera_header);
       };

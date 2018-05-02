@@ -12,22 +12,39 @@ import MapKit
 
 
 class ViewController: UIViewController {
+    
+    var job:Job!
 
-    let locManager = CLLocationManager()
-    var mapViewCenter = CLLocationCoordinate2D(latitude: 0, longitude: 0)
-    var didInitialCenter = false
+    private let locManager = CLLocationManager()
+    private var mapViewCenter = CLLocationCoordinate2D(latitude: 0, longitude: 0)
+    private var didInitialCenter = false
 
     @IBOutlet weak var mapView: MKMapView!
+    
+    var routeNum = 1
+    @IBOutlet weak var nextButton: UIButton!
+    @IBAction func nextHit(_ sender: UIButton) {
+        hideRoute(num: routeNum)
+        if routeNum < 3 {
+            routeNum += 1
+            showRoute(num: routeNum)
+        } else {
+            if let vc = storyboard?.instantiateViewController(withIdentifier: "OfflineVC") {
+                view.window?.rootViewController = vc
+            }
+        }
+    }
+    
 
-    var routes = [Int:MKOverlay]() {
+    private var routes = [Int:MKOverlay]() {
         didSet {
             if let _ = routes[1] {
                 //                showRoute(num: 1)
             }
         }
     }
-    var routeCount = 0
-    var pt1,pt2 : CLLocationCoordinate2D!
+    private var routeCount = 0
+    private var pt1,pt2 : CLLocationCoordinate2D!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,7 +60,9 @@ class ViewController: UIViewController {
         })
         
         startLocation()
-        genRoute()
+        genRoute1()
+        genRoute2()
+        genRoute3()
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             self.showRoute(num: 1)
         }
@@ -53,7 +72,6 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
 
 }
 
@@ -71,7 +89,7 @@ extension ViewController {
         self.mapView.remove(route)
     }
 
-    func genRoute() {
+    func genRoute1() {
 //    func genRoute(start:CLLocationCoordinate2D, end:CLLocationCoordinate2D, color:UIColor) {
         let annotation = MKPointAnnotation()
         let centerCoordinate = CLLocationCoordinate2D(latitude: 33.772187, longitude:-118.237019)
@@ -80,9 +98,8 @@ extension ViewController {
         mapView.addAnnotation(annotation)
         
         let dest = MKPointAnnotation()
-        let lat = (Double(arc4random_uniform(400)) - 200.0) / 10000.0
-        let lon = (Double(arc4random_uniform(100)) - 50.0) / 10000.0
-        let dcenterCoordinate = CLLocationCoordinate2D(latitude: 33.854187 + lat, longitude:-118.232019 + lon)
+        let dcenterCoordinate = job.dropLoc
+        
         pt1 = dcenterCoordinate
         dest.coordinate = dcenterCoordinate
         dest.title = "Destination"
@@ -115,14 +132,84 @@ extension ViewController {
             }
             
             let route = response.routes[0]
-            /*
-             self.mapView.add((route.polyline), level: MKOverlayLevel.aboveRoads)
-             
-             let rect = route.polyline.boundingMapRect
-             let mr = MKMapRectInset(rect, 0, 100)
-             self.mapView.setRegion(MKCoordinateRegionForMapRect(mr), animated: true)
-             */
             self.routes[1] = route.polyline
+        }
+    }
+
+    func genRoute2() {
+        let centerCoordinate = pt1!
+        
+        let dest = MKPointAnnotation()
+        let dcenterCoordinate = job.pickLoc
+        pt2 = dcenterCoordinate
+        dest.coordinate = dcenterCoordinate
+        dest.title = "Pickup"
+        mapView.addAnnotation(dest)
+        
+        
+        let sourcePlacemark = MKPlacemark(coordinate: centerCoordinate, addressDictionary: nil)
+        let destinationPlacemark = MKPlacemark(coordinate: dcenterCoordinate, addressDictionary: nil)
+        
+        let sourceMapItem = MKMapItem(placemark: sourcePlacemark)
+        let destinationMapItem = MKMapItem(placemark: destinationPlacemark)
+        
+        let directionRequest = MKDirectionsRequest()
+        directionRequest.source = sourceMapItem
+        directionRequest.destination = destinationMapItem
+        directionRequest.transportType = .automobile
+        
+        // Calculate the direction
+        let directions = MKDirections(request: directionRequest)
+        
+        directions.calculate {
+            (response, error) -> Void in
+            
+            guard let response = response else {
+                if let error = error {
+                    print("Error: \(error)")
+                }
+                return
+            }
+            
+            let route = response.routes[0]
+            self.routes[2] = route.polyline
+        }
+    }
+    
+    func genRoute3() {
+        let centerCoordinate = pt2!
+        
+        let dest = MKPointAnnotation()
+        let dcenterCoordinate = CLLocationCoordinate2D(latitude: 33.772187, longitude:-118.237019)
+        dest.coordinate = dcenterCoordinate
+        dest.title = "Destination"
+        
+        let sourcePlacemark = MKPlacemark(coordinate: centerCoordinate, addressDictionary: nil)
+        let destinationPlacemark = MKPlacemark(coordinate: dcenterCoordinate, addressDictionary: nil)
+        
+        let sourceMapItem = MKMapItem(placemark: sourcePlacemark)
+        let destinationMapItem = MKMapItem(placemark: destinationPlacemark)
+        
+        let directionRequest = MKDirectionsRequest()
+        directionRequest.source = sourceMapItem
+        directionRequest.destination = destinationMapItem
+        directionRequest.transportType = .automobile
+        
+        // Calculate the direction
+        let directions = MKDirections(request: directionRequest)
+        
+        directions.calculate {
+            (response, error) -> Void in
+            
+            guard let response = response else {
+                if let error = error {
+                    print("Error: \(error)")
+                }
+                return
+            }
+            
+            let route = response.routes[0]
+            self.routes[3] = route.polyline
         }
     }
 

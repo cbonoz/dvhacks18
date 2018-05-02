@@ -34,8 +34,8 @@
         /* Always set the map height explicitly to define the size of the div
          * element that contains the map. */
         #map {
-            margin: 20px;
-            width: 90%;
+            /*margin: 20px;*/
+            width: 100%;
             height: 700px;
         }
 
@@ -52,7 +52,10 @@
 <body>
 
 <nav class="navbar navbar-expand-sm navbar-light bg-light">
-    <a class="navbar-brand mx-4" href="index.html"><strong>Routable</strong></a>
+    <a class="navbar-brand mx-4" href="index.html">
+        <img style="max-width:35px;" class="navbar-left" src="img/logo.png">
+        <strong>Routable</strong>
+    </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -61,7 +64,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-                <a class="nav-link mx-4" href="map.html">Map</a>
+                <a class="nav-link mx-4 active" href="map.html"><strong>Map</strong></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link mx-4" href="api.html">API</a>
@@ -72,77 +75,65 @@
         </ul>
     </div>
 </nav>
+<div class="container-fluid invisible viewpoint-fadeInUp">
+    <div class="map-header">
+        <div id="error-text"></div>
+        <h1>Optimal Job Routing Schedule:</h1>
+        <span id="map-header-subtitle"></span>,
+        Date: <span id="date-section">
+        </span>
 
-<div class="map-header">
-    <div id="error-text"></div>
-    <h1>Optimal Job Routing Schedule:</h1>
-    <span id="map-header-subtitle"></span>,
-    Date: <span id="date-section">
-    </span>
+        <div id="result-section"></div>
+    </div>
 
-    <div id="result-section"></div>
+    <div class="mx-auto" id="map"></div>
 </div>
-
-<div class="mx-auto" id="map"></div>
-
 <hr>
 
-<footer class="container py-5">
-    <div class="row">
+<footer class="container py-4 mt-4">
+      <div class="row">
         <div class="col-12 col-md">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                 class="d-block mb-2">
-                <circle cx="12" cy="12" r="10"></circle>
-                <line x1="14.31" y1="8" x2="20.05" y2="17.94"></line>
-                <line x1="9.69" y1="8" x2="21.17" y2="8"></line>
-                <line x1="7.38" y1="12" x2="13.12" y2="2.06"></line>
-                <line x1="9.69" y1="16" x2="3.95" y2="6.06"></line>
-                <line x1="14.31" y1="16" x2="2.83" y2="16"></line>
-                <line x1="16.62" y1="12" x2="10.88" y2="21.94"></line>
-            </svg>
-            <small class="d-block mb-3 text-muted">&copy; 2017-2018</small>
+          <span class="navbar-brand">
+            <img style="max-width:35px; color: black;" class="navbar-left" src="img/logo.png">
+            <strong>Routable</strong>
+          </span>
+          <span class="d-block mb-3 text-muted">&copy; 2018</span>
         </div>
         <div class="col-6 col-md">
-            <h5>Features</h5>
-            <ul class="list-unstyled text-small">
-                <li><a class="text-muted" href="#">Cool stuff</a></li>
-                <li><a class="text-muted" href="#">Random feature</a></li>
-                <li><a class="text-muted" href="#">Team feature</a></li>
-                <li><a class="text-muted" href="#">Stuff for developers</a></li>
-                <li><a class="text-muted" href="#">Another one</a></li>
-                <li><a class="text-muted" href="#">Last time</a></li>
-            </ul>
+          <h5>Features</h5>
+          <ul class="list-unstyled text-small">
+            <li><a class="text-muted" href="#">Map routing</a></li>
+            <li><a class="text-muted" href="#">API docs</a></li>
+            <li><a class="text-muted" href="#">Mobile app</a></li>
+          </ul>
         </div>
         <div class="col-6 col-md">
-            <h5>Resources</h5>
-            <ul class="list-unstyled text-small">
-                <li><a class="text-muted" href="#">Resource</a></li>
-                <li><a class="text-muted" href="#">Resource name</a></li>
-                <li><a class="text-muted" href="#">Another resource</a></li>
-                <li><a class="text-muted" href="#">Final resource</a></li>
-            </ul>
+          <h5>Map</h5>
+          <ul class="list-unstyled text-small">
+            <li><a class="text-muted" href="#">Schedule</a></li>
+            <li><a class="text-muted" href="#">Vehicles</a></li>
+            <li><a class="text-muted" href="#">Routing</a></li>
+          </ul>
         </div>
         <div class="col-6 col-md">
-            <h5>Resources</h5>
-            <ul class="list-unstyled text-small">
-                <li><a class="text-muted" href="#">Business</a></li>
-                <li><a class="text-muted" href="#">Education</a></li>
-                <li><a class="text-muted" href="#">Government</a></li>
-                <li><a class="text-muted" href="#">Gaming</a></li>
-            </ul>
+          <h5>API</h5>
+          <ul class="list-unstyled text-small">
+            <li><a class="text-muted" href="#">Register ports</a></li>
+            <li><a class="text-muted" href="#">Existing ports</a></li>
+            <li><a class="text-muted" href="#">Create new jobs</a></li>
+            <li><a class="text-muted" href="#">Optimal schedule</a></li>
+          </ul>
         </div>
         <div class="col-6 col-md">
-            <h5>About</h5>
-            <ul class="list-unstyled text-small">
-                <li><a class="text-muted" href="#">Team</a></li>
-                <li><a class="text-muted" href="#">Locations</a></li>
-                <li><a class="text-muted" href="#">Privacy</a></li>
-                <li><a class="text-muted" href="#">Terms</a></li>
-            </ul>
+          <h5>About</h5>
+          <ul class="list-unstyled text-small">
+            <li><a class="text-muted" href="#">Team</a></li>
+            <li><a class="text-muted" href="#">Privacy</a></li>
+            <li><a class="text-muted" href="#">Terms</a></li>
+          </ul>
         </div>
-    </div>
-</footer>
+      </div>
+    </footer>
 <!-- Placed at the end of the document so the pages load faster -->
 <script
         src="https://code.jquery.com/jquery-3.3.1.js"
@@ -404,7 +395,7 @@
         }
 
         function getMarkerInfo(truck, portName, pickup, stopNumber) {
-            return `<div id="content"><div id="siteNotice"></div><h1 id="firstHeading" class="firstHeading">${portName}</h1><div id="bodyContent"><p><b>Port Name: ${portName}</b></p><p><b>Truck ${truck}</b></p><p>Stop Type: ${pickup ? 'Pickup' : 'Deliver'}, Stop Number ${stopNumber}</p></div></div>`;
+            return `<div id="content"><div id="siteNotice"></div><h1 id="firstHeading" class="firstHeading">${portName}</h1><div id="bodyContent"><p><b>Port Name: ${portName}</b></p><p><b>Route ${truck}</b></p><p>Stop Type: ${pickup ? 'Pickup' : 'Deliver'}, Stop Number ${stopNumber}</p></div></div>`;
         }
 
         function handleRouteData(data) {
@@ -487,7 +478,7 @@
                         path: coordinates,
                         strokeColor: color,
                         strokeOpacity: 1.0,
-                        strokeWeight: 2,
+                        strokeWeight: 3,
                         geodesic: true,
                         icons: [{
                             icon: lineSymbol,
@@ -516,6 +507,12 @@
             firstRun = false;
             routeText += "</ul>";
             routeText += `<br/><p>Total Distance: <b>${data.cost}km</b></p>`;
+            if (data.pickups.length > 0) {
+                routeText += `<p>Pickups: <b>${data.pickups.join('\n')}</b></p>`;
+            }
+            if (data.deliveries.length > 0) {
+                routeText += `<p>Deliveries: <b>${data.deliveries.join('\n')}</b></p>`;
+            }
             $("#result-section").html('' + routeText);
 
             const lat = ports[startPortIndex].lat;
@@ -536,11 +533,9 @@
         const data = {
             jobDate: jobDate,
             startPortId: startPortId,
-            numVehicles: 10,
-            vehicleCapacity: 50
+            numVehicles: 50,
+            vehicleCapacity: 2
         };
-
-        $("#map-header-subtitle").html(`For ${data.numVehicles} vehicles with ${data.vehicleCapacity} unit capacity`);
 
         function makeRouteRequest() {
             console.log('makeRouteRequest');
@@ -553,6 +548,8 @@
                 error: handleError
             });
         }
+
+        $("#map-header-subtitle").html(`For ${data.numVehicles} vehicles with ${data.vehicleCapacity} unit capacity`);
 
         // Refresh the map page every 10000ms.
 //        setInterval(makeRouteRequest, 10000);
