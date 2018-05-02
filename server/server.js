@@ -11,7 +11,7 @@
      *************************/
     const user = process.env.ROUTABLE_DB_USER;
     const pass = process.env.ROUTABLE_DB_PASS;
-    const host = process.env.ROUTABLE_HOST || "localhost:5432";
+    const host = process.env.ROUTABLE_HOST || "localhost";
     const db = process.env.ROUTABLE_DB;
 
     const PORT = process.env.ROUTABLE_SERVER_PORT || 9001;
@@ -42,7 +42,7 @@
 
     app.use(cors());
 
-    const connectionString = `postgresql://${user}:${pass}@${host}/${db}`;
+    const connectionString = `postgresql://${user}:${pass}@${host}:5432/${db}`;
     console.log('connectionString', connectionString);
 
     const pool = new Pool({
@@ -240,4 +240,3 @@
         console.log('Express server listening on localhost port: ' + PORT);
     });
 }());
-
