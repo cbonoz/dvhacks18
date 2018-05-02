@@ -13,7 +13,6 @@
     const pass = process.env.ROUTABLE_DB_PASS;
     const host = process.env.ROUTABLE_HOST || "localhost";
     const db = process.env.ROUTABLE_DB;
-
     const PORT = process.env.ROUTABLE_SERVER_PORT || 9001;
 
     const COMPUTE_LIMIT_MS = 1000;
@@ -42,7 +41,7 @@
 
     app.use(cors());
 
-    const connectionString = `postgresql://${user}:${pass}@${host}:5432/${db}`;
+    const connectionString = `postgres://${user}:${pass}@${host}:5432/${db}`;
     console.log('connectionString', connectionString);
 
     const pool = new Pool({
@@ -85,10 +84,11 @@
             return `('${port.name}', ${port.lat}, ${port.lng})`;
         });
         const insertQuery = `INSERT INTO port(name, lat, lng) VALUES${values.join(',')} ON CONFLICT DO NOTHING`;
-        console.log('port insertQuery', insertQuery);
+        // console.log('port insertQuery', insertQuery);
         pool.query(insertQuery, [], (err, data) => {
             if (err) {
                 const msg = JSON.stringify(err);
+                console.log(err)
                 return res.status(500).json(msg);
             }
 
@@ -143,6 +143,7 @@
         const query = `SELECT * FROM job WHERE jobDate='${jobDate}'`;
         pool.query(query, (err, jobData) => {
             if (err) {
+                console.log(err)
                 const msg = JSON.stringify(err);
                 return res.status(500).json(msg);
             }

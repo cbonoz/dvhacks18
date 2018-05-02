@@ -2,7 +2,7 @@
 -- Routable SQL schema setup code.
 
 --DROP DATABASE IF EXISTS routable;
-CREATE DATABASE routable;
+CREATE DATABASE routabledb;
 \c routable;
 
 CREATE TABLE port (
@@ -23,4 +23,3 @@ CREATE TABLE job (
 --  ID SERIAL PRIMARY KEY,
 --  name VARCHAR(64)
 --);
-

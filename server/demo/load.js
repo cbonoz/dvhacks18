@@ -76,7 +76,5 @@ axios.post(portUrl, {
         console.error('error getting ports', errPorts);
     });
 }).catch((err1) => {
-    console.error('error creating ports', err1);
+    console.error('error creating ports');
 });
-
-
