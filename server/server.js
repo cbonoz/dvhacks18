@@ -88,13 +88,45 @@
         pool.query(insertQuery, [], (err, data) => {
             if (err) {
                 const msg = JSON.stringify(err);
-                console.log(err)
+                console.log(err);
                 return res.status(500).json(msg);
             }
 
             return res.status(200).json(data);
         });
     });
+
+
+    /**
+     * Register a new person
+     * {
+     *  person: [ {pickupId, deliveryId, jobDate} ... ]
+     * }
+     */
+    app.post('/api/register', function (req, res, next) {
+        const body = req.body;
+        const name = body.name;
+        const email = body.email;
+        if (email === undefined || email === "") {
+            return res.status(500).json("email must be defined");
+        }
+
+        if (name === undefined || name === "") {
+            return res.status(500).json("name must be defined");
+        }
+
+        const insertQuery = `INSERT INTO person(name, email) VALUES('${name}', '${email}')`;
+        console.log('job insertQuery', insertQuery);
+
+        pool.query(insertQuery, (err, jobData) => {
+            if (err) {
+                const msg = JSON.stringify(err);
+                res.status(500).json(err);
+            }
+            return res.status(200).json(jobData);
+        });
+    });
+
 
     /**
      * Add the jobs to the db.

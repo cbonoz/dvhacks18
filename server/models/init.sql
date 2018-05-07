@@ -19,6 +19,12 @@ CREATE TABLE job (
   PRIMARY KEY (pickupId, deliveryId, jobDate)
 );
 
+CREATE TABLE person (
+    ID SERIAL PRIMARY KEY,
+    name VARCHAR(64),
+    email VARCHAR(64) unique
+)
+
 --CREATE TABLE driver (
 --  ID SERIAL PRIMARY KEY,
 --  name VARCHAR(64)

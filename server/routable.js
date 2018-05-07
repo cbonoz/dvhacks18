@@ -32,7 +32,7 @@ const library = (function () {
     }
 
     function createDemandMatrix(n, startNodeIndex) {
-        const m = matrix(n, n, 0);
+        const m = matrix(n, n, 1);
         for (let i = 0; i < n; i++) {
             m[startNodeIndex][i] = 0;
         }
