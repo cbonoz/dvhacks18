@@ -83,10 +83,12 @@
         Date: <span id="date-section">
         </span>
 
-        <div id="result-section"></div>
     </div>
 
     <div class="mx-auto" id="map"></div>
+    <br/>
+    <h4>Truck Assignments:</h4>
+    <div id="result-section"></div>
 </div>
 <hr>
 
@@ -409,10 +411,13 @@
                 return port.id === startPortId
             });
 
-            let routes = data.routes;
-            routes = routes.filter((route => route.length));
+            const allRoutes = data.routes;
+            const routes = allRoutes.filter((route => route.length));
+            const unusedTrucks = allRoutes.length - routes.length;
 
-            var routeText = "<ul>";
+            let routeText = `<p>Format: Truck #: {List of locations to visit}.<br/>'0' indicates the home truck depot.</p>`;
+
+            routeText += "<ul>";
             const startPort = ports[startPortIndex];
 
             markers.push(new google.maps.Marker({
@@ -445,7 +450,7 @@
                     });
                     markers.push(marker);
                     marker.addListener('click', toggleBounce);
-                    var infowindow = new google.maps.InfoWindow({
+                    const infowindow = new google.maps.InfoWindow({
                         content: getMarkerInfo(vehicleIndex, portName, isPickup, i)
                     });
                     marker.addListener('click', function () {
@@ -453,7 +458,8 @@
                     });
 
                 });
-                const truckRoute = `Route ${vehicleIndex}: ${[startPortIndex].concat(route).concat([startPortIndex]).join(' -> ')}`;
+
+                const truckRoute = `Truck ${vehicleIndex}: ${[startPortIndex].concat(route).concat([startPortIndex]).join(' -> ')}`;
                 routeText += "<li>" + truckRoute + "</li>";
                 console.log(truckRoute);
                 flightPlanCoordinates.push({lat: startPort.lat, lng: startPort.lng});
@@ -513,6 +519,11 @@
             if (data.deliveries.length > 0) {
                 routeText += `<p>Deliveries: <b>${data.deliveries.join('\n')}</b></p>`;
             }
+
+            if (unusedTrucks > 0) {
+                routeText += `<p>Optimal routing to fufill orders resulted in ${unusedTrucks} unneeded vehicles.</p>`;
+            }
+
             $("#result-section").html('' + routeText);
 
             const lat = ports[startPortIndex].lat;
@@ -535,12 +546,12 @@
         const data = {
             jobDate: jobDate,
             startPortId: startPortId,
-            numVehicles: 50,
+            numVehicles: 55,
             vehicleCapacity: 2
         };
 
-        const url = "http://13.65.170.101:9001";
-//        const url = "http://localhost:9001";
+//        const url = "http://13.65.170.101:9001";
+        const url = "http://localhost:9001";
 
         function makeRouteRequest() {
             console.log('makeRouteRequest');

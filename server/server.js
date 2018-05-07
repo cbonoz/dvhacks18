@@ -176,6 +176,7 @@
         jobDate = '4-14-2018';
         const query = `SELECT * FROM job WHERE jobDate='${jobDate}'`;
         pool.query(query, (err, jobData) => {
+
             if (err) {
                 console.log(err);
                 const msg = JSON.stringify(err);
