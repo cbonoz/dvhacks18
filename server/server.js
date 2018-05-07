@@ -163,7 +163,7 @@
         const body = req.body;
         console.log('/api/schedule');
 
-        const jobDate = body.jobDate;
+        let jobDate = body.jobDate;
         const startPortId = body.startPortId || 1;
         const numVehicles = body.numVehicles || 2;
         const vehicleCapacity = body.vehicleCapacity || 2;
@@ -172,6 +172,8 @@
             return res.status(400).send('jobDate must be provided');
         }
 
+        // TODO: Remove hardcoded jobDate for testing.
+        jobDate = '4-14-2018';
         const query = `SELECT * FROM job WHERE jobDate='${jobDate}'`;
         pool.query(query, (err, jobData) => {
             if (err) {
