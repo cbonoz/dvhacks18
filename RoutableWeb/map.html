@@ -539,10 +539,13 @@
             vehicleCapacity: 2
         };
 
+        const url = "http://13.65.170.101:9001";
+//        const url = "http://localhost:9001";
+
         function makeRouteRequest() {
             console.log('makeRouteRequest');
             $.ajax({
-                url: 'http://13.65.170.101:9001/api/schedule',
+                url: `${url}/api/schedule`,
                 type: 'POST',
                 data: JSON.stringify(data),
                 contentType: 'application/json; charset=utf-8',

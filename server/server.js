@@ -177,7 +177,7 @@
         const query = `SELECT * FROM job WHERE jobDate='${jobDate}'`;
         pool.query(query, (err, jobData) => {
             if (err) {
-                console.log(err)
+                console.log(err);
                 const msg = JSON.stringify(err);
                 return res.status(500).json(msg);
             }
