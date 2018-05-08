@@ -9,10 +9,10 @@
     /*************************
      * CONFIGURATION VARIABLES
      *************************/
-    const user = process.env.ROUTABLE_DB_USER;
-    const pass = process.env.ROUTABLE_DB_PASS;
+    const user = process.env.ROUTABLE_DB_USER || "postgres";
+    const pass = process.env.ROUTABLE_DB_PASS || "admin";
     const host = process.env.ROUTABLE_HOST || "localhost";
-    const db = process.env.ROUTABLE_DB;
+    const db = process.env.ROUTABLE_DB || "routable";
     const PORT = process.env.ROUTABLE_SERVER_PORT || 9001;
 
     const COMPUTE_LIMIT_MS = 1000;
