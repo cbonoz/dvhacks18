@@ -77,12 +77,12 @@
 </nav>
 <div class="container-fluid invisible viewpoint-fadeInUp">
     <div class="map-header">
-        <div id="error-text"></div>
         <h1>Optimal Job Routing Schedule:</h1>
         <span id="map-header-subtitle"></span>,
         Date: <span id="date-section">
         </span>
 
+        <div id="error-text"></div>
     </div>
 
     <div class="mx-auto" id="map"></div>
@@ -543,11 +543,12 @@
 
         // vehicleCapacity 2 -> 'Dual Transactions'
 
+        // TODO: fix problem where numVehicles*vehicleCapacity requiring to be > # nodes.
         const data = {
             jobDate: jobDate,
             startPortId: startPortId,
-            numVehicles: 55,
-            vehicleCapacity: 2
+            numVehicles: 1,
+            vehicleCapacity: 88
         };
 
 //        const url = "http://13.65.170.101:9001";
