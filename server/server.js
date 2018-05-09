@@ -174,7 +174,8 @@
 
         // TODO: Remove hardcoded jobDate for testing.
         jobDate = '4-14-2018';
-        const query = `SELECT * FROM job WHERE jobDate='${jobDate}'`;
+        // const query = `SELECT * FROM job WHERE jobDate='${jobDate}'`;
+        const query = `SELECT * FROM job`;
         pool.query(query, (err, jobData) => {
 
             if (err) {
